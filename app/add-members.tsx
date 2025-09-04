@@ -5,6 +5,7 @@ import { Image as ExpoImage } from 'expo-image';
 
 type Member = {
   id: string;
+  referenceId: string; // <-- new field
   name: string;
   age: string;
   aadhaar: string;
@@ -25,7 +26,9 @@ export default function AddMembers() {
 
   const handleSave = () => {
     if (!isFormValid) return;
-    const newMember: Member = { id: Date.now().toString(), ...form };
+    // Generate a reference ID (e.g., 'REF' + timestamp + random 3 digits)
+    const referenceId = `REF${Date.now()}${Math.floor(100 + Math.random() * 900)}`;
+    const newMember: Member = { id: Date.now().toString(), referenceId, ...form };
     setMembers(prev => [...prev, newMember]);
     setMode('list');
   };
@@ -49,7 +52,13 @@ export default function AddMembers() {
                 <ExpoImage source={m.photoUri ? { uri: m.photoUri } : require('@/assets/images/kumbh.jpeg')} style={styles.avatar} contentFit="cover" />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={styles.memberLine}><Text style={styles.bold}>Name:</Text> <Text style={styles.linkText}>{m.name}</Text></Text>
+                {/* Display Reference ID near the name */}
+                <Text style={styles.memberLine}>
+                  <Text style={styles.bold}>Name:</Text> <Text style={styles.linkText}>{m.name}</Text>
+                  {m.referenceId && (
+                    <Text style={{ color: '#e65100', fontWeight: 'bold', fontSize: 12 }}>  (Ref: {m.referenceId})</Text>
+                  )}
+                </Text>
                 <Text style={styles.memberLine}><Text style={styles.bold}>Age:</Text> {m.age}</Text>
                 <Text style={styles.memberLine}><Text style={styles.bold}>Contact:</Text> <Text style={styles.linkText}>{m.contact}</Text></Text>
                 <Text style={styles.memberLine}><Text style={styles.bold}>Aadhaar:</Text> xxxx xxxx {m.aadhaar.slice(-4)}</Text>

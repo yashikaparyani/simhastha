@@ -11,6 +11,7 @@ export default function SignupScreen({ navigation }) {
     address: '',  
     occupation: '',  
     password: '',  
+    referenceId: '', // <-- new optional field
   });  
   
   const handleChange = (field, value) => setForm({ ...form, [field]: value });  
@@ -75,6 +76,14 @@ export default function SignupScreen({ navigation }) {
           onChangeText={t => handleChange('password', t)}   
           secureTextEntry   
         />  
+        {/* Optional Reference ID field */}
+        <TextInput
+          style={styles.input}
+          placeholder="Reference ID (optional)"
+          placeholderTextColor="#00000070"
+          value={form.referenceId}
+          onChangeText={t => handleChange('referenceId', t)}
+        />
       </View>  
       <TouchableOpacity 
         style={styles.button}
