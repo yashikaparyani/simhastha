@@ -146,6 +146,16 @@ export default function Emergency() {
           <Text style={styles.actionEmoji}>📍</Text>
           <Text style={styles.actionText}>Share Location</Text>
         </TouchableOpacity>
+        {/* New: Missing Person */}
+        <TouchableOpacity style={styles.actionButton} onPress={() => Alert.alert('Report Missing', 'Yahan se missing person report kar sakte hain.')}> 
+          <Text style={styles.actionEmoji}>🕵️‍♂️</Text>
+          <Text style={styles.actionText}>Missing</Text>
+        </TouchableOpacity>
+        {/* New: File a Complaint */}
+        <TouchableOpacity style={styles.actionButton} onPress={() => Alert.alert('File a Complaint', 'Yahan se complaint file kar sakte hain.')}> 
+          <Text style={styles.actionEmoji}>📝</Text>
+          <Text style={styles.actionText}>File a Complaint</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Emergency Contacts */}

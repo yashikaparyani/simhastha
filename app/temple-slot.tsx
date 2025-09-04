@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image as ExpoImage } from 'expo-image';
 
 function TempleCard({ name, date, time, token }: { name: string; date: string; time: string; token: string }) {
   return (
@@ -28,7 +29,10 @@ export default function TempleSlot() {
 
       <View style={styles.summaryCard}>
         <Text style={styles.infoRow}>Booking ID: SIM-2028-TMP-891273</Text>
-        <View style={styles.qrBox}><Text style={styles.qrText}>▦ QR</Text></View>
+        <View style={styles.qrBoxLarge}>
+          {/* Static sample QR code */}
+          <ExpoImage source={require('@/assets/images/sample-qr.png')} style={{ width: 120, height: 120, borderRadius: 8, borderWidth: 1, borderColor: '#ccc' }} contentFit="cover" />
+        </View>
         <View style={styles.summaryRow}>
           <View style={styles.summaryPill}><Text style={styles.summaryPillText}>Total Temples Booked: 3</Text></View>
           <View style={styles.summaryPill}><Text style={styles.summaryPillText}>Confirmation Sent To abc@gmail.com</Text></View>
@@ -57,6 +61,7 @@ const styles = StyleSheet.create({
   templeMeta: { color: '#000', marginTop: 6 },
   summaryCard: { width: '100%', backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#e0e0e0', borderRadius: 12, padding: 12, marginTop: 4 },
   qrBox: { width: 60, height: 60, borderWidth: 1, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 8 },
+  qrBoxLarge: { alignItems: 'center', justifyContent: 'center', marginVertical: 16 },
   qrText: { color: '#000' },
   infoRow: { color: '#000', marginBottom: 6, textAlign: 'center' },
   summaryRow: { flexDirection: 'row', justifyContent: 'space-between', gap: 8 },

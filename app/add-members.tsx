@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
 
 type Member = {
@@ -18,7 +18,7 @@ export default function AddMembers() {
   const navigation = useNavigation();
   const [mode, setMode] = useState<'form' | 'list'>('form');
   const [members, setMembers] = useState<Member[]>([]);
-  const [form, setForm] = useState<Omit<Member, 'id'>>({ name: '', age: '', aadhaar: '', contact: '', relation: '', photoUri: undefined });
+  const [form, setForm] = useState<Omit<Member, 'id'>>({ name: '', age: '', aadhaar: '', contact: '', relation: '', photoUri: undefined, referenceId: '' });
 
   const isFormValid = useMemo(() => form.name && form.age && form.aadhaar && form.contact && form.relation, [form]);
 
@@ -28,17 +28,26 @@ export default function AddMembers() {
     if (!isFormValid) return;
     // Generate a reference ID (e.g., 'REF' + timestamp + random 3 digits)
     const referenceId = `REF${Date.now()}${Math.floor(100 + Math.random() * 900)}`;
-    const newMember: Member = { id: Date.now().toString(), referenceId, ...form };
+    const newMember: Member = { id: Date.now().toString(), ...form, referenceId };
     setMembers(prev => [...prev, newMember]);
     setMode('list');
   };
 
   const handleAddAnother = () => {
-    setForm({ name: '', age: '', aadhaar: '', contact: '', relation: '', photoUri: undefined });
+    setForm({ name: '', age: '', aadhaar: '', contact: '', relation: '', photoUri: undefined, referenceId: '' });
     setMode('form');
   };
 
-  const handleRemove = (id: string) => setMembers(prev => prev.filter(m => m.id !== id));
+  const handleRemove = (id: string, name?: string) => {
+    Alert.alert(
+      'Remove Member',
+      `Are you sure you want to remove${name ? ' ' + name : ' this person'}?`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Remove', style: 'destructive', onPress: () => setMembers(prev => prev.filter(m => m.id !== id)) },
+      ]
+    );
+  };
 
   if (mode === 'list') {
     return (
@@ -64,7 +73,7 @@ export default function AddMembers() {
                 <Text style={styles.memberLine}><Text style={styles.bold}>Aadhaar:</Text> xxxx xxxx {m.aadhaar.slice(-4)}</Text>
               </View>
             </View>
-            <TouchableOpacity style={styles.removeBtn} onPress={() => handleRemove(m.id)}>
+            <TouchableOpacity style={styles.removeBtn} onPress={() => handleRemove(m.id, m.name)}>
               <Text style={styles.removeBtnText}>Remove</Text>
             </TouchableOpacity>
           </View>

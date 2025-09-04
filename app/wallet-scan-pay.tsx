@@ -69,6 +69,10 @@ export default function WalletScanPay() {
 
       <View style={styles.card}>
         <Text style={styles.sectionTitle}>Scan QR Code</Text>
+        {/* Static sample QR code */}
+        <View style={{ alignItems: 'center', marginVertical: 16 }}>
+          <ExpoImage source={require('@/assets/images/sample-qr.png')} style={{ width: 120, height: 120, borderRadius: 8, borderWidth: 1, borderColor: '#ccc' }} contentFit="cover" />
+        </View>
         
         <TouchableOpacity
           style={[styles.scanButton, isScanning && styles.scanButtonActive]}

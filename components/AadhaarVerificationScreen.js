@@ -74,7 +74,7 @@ export default function AadhaarVerificationScreen({ navigation }) {
             !otpRequested && styles.hidden,
             isOtpLoading && styles.disabledInput
           ]}
-          placeholder={isOtpLoading ? 'Generating OTP...' : 'Enter OTP'}
+          placeholder={isOtpLoading ? 'Fetching OTP...' : 'Enter OTP'}
           placeholderTextColor="#00000070"
           value={otp}
           onChangeText={setOtp}

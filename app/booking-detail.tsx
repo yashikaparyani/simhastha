@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image as ExpoImage } from 'expo-image';
 
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
@@ -36,7 +37,10 @@ export default function BookingDetail() {
 
       <View style={styles.summaryCard}>
         <Text style={styles.infoRow}><Text style={styles.bold}>Booking ID:</Text> HSP-89540763</Text>
-        <View style={styles.qrBox}><Text style={styles.qrText}>▦ QR</Text></View>
+        <View style={styles.qrBox}>
+          {/* Static sample QR code */}
+          <ExpoImage source={require('@/assets/images/sample-qr.png')} style={{ width: 100, height: 100, borderRadius: 8, borderWidth: 1, borderColor: '#ccc' }} contentFit="cover" />
+        </View>
         <View style={styles.summaryRow}> 
           <View style={styles.summaryPill}><Text style={styles.summaryPillText}>Total Room Booked: 1</Text></View>
           <View style={styles.summaryPill}><Text style={styles.summaryPillText}>Confirmation Sent To abc@gmail.com</Text></View>
