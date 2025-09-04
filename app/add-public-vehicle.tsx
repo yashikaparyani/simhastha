@@ -92,7 +92,7 @@ export default function AddPublicVehicle() {
         
         <View style={styles.noteBox}>
           <Text style={styles.noteText}>
-            "Safe journey with public transport - Your details help us assist you better"
+            &quot;Safe journey with public transport - Your details help us assist you better&quot;
             {"\n"}– सार्वजनिक परिवहन से सुरक्षित यात्रा – आपके विवरण हमें बेहतर सहायता करने में मदद करते हैं –
           </Text>
         </View>

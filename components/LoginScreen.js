@@ -10,7 +10,16 @@ export default function LoginScreen({ navigation }) {
   const handleLogin = () => {
     // Handle login logic here
     console.log('Login with:', { email, password });
-    navigation.navigate('(tabs)');
+    
+    // Check for admin credentials
+    if (email === 'admin@simhastha.com' && password === 'admin123') {
+      navigation.navigate('admin-dashboard');
+    } else if (email === 'superadmin@simhastha.com' && password === 'superadmin123') {
+      navigation.navigate('superadmin-dashboard');
+    } else {
+      // Regular user login
+      navigation.navigate('(tabs)');
+    }
   };
 
   return (

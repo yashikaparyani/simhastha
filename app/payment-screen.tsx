@@ -130,7 +130,7 @@ export default function PaymentScreen() {
         
         <View style={styles.noteBox}>
           <Text style={styles.noteText}>
-            "Secure payment gateway - Your transaction is protected"
+            &quot;Secure payment gateway - Your transaction is protected&quot;
             {"\n"}– सुरक्षित भुगतान गेटवे – आपका लेनदेन सुरक्षित है –
           </Text>
         </View>

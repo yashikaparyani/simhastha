@@ -30,6 +30,19 @@ export default function RootLayout() {
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
             <Stack.Screen name="wallet-payment-confirmation" options={{ headerShown: false }} />
+            <Stack.Screen name="admin-dashboard" options={{ headerShown: false }} />
+            <Stack.Screen name="superadmin-dashboard" options={{ headerShown: false }} />
+            <Stack.Screen name="admin-main-dashboard" options={{ headerShown: false }} />
+            <Stack.Screen name="admin-user-management" options={{ headerShown: false }} />
+            <Stack.Screen name="admin-hotel-management" options={{ headerShown: false }} />
+            <Stack.Screen name="admin-transport-management" options={{ headerShown: false }} />
+            <Stack.Screen name="admin-payment-management" options={{ headerShown: false }} />
+            <Stack.Screen name="admin-emergency-services" options={{ headerShown: false }} />
+            <Stack.Screen name="admin-volunteer-management" options={{ headerShown: false }} />
+            <Stack.Screen name="admin-notifications" options={{ headerShown: false }} />
+            <Stack.Screen name="admin-heatmap" options={{ headerShown: false }} />
+            <Stack.Screen name="admin-reports" options={{ headerShown: false }} />
+            <Stack.Screen name="admin-settings" options={{ headerShown: false }} />
           </Stack>
           <StatusBar style="auto" />
         </ThemeProvider>

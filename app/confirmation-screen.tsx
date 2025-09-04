@@ -46,7 +46,7 @@ export default function ConfirmationScreen() {
         
         <View style={styles.noteBox}>
           <Text style={styles.noteText}>
-            "Your sacred journey is ready! We'll send you all details via SMS and email."
+            &quot;Your sacred journey is ready! We&apos;ll send you all details via SMS and email.&quot;
             {"\n"}– आपकी पवित्र यात्रा तैयार है! हम आपको सभी विवरण SMS और ईमेल के माध्यम से भेजेंगे। –
           </Text>
         </View>

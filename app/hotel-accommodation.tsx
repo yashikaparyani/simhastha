@@ -74,7 +74,7 @@ export default function HotelAccommodation() {
         
         <View style={styles.noteBox}>
           <Text style={styles.noteText}>
-            "Comfortable stay for peaceful darshan - Book your accommodation in advance"
+            &quot;Comfortable stay for peaceful darshan - Book your accommodation in advance&quot;
             {"\n"}– शांतिपूर्ण दर्शन के लिए आरामदायक ठहराव – पहले से अपना आवास बुक करें –
           </Text>
         </View>
