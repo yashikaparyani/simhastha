@@ -60,7 +60,7 @@ export default function ConfirmationScreen() {
 
       <TouchableOpacity 
         style={styles.primaryBtn}
-        onPress={() => navigation.navigate('index' as never)}
+        onPress={() => navigation.navigate('(tabs)' as never)}
       >
         <Text style={styles.primaryBtnText}>Back to Home</Text>
       </TouchableOpacity>

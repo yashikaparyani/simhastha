@@ -9,8 +9,11 @@ import {
   TextInput,
   Alert,
   Modal,
-  Switch
+  Switch,
+  Dimensions
 } from 'react-native';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 const AdminSettings = () => {
   const navigation = useNavigation();
@@ -463,20 +466,20 @@ export default AdminSettings;
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    paddingTop: 32,
-    paddingBottom: 32,
-    paddingHorizontal: 20,
+    paddingTop: screenHeight < 700 ? 20 : 32,
+    paddingBottom: screenHeight < 700 ? 20 : 32,
+    paddingHorizontal: screenWidth < 400 ? 12 : 20,
     backgroundColor: '#f5f5f5',
   },
   
   gridContainer: {
-    gap: 24,
+    gap: screenHeight < 700 ? 16 : 24,
   },
   
   headerCard: {
     backgroundColor: '#ffffff',
     borderRadius: 8,
-    padding: 24,
+    padding: screenWidth < 400 ? 16 : 24,
     elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -486,14 +489,15 @@ const styles = StyleSheet.create({
   },
   
   headerTitle: {
-    fontSize: 28,
+    fontSize: screenWidth < 400 ? 22 : 28,
     fontWeight: 'bold',
     color: '#1976d2',
     marginBottom: 8,
+    textAlign: 'center',
   },
   
   headerSubtitle: {
-    fontSize: 16,
+    fontSize: screenWidth < 400 ? 14 : 16,
     color: '#666',
     textAlign: 'center',
   },
@@ -502,20 +506,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#ffffff',
     borderRadius: 8,
-    padding: 8,
+    padding: screenWidth < 400 ? 4 : 8,
     elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
+    flexWrap: 'wrap',
   },
   
   tab: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 8,
+    flex: screenWidth < 400 ? 0.5 : 1,
+    paddingVertical: screenHeight < 700 ? 8 : 12,
+    paddingHorizontal: screenWidth < 400 ? 4 : 8,
     borderRadius: 6,
     alignItems: 'center',
+    minWidth: screenWidth < 400 ? 80 : 100,
   },
   
   activeTab: {
@@ -523,9 +529,10 @@ const styles = StyleSheet.create({
   },
   
   tabText: {
-    fontSize: 12,
+    fontSize: screenWidth < 400 ? 10 : 12,
     color: '#666',
     fontWeight: '500',
+    textAlign: 'center',
   },
   
   activeTabText: {
@@ -536,7 +543,7 @@ const styles = StyleSheet.create({
   settingsContainer: {
     backgroundColor: '#ffffff',
     borderRadius: 8,
-    padding: 24,
+    padding: screenWidth < 400 ? 16 : 24,
     elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -545,33 +552,35 @@ const styles = StyleSheet.create({
   },
   
   settingsSection: {
-    gap: 20,
+    gap: screenHeight < 700 ? 16 : 20,
   },
   
   sectionTitle: {
-    fontSize: 20,
+    fontSize: screenWidth < 400 ? 18 : 20,
     fontWeight: 'bold',
     color: '#1976d2',
-    marginBottom: 16,
+    marginBottom: screenHeight < 700 ? 12 : 16,
   },
   
   settingItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: screenHeight < 700 ? 8 : 12,
     borderBottomWidth: 1,
     borderBottomColor: '#f0f0f0',
+    flexWrap: 'wrap',
   },
   
   settingLabel: {
-    fontSize: 16,
+    fontSize: screenWidth < 400 ? 14 : 16,
     color: '#333',
     flex: 1,
+    marginBottom: screenWidth < 400 ? 4 : 0,
   },
   
   settingValue: {
-    fontSize: 16,
+    fontSize: screenWidth < 400 ? 14 : 16,
     color: '#666',
     fontWeight: '500',
   },
@@ -580,9 +589,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e0e0e0',
     borderRadius: 4,
-    padding: 8,
-    fontSize: 16,
-    minWidth: 150,
+    padding: screenWidth < 400 ? 6 : 8,
+    fontSize: screenWidth < 400 ? 14 : 16,
+    minWidth: screenWidth < 400 ? 120 : 150,
     backgroundColor: '#f9f9f9',
   },
   
@@ -590,21 +599,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e0e0e0',
     borderRadius: 4,
-    padding: 8,
-    fontSize: 16,
-    width: 80,
+    padding: screenWidth < 400 ? 6 : 8,
+    fontSize: screenWidth < 400 ? 14 : 16,
+    width: screenWidth < 400 ? 60 : 80,
     textAlign: 'center',
     backgroundColor: '#f9f9f9',
   },
   
   pickerContainer: {
     flexDirection: 'row',
-    gap: 8,
+    gap: screenWidth < 400 ? 4 : 8,
+    flexWrap: 'wrap',
   },
   
   pickerOption: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: screenWidth < 400 ? 8 : 12,
+    paddingVertical: screenHeight < 700 ? 4 : 6,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#e0e0e0',
@@ -617,7 +627,7 @@ const styles = StyleSheet.create({
   },
   
   pickerText: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#666',
   },
   
@@ -627,13 +637,13 @@ const styles = StyleSheet.create({
   },
   
   actionButtons: {
-    flexDirection: 'row',
-    gap: 16,
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
+    gap: screenWidth < 400 ? 8 : 16,
   },
   
   actionButton: {
-    flex: 1,
-    paddingVertical: 16,
+    flex: screenWidth < 400 ? 0 : 1,
+    paddingVertical: screenHeight < 700 ? 12 : 16,
     borderRadius: 8,
     alignItems: 'center',
     elevation: 2,
@@ -653,25 +663,26 @@ const styles = StyleSheet.create({
   
   saveButtonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: screenWidth < 400 ? 14 : 16,
     fontWeight: 'bold',
   },
   
   resetButtonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: screenWidth < 400 ? 14 : 16,
     fontWeight: 'bold',
   },
   
   backButton: {
     backgroundColor: '#666',
-    paddingVertical: 12,
+    paddingVertical: screenHeight < 700 ? 10 : 12,
     borderRadius: 8,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: screenHeight < 700 ? 16 : 20,
   },
   backButtonText: {
     color: '#fff',
     fontWeight: 'bold',
+    fontSize: screenWidth < 400 ? 14 : 16,
   },
 });

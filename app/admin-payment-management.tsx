@@ -9,8 +9,11 @@ import {
   TextInput,
   Alert,
   Modal,
-  FlatList
+  FlatList,
+  Dimensions
 } from 'react-native';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 // Exact conversion from web admin dashboard structure
 const PaymentManagement = () => {
@@ -397,29 +400,29 @@ const styles = StyleSheet.create({
   // Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} equivalent
   container: {
     flexGrow: 1,
-    paddingTop: 32, // mt: 4
-    paddingBottom: 32, // mb: 4
-    paddingHorizontal: 20,
+    paddingTop: screenHeight < 700 ? 20 : 32, // mt: 4
+    paddingBottom: screenHeight < 700 ? 20 : 32, // mb: 4
+    paddingHorizontal: screenWidth < 400 ? 12 : 20,
     backgroundColor: '#f5f5f5', // Default Material-UI background
   },
   
   // Grid container spacing={3} equivalent
   gridContainer: {
-    gap: 24, // spacing={3} = 24px
+    gap: screenHeight < 700 ? 16 : 24, // spacing={3} = 24px
   },
   
   // Enhanced Stats Cards
   statsRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 16,
+    gap: screenWidth < 400 ? 12 : 16,
   },
   
   statCard: {
-    flex: 1,
-    minWidth: 150,
+    flex: screenWidth < 400 ? 0.48 : 1,
+    minWidth: screenWidth < 400 ? 120 : 150,
     borderRadius: 4,
-    padding: 16,
+    padding: screenWidth < 400 ? 12 : 16,
     elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -428,26 +431,29 @@ const styles = StyleSheet.create({
   },
   
   statContent: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   
   statNumber: {
-    fontSize: 32,
+    fontSize: screenWidth < 400 ? 24 : 32,
     fontWeight: 'bold',
     color: 'white',
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   statLabel: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: 'white',
     opacity: 0.9,
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   statIcon: {
-    fontSize: 40,
+    fontSize: screenWidth < 400 ? 30 : 40,
     opacity: 0.8,
+    alignSelf: screenWidth < 400 ? 'center' : 'auto',
   },
   
   // Revenue Stats
@@ -494,7 +500,7 @@ const styles = StyleSheet.create({
   managementPaper: {
     backgroundColor: '#ffffff',
     borderRadius: 4,
-    padding: 24, // p: 3
+    padding: screenWidth < 400 ? 16 : 24, // p: 3
     elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -503,28 +509,32 @@ const styles = StyleSheet.create({
   },
   
   managementHeader: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 24,
+    alignItems: screenWidth < 400 ? 'flex-start' : 'center',
+    marginBottom: screenHeight < 700 ? 16 : 24,
+    gap: screenWidth < 400 ? 12 : 0,
   },
   
   managementTitle: {
-    fontSize: 24,
+    fontSize: screenWidth < 400 ? 20 : 24,
     fontWeight: 'bold',
     color: '#1976d2',
   },
   
   addButton: {
     backgroundColor: '#1976d2',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: screenWidth < 400 ? 12 : 16,
+    paddingVertical: screenHeight < 700 ? 10 : 12,
     borderRadius: 4,
+    alignSelf: screenWidth < 400 ? 'stretch' : 'auto',
   },
   
   addButtonText: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize: screenWidth < 400 ? 14 : 16,
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   // Filters

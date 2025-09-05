@@ -7,9 +7,12 @@ import {
   StyleSheet, 
   TouchableOpacity, 
   TextInput,
-  Alert
+  Alert,
+  Dimensions
 } from 'react-native';
 import UjjainMap from '@/components/UjjainMap';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 // Admin HeatMap using UjjainMap component
 const AdminHeatMap = () => {
@@ -150,6 +153,17 @@ const AdminHeatMap = () => {
               {trafficVisible ? 'Hide' : 'Show'} Traffic
             </Text>
           </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Report Type Box */}
+      <View style={styles.reportTypeBox}>
+        <Text style={styles.reportTypeTitle}>Report Type</Text>
+        <View style={styles.reportList}>
+          <Text style={styles.reportItem}>⚠️ There will be a traffic jam at Freeganj Road in Ujjain.</Text>
+          <Text style={styles.reportItem}>👥 High crowd at Mahakaleshwar Jyotirlinga.</Text>
+          <Text style={styles.reportItem}>🚧 Road construction at Nanakheda Bus Stand area.</Text>
+          <Text style={styles.reportItem}>🛑 Diversion near Harsiddhi Temple due to festival.</Text>
         </View>
       </View>
 
@@ -415,6 +429,34 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#666',
     textAlign: 'center',
+  },
+  reportTypeBox: {
+    backgroundColor: '#fffbe6',
+    borderColor: '#ffe58f',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginHorizontal: 16,
+    marginBottom: 16,
+    padding: 16,
+    elevation: 1,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 2,
+  },
+  reportTypeTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#d48806',
+    marginBottom: 8,
+  },
+  reportList: {
+    gap: 6,
+  },
+  reportItem: {
+    fontSize: 14,
+    color: '#ad6800',
+    marginBottom: 4,
   },
 });
 

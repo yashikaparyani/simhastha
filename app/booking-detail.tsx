@@ -37,7 +37,7 @@ export default function BookingDetail() {
 
       <View style={styles.summaryCard}>
         <Text style={styles.infoRow}><Text style={styles.bold}>Booking ID:</Text> HSP-89540763</Text>
-        <View style={styles.qrBox}>
+        <View style={styles.qrBoxLarge}>
           {/* Static sample QR code */}
           <ExpoImage source={require('@/assets/images/sample-qr.png')} style={{ width: 100, height: 100, borderRadius: 8, borderWidth: 1, borderColor: '#ccc' }} contentFit="cover" />
         </View>
@@ -74,6 +74,23 @@ const styles = StyleSheet.create({
   orderMeta: { color: '#000', marginTop: 6 },
   summaryCard: { width: '100%', backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#e0e0e0', borderRadius: 12, padding: 12, marginTop: 4 },
   qrBox: { width: 60, height: 60, borderWidth: 1, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 8 },
+  qrBoxLarge: {
+    width: 120,
+    height: 120,
+    borderWidth: 1,
+    borderColor: '#9e9e9e',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginVertical: 16,
+    padding: 10,
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    shadowColor: '#000',
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+    elevation: 2,
+  },
   qrText: { color: '#000' },
   summaryRow: { flexDirection: 'row', justifyContent: 'space-between', gap: 8 },
   summaryPill: { flex: 1, backgroundColor: '#fff8e7', borderRadius: 10, paddingVertical: 10, alignItems: 'center', borderWidth: 1, borderColor: '#eee' },

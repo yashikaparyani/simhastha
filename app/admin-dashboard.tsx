@@ -1,7 +1,9 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 type AdminMenuItem = {
   id: string;
@@ -32,11 +34,17 @@ export default function AdminDashboard() {
     <TouchableOpacity 
       style={styles.menuItem} 
       onPress={() => navigation.navigate(item.route as never)}
+      activeOpacity={0.7}
     >
-      <Text style={styles.menuIcon}>{item.icon}</Text>
+      <View style={styles.menuIconContainer}>
+        <Text style={styles.menuIcon}>{item.icon}</Text>
+      </View>
       <View style={styles.menuContent}>
         <Text style={styles.menuTitle}>{item.title}</Text>
         <Text style={styles.menuDescription}>{item.description}</Text>
+      </View>
+      <View style={styles.menuArrow}>
+        <Text style={styles.arrowText}>›</Text>
       </View>
     </TouchableOpacity>
   );
@@ -56,26 +64,47 @@ export default function AdminDashboard() {
         <Text style={styles.welcomeSubtitle}>Manage Simhastha 2028 Operations</Text>
       </View>
 
-      <View style={styles.statsRow}>
-        <View style={styles.statCard}>
-          <Text style={styles.statNumber}>1,247</Text>
-          <Text style={styles.statLabel}>Total Users</Text>
+      <View style={styles.statsContainer}>
+        <View style={styles.statsRow}>
+          <View style={styles.statCard}>
+            <Text style={styles.statNumber}>1,247</Text>
+            <Text style={styles.statLabel}>Total Users</Text>
+          </View>
+          <View style={styles.statCard}>
+            <Text style={styles.statNumber}>89</Text>
+            <Text style={styles.statLabel}>Active Bookings</Text>
+          </View>
         </View>
-        <View style={styles.statCard}>
-          <Text style={styles.statNumber}>89</Text>
-          <Text style={styles.statLabel}>Active Bookings</Text>
+        <View style={styles.statsRow}>
+          <View style={styles.statCard}>
+            <Text style={styles.statNumber}>156</Text>
+            <Text style={styles.statLabel}>Hotels</Text>
+          </View>
+          <View style={styles.statCard}>
+            <Text style={styles.statNumber}>42</Text>
+            <Text style={styles.statLabel}>Transport</Text>
+          </View>
         </View>
       </View>
 
       <Text style={styles.sectionTitle}>Management Tools</Text>
       
-      <FlatList
-        data={adminMenuItems}
-        renderItem={renderMenuItem}
-        keyExtractor={(item) => item.id}
-        scrollEnabled={false}
-        showsVerticalScrollIndicator={false}
-      />
+      <View style={styles.menuGrid}>
+        {adminMenuItems.map((item) => (
+          <TouchableOpacity 
+            key={item.id}
+            style={styles.menuGridItem} 
+            onPress={() => navigation.navigate(item.route as never)}
+            activeOpacity={0.7}
+          >
+            <View style={styles.menuIconContainer}>
+              <Text style={styles.menuIcon}>{item.icon}</Text>
+            </View>
+            <Text style={styles.menuTitle}>{item.title}</Text>
+            <Text style={styles.menuDescription}>{item.description}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
 
       <TouchableOpacity 
         style={styles.logoutButton} 
@@ -91,28 +120,29 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     alignItems: 'center',
-    padding: 20,
+    paddingHorizontal: screenWidth < 400 ? 12 : 20,
+    paddingVertical: screenHeight < 700 ? 10 : 20,
     backgroundColor: '#fff8e7',
   },
   logo: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: screenWidth < 400 ? 80 : 100,
+    height: screenWidth < 400 ? 80 : 100,
+    borderRadius: screenWidth < 400 ? 40 : 50,
     borderWidth: 2,
     borderColor: '#e65100',
-    marginTop: 10,
+    marginTop: screenHeight < 700 ? 5 : 10,
   },
   header: {
-    marginTop: 12,
+    marginTop: screenHeight < 700 ? 8 : 12,
     width: '100%',
     textAlign: 'center',
     backgroundColor: '#ffe0b2',
     color: '#e65100',
     fontWeight: 'bold',
-    paddingVertical: 12,
+    paddingVertical: screenHeight < 700 ? 10 : 12,
     borderRadius: 10,
-    fontSize: 20,
-    marginBottom: 16,
+    fontSize: screenWidth < 400 ? 18 : 20,
+    marginBottom: screenHeight < 700 ? 12 : 16,
   },
   welcomeCard: {
     width: '100%',
@@ -120,25 +150,31 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ff9800',
     borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
+    padding: screenWidth < 400 ? 12 : 16,
+    marginBottom: screenHeight < 700 ? 12 : 16,
     alignItems: 'center',
   },
   welcomeTitle: {
     color: '#e65100',
-    fontSize: 18,
+    fontSize: screenWidth < 400 ? 16 : 18,
     fontWeight: 'bold',
     marginBottom: 4,
   },
   welcomeSubtitle: {
     color: '#000',
     opacity: 0.7,
+    fontSize: screenWidth < 400 ? 12 : 14,
+    textAlign: 'center',
+  },
+  statsContainer: {
+    width: '100%',
+    marginBottom: screenHeight < 700 ? 12 : 16,
   },
   statsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    marginBottom: 16,
+    marginBottom: screenHeight < 700 ? 8 : 12,
   },
   statCard: {
     flex: 1,
@@ -146,68 +182,101 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ffcc80',
     borderRadius: 12,
-    padding: 16,
+    padding: screenWidth < 400 ? 12 : 16,
     alignItems: 'center',
     marginHorizontal: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   statNumber: {
     color: '#e65100',
-    fontSize: 24,
+    fontSize: screenWidth < 400 ? 20 : 24,
     fontWeight: 'bold',
     marginBottom: 4,
   },
   statLabel: {
     color: '#000',
-    fontSize: 12,
+    fontSize: screenWidth < 400 ? 10 : 12,
     opacity: 0.7,
+    textAlign: 'center',
   },
   sectionTitle: {
     width: '100%',
     color: '#e65100',
     fontWeight: 'bold',
-    fontSize: 16,
-    marginBottom: 12,
+    fontSize: screenWidth < 400 ? 14 : 16,
+    marginBottom: screenHeight < 700 ? 8 : 12,
   },
-  menuItem: {
+  menuGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
     width: '100%',
+    marginBottom: screenHeight < 700 ? 12 : 16,
+  },
+  menuGridItem: {
+    width: screenWidth < 400 ? '48%' : screenWidth < 600 ? '31%' : '23%',
     backgroundColor: '#ffffff',
     borderWidth: 1,
     borderColor: '#ff9800',
     borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
-    flexDirection: 'row',
+    padding: screenWidth < 400 ? 8 : 12,
+    marginBottom: screenHeight < 700 ? 8 : 12,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    minHeight: screenHeight < 700 ? 100 : 120,
+  },
+  menuIconContainer: {
+    width: screenWidth < 400 ? 35 : 45,
+    height: screenWidth < 400 ? 35 : 45,
+    borderRadius: screenWidth < 400 ? 17.5 : 22.5,
+    backgroundColor: '#ffe0b2',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: screenHeight < 700 ? 6 : 8,
   },
   menuIcon: {
-    fontSize: 24,
-    marginRight: 16,
-  },
-  menuContent: {
-    flex: 1,
+    fontSize: screenWidth < 400 ? 18 : 22,
   },
   menuTitle: {
     color: '#e65100',
-    fontSize: 16,
+    fontSize: screenWidth < 400 ? 12 : 14,
     fontWeight: 'bold',
-    marginBottom: 4,
+    marginBottom: 2,
+    textAlign: 'center',
+    lineHeight: screenWidth < 400 ? 16 : 18,
   },
   menuDescription: {
     color: '#000',
-    fontSize: 12,
+    fontSize: screenWidth < 400 ? 9 : 10,
     opacity: 0.7,
+    textAlign: 'center',
+    lineHeight: screenWidth < 400 ? 12 : 14,
+    flex: 1,
   },
   logoutButton: {
     backgroundColor: '#d32f2f',
-    paddingVertical: 14,
+    paddingVertical: screenHeight < 700 ? 12 : 14,
     borderRadius: 12,
     alignItems: 'center',
     width: '100%',
-    marginTop: 20,
+    marginTop: screenHeight < 700 ? 16 : 20,
+    shadowColor: '#d32f2f',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
   },
   logoutButtonText: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: screenWidth < 400 ? 14 : 16,
   },
 });

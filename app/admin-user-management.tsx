@@ -9,8 +9,11 @@ import {
   TextInput,
   Alert,
   Modal,
-  FlatList
+  FlatList,
+  Dimensions
 } from 'react-native';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 // TypeScript interfaces for type safety
 interface User {
@@ -449,55 +452,55 @@ const UserManagement = () => {
               
               {filteredUsers.map((user) => (
                 <View key={user.id} style={styles.tableRow}>
-                  <View style={styles.tableCell}>
-                    <View style={styles.userCell}>
-                      <View style={[styles.avatar, { backgroundColor: getRoleColor(user.role) }]}>
-                        <Text style={styles.avatarText}>{user.name.charAt(0).toUpperCase()}</Text>
-                      </View>
-                      <View>
-                        <Text style={styles.userName}>{user.name}</Text>
-                        <Text style={styles.userJobTitle}>{user.jobTitle}</Text>
-                      </View>
-                    </View>
-                  </View>
-                  
-                  <View style={styles.tableCell}>
-                    <Text style={styles.userEmail}>{user.email}</Text>
-                    {user.phone && (
-                      <Text style={styles.userPhone}>{user.phone}</Text>
-                    )}
-                  </View>
-                  
-                  <View style={styles.tableCell}>
-                    <View style={[styles.roleBadge, { backgroundColor: getRoleColor(user.role) }]}>
-                      <Text style={styles.badgeText}>{user.role}</Text>
-                    </View>
-                  </View>
-                  
-                  <View style={styles.tableCell}>
-                    <View style={[styles.statusBadge, { backgroundColor: getStatusColor(user.status) }]}>
-                      <Text style={styles.badgeText}>{user.status}</Text>
-                    </View>
-                  </View>
-                  
-                  <View style={styles.tableCell}>
-                    <Text style={styles.userDepartment}>{user.department || '-'}</Text>
-                  </View>
-                  
-                  <View style={styles.tableCell}>
-                    <Text style={styles.userLastLogin}>{formatLastLogin(user.lastLogin)}</Text>
-                  </View>
+                                     <View style={styles.tableCell}>
+                     <View style={styles.userCell}>
+                       <View style={[styles.avatar, { backgroundColor: getRoleColor(user.role) }]}>
+                         <Text style={styles.avatarText}>{user.name.charAt(0).toUpperCase()}</Text>
+                       </View>
+                       <View style={{ flex: 1, minWidth: 0 }}>
+                         <Text style={styles.tableUserName}>{user.name}</Text>
+                         <Text style={styles.userJobTitle}>{user.jobTitle}</Text>
+                       </View>
+                     </View>
+                   </View>
+                   
+                   <View style={styles.tableCell}>
+                     <Text style={styles.tableUserEmail}>{user.email}</Text>
+                     {user.phone && (
+                       <Text style={styles.tableUserPhone}>{user.phone}</Text>
+                     )}
+                   </View>
+                   
+                   <View style={styles.tableCell}>
+                     <View style={[styles.roleBadge, { backgroundColor: getRoleColor(user.role) }]}>
+                       <Text style={styles.badgeText}>{user.role}</Text>
+                     </View>
+                   </View>
+                   
+                   <View style={styles.tableCell}>
+                     <View style={[styles.statusBadge, { backgroundColor: getStatusColor(user.status) }]}>
+                       <Text style={styles.badgeText}>{user.status}</Text>
+                     </View>
+                   </View>
+                   
+                   <View style={styles.tableCell}>
+                     <Text style={styles.tableUserDepartment}>{user.department || '-'}</Text>
+                   </View>
+                   
+                   <View style={styles.tableCell}>
+                     <Text style={styles.userLastLogin}>{formatLastLogin(user.lastLogin)}</Text>
+                   </View>
                   
                   <View style={styles.tableCell}>
                     <View style={styles.tableActions}>
-                      <TouchableOpacity style={styles.actionButton}>
-                        <Text style={styles.actionButtonText}>👁️</Text>
+                      <TouchableOpacity style={[styles.actionButton, { padding: screenWidth < 400 ? 6 : 8, minWidth: screenWidth < 400 ? 24 : 32 }]}>
+                        <Text style={[styles.actionButtonText, { fontSize: screenWidth < 400 ? 12 : 16 }]}>👁️</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles.actionButton}>
-                        <Text style={styles.actionButtonText}>✏️</Text>
+                      <TouchableOpacity style={[styles.actionButton, { padding: screenWidth < 400 ? 6 : 8, minWidth: screenWidth < 400 ? 24 : 32 }]}>
+                        <Text style={[styles.actionButtonText, { fontSize: screenWidth < 400 ? 12 : 16 }]}>✏️</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles.actionButton}>
-                        <Text style={styles.actionButtonText}>🗑️</Text>
+                      <TouchableOpacity style={[styles.actionButton, { padding: screenWidth < 400 ? 6 : 8, minWidth: screenWidth < 400 ? 24 : 32 }]}>
+                        <Text style={[styles.actionButtonText, { fontSize: screenWidth < 400 ? 12 : 16 }]}>🗑️</Text>
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -544,29 +547,29 @@ const styles = StyleSheet.create({
   // Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} equivalent
   container: {
     flexGrow: 1,
-    paddingTop: 32, // mt: 4
-    paddingBottom: 32, // mb: 4
-    paddingHorizontal: 20,
+    paddingTop: screenHeight < 700 ? 20 : 32, // mt: 4
+    paddingBottom: screenHeight < 700 ? 20 : 32, // mb: 4
+    paddingHorizontal: screenWidth < 400 ? 12 : 20,
     backgroundColor: '#f5f5f5', // Default Material-UI background
   },
   
   // Grid container spacing={3} equivalent
   gridContainer: {
-    gap: 24, // spacing={3} = 24px
+    gap: screenHeight < 700 ? 16 : 24, // spacing={3} = 24px
   },
   
   // Enhanced Stats Cards - exact Material-UI structure
   statsRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 16,
+    gap: screenWidth < 400 ? 12 : 16,
   },
   
   statCard: {
-    flex: 1,
-    minWidth: 150,
+    flex: screenWidth < 400 ? 0.48 : 1,
+    minWidth: screenWidth < 400 ? 120 : 150,
     borderRadius: 4,
-    padding: 16,
+    padding: screenWidth < 400 ? 12 : 16,
     elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -575,33 +578,36 @@ const styles = StyleSheet.create({
   },
   
   statContent: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   
   statNumber: {
-    fontSize: 32,
+    fontSize: screenWidth < 400 ? 24 : 32,
     fontWeight: 'bold',
     color: 'white',
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   statLabel: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: 'white',
     opacity: 0.9,
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   statIcon: {
-    fontSize: 40,
+    fontSize: screenWidth < 400 ? 30 : 40,
     opacity: 0.8,
+    alignSelf: screenWidth < 400 ? 'center' : 'auto',
   },
   
   // Enhanced User Management - exact Material-UI structure
   userManagementPaper: {
     backgroundColor: '#ffffff',
     borderRadius: 4,
-    padding: 24, // p: 3
+    padding: screenWidth < 400 ? 16 : 24, // p: 3
     elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -610,54 +616,58 @@ const styles = StyleSheet.create({
   },
   
   userManagementHeader: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 24,
+    alignItems: screenWidth < 400 ? 'flex-start' : 'center',
+    marginBottom: screenHeight < 700 ? 16 : 24,
+    gap: screenWidth < 400 ? 12 : 0,
   },
   
   userManagementTitle: {
-    fontSize: 24,
+    fontSize: screenWidth < 400 ? 20 : 24,
     fontWeight: 'bold',
     color: '#1976d2',
   },
   
   addButton: {
     backgroundColor: '#1976d2',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: screenWidth < 400 ? 12 : 16,
+    paddingVertical: screenHeight < 700 ? 10 : 12,
     borderRadius: 4,
+    alignSelf: screenWidth < 400 ? 'stretch' : 'auto',
   },
   
   addButtonText: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize: screenWidth < 400 ? 14 : 16,
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   // Enhanced Filters - exact Material-UI structure
   filtersContainer: {
-    marginBottom: 24,
-    gap: 16,
+    marginBottom: screenHeight < 700 ? 16 : 24,
+    gap: screenHeight < 700 ? 12 : 16,
   },
   
   searchInput: {
     borderWidth: 1,
     borderColor: '#e0e0e0',
     borderRadius: 4,
-    padding: 12,
+    padding: screenWidth < 400 ? 10 : 12,
     backgroundColor: 'white',
-    fontSize: 16,
+    fontSize: screenWidth < 400 ? 14 : 16,
   },
   
   filterRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
+    gap: screenWidth < 400 ? 6 : 8,
   },
   
   filterButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: screenWidth < 400 ? 12 : 16,
+    paddingVertical: screenHeight < 700 ? 6 : 8,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#e0e0e0',
@@ -670,7 +680,7 @@ const styles = StyleSheet.create({
   },
   
   filterText: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#666',
   },
   
@@ -681,16 +691,17 @@ const styles = StyleSheet.create({
   // Users Table/List Toggle - exact Material-UI structure
   tabsContainer: {
     flexDirection: 'row',
-    marginBottom: 16,
+    marginBottom: screenHeight < 700 ? 12 : 16,
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
   },
   
   tab: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: screenWidth < 400 ? 12 : 16,
+    paddingVertical: screenHeight < 700 ? 10 : 12,
     borderBottomWidth: 2,
     borderBottomColor: 'transparent',
+    flex: 1,
   },
   
   activeTab: {
@@ -698,8 +709,9 @@ const styles = StyleSheet.create({
   },
   
   tabText: {
-    fontSize: 16,
+    fontSize: screenWidth < 400 ? 14 : 16,
     color: '#666',
+    textAlign: 'center',
   },
   
   activeTabText: {
@@ -709,37 +721,42 @@ const styles = StyleSheet.create({
   
   // Enhanced List View - exact Material-UI structure
   listContainer: {
-    gap: 16,
+    gap: screenHeight < 700 ? 12 : 16,
   },
   
   listItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
+    alignItems: screenWidth < 400 ? 'flex-start' : 'center',
     backgroundColor: '#ffffff',
     borderRadius: 8,
-    padding: 16,
+    padding: screenWidth < 400 ? 12 : 16,
     elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
+    width: '100%',
+    minHeight: screenWidth < 400 ? 120 : 80,
   },
   
   listItemAvatar: {
     position: 'relative',
-    marginRight: 16,
+    marginRight: screenWidth < 400 ? 0 : 16,
+    marginBottom: screenWidth < 400 ? 12 : 0,
+    alignSelf: screenWidth < 400 ? 'center' : 'auto',
+    flexShrink: 0,
   },
   
   avatar: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
+    width: screenWidth < 400 ? 48 : 56,
+    height: screenWidth < 400 ? 48 : 56,
+    borderRadius: screenWidth < 400 ? 24 : 28,
     alignItems: 'center',
     justifyContent: 'center',
   },
   
   avatarText: {
-    fontSize: 24,
+    fontSize: screenWidth < 400 ? 20 : 24,
     color: 'white',
   },
   
@@ -747,90 +764,119 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     right: 0,
-    width: 12,
-    height: 12,
-    borderRadius: 6,
+    width: screenWidth < 400 ? 10 : 12,
+    height: screenWidth < 400 ? 10 : 12,
+    borderRadius: screenWidth < 400 ? 5 : 6,
     borderWidth: 2,
     borderColor: 'white',
   },
   
   listItemContent: {
     flex: 1,
+    width: screenWidth < 400 ? '100%' : 'auto',
+    minWidth: 0, // Prevents text overflow issues
   },
   
   listItemHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
+    alignItems: screenWidth < 400 ? 'flex-start' : 'center',
     flexWrap: 'wrap',
-    marginBottom: 8,
+    marginBottom: screenHeight < 700 ? 6 : 8,
+    width: '100%',
   },
   
   userName: {
-    fontSize: 18,
+    fontSize: screenWidth < 400 ? 16 : 18,
     fontWeight: 'bold',
     color: '#333',
-    marginRight: 8,
+    marginRight: screenWidth < 400 ? 0 : 8,
+    marginBottom: screenWidth < 400 ? 4 : 0,
+    flexShrink: 1,
+    minWidth: 0,
   },
   
   userBadges: {
     flexDirection: 'row',
-    gap: 8,
+    gap: screenWidth < 400 ? 6 : 8,
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   roleBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: screenWidth < 400 ? 6 : 8,
+    paddingVertical: screenHeight < 700 ? 3 : 4,
     borderRadius: 12,
+    flexShrink: 0,
   },
   
   badgeText: {
-    fontSize: 12,
+    fontSize: screenWidth < 400 ? 10 : 12,
     color: 'white',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   
   userEmail: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#666',
     marginBottom: 4,
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   userPhone: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#666',
     marginBottom: 4,
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   userDepartment: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#666',
     marginBottom: 4,
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   userPermissions: {
-    fontSize: 12,
+    fontSize: screenWidth < 400 ? 10 : 12,
     color: '#999',
     marginBottom: 4,
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   userDetails: {
-    fontSize: 12,
+    fontSize: screenWidth < 400 ? 10 : 12,
     color: '#999',
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   listItemActions: {
     flexDirection: 'row',
-    gap: 4,
+    gap: screenWidth < 400 ? 6 : 4,
+    justifyContent: screenWidth < 400 ? 'center' : 'flex-end',
+    marginTop: screenWidth < 400 ? 12 : 0,
+    width: screenWidth < 400 ? '100%' : 'auto',
+    flexShrink: 0,
   },
   
   actionButton: {
-    padding: 8,
+    padding: screenWidth < 400 ? 10 : 8,
     borderRadius: 4,
     backgroundColor: '#f5f5f5',
+    flex: screenWidth < 400 ? 1 : 0,
+    minWidth: screenWidth < 400 ? 40 : 32,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   
   actionButtonText: {
-    fontSize: 16,
+    fontSize: screenWidth < 400 ? 14 : 16,
+    textAlign: 'center',
   },
   
   // Table View - exact Material-UI structure
@@ -842,91 +888,149 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
+    overflow: 'hidden',
   },
   
   tableHeader: {
     flexDirection: 'row',
     backgroundColor: '#f5f5f5',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingVertical: screenHeight < 700 ? 10 : 12,
+    paddingHorizontal: screenWidth < 400 ? 8 : 16,
   },
   
   tableHeaderCell: {
-    flex: 1,
-    fontSize: 14,
+    flex: screenWidth < 400 ? 0.8 : 1,
+    fontSize: screenWidth < 400 ? 10 : 14,
     fontWeight: 'bold',
     color: '#333',
+    textAlign: screenWidth < 400 ? 'center' : 'left',
+    minWidth: screenWidth < 400 ? 50 : 80,
   },
   
   tableRow: {
     flexDirection: 'row',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingVertical: screenHeight < 700 ? 8 : 12,
+    paddingHorizontal: screenWidth < 400 ? 6 : 16,
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
+    alignItems: 'center',
+    minHeight: screenWidth < 400 ? 60 : 80,
   },
   
   tableCell: {
-    flex: 1,
+    flex: screenWidth < 400 ? 0.8 : 1,
     justifyContent: 'center',
+    minWidth: screenWidth < 400 ? 50 : 80,
+    paddingHorizontal: screenWidth < 400 ? 2 : 4,
   },
   
   userCell: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: screenWidth < 400 ? 2 : 8,
+    flex: 1,
+    minWidth: 0,
   },
   
   userJobTitle: {
-    fontSize: 12,
+    fontSize: screenWidth < 400 ? 8 : 12,
     color: '#666',
+    textAlign: 'center',
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   userLastLogin: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 10 : 14,
     color: '#666',
+    textAlign: 'center',
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   tableActions: {
     flexDirection: 'row',
-    gap: 4,
+    gap: screenWidth < 400 ? 2 : 4,
+    justifyContent: 'center',
+    flexShrink: 0,
+  },
+  
+  // Table-specific text styles to prevent wrapping issues
+  tableUserName: {
+    fontSize: screenWidth < 400 ? 10 : 14,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+    flexWrap: 'wrap',
+    flexShrink: 1,
+    minWidth: 0,
+  },
+  
+  tableUserEmail: {
+    fontSize: screenWidth < 400 ? 8 : 12,
+    color: '#666',
+    textAlign: 'center',
+    flexWrap: 'wrap',
+    flexShrink: 1,
+    minWidth: 0,
+  },
+  
+  tableUserPhone: {
+    fontSize: screenWidth < 400 ? 8 : 12,
+    color: '#666',
+    textAlign: 'center',
+    flexWrap: 'wrap',
+    flexShrink: 1,
+    minWidth: 0,
+  },
+  
+  tableUserDepartment: {
+    fontSize: screenWidth < 400 ? 8 : 12,
+    color: '#666',
+    textAlign: 'center',
+    flexWrap: 'wrap',
+    flexShrink: 1,
+    minWidth: 0,
   },
   
   // Empty State
   emptyState: {
     alignItems: 'center',
-    paddingVertical: 32,
+    paddingVertical: screenHeight < 700 ? 24 : 32,
   },
   
   emptyIcon: {
-    fontSize: 80,
+    fontSize: screenWidth < 400 ? 60 : 80,
     color: '#ccc',
-    marginBottom: 16,
+    marginBottom: screenHeight < 700 ? 12 : 16,
   },
   
   emptyTitle: {
-    fontSize: 18,
+    fontSize: screenWidth < 400 ? 16 : 18,
     fontWeight: 'bold',
     color: '#666',
-    marginBottom: 8,
+    marginBottom: screenHeight < 700 ? 6 : 8,
+    textAlign: 'center',
   },
   
   emptySubtitle: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#999',
     textAlign: 'center',
-    marginBottom: 16,
+    marginBottom: screenHeight < 700 ? 12 : 16,
+    paddingHorizontal: screenWidth < 400 ? 20 : 0,
   },
   
   backButton: {
     backgroundColor: '#666',
-    paddingVertical: 12,
+    paddingVertical: screenHeight < 700 ? 10 : 12,
     borderRadius: 8,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: screenHeight < 700 ? 16 : 20,
   },
   backButtonText: {
     color: '#fff',
     fontWeight: 'bold',
+    fontSize: screenWidth < 400 ? 14 : 16,
   },
 });

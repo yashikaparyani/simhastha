@@ -9,12 +9,99 @@ import {
   TextInput,
   Alert,
   Modal,
-  FlatList
+  FlatList,
+  Dimensions
 } from 'react-native';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 // Exact conversion from web admin dashboard structure
 const HotelManagement = () => {
   const navigation = useNavigation();
+  
+  // Modal state for booking details
+  const [showBookingModal, setShowBookingModal] = useState(false);
+  const [selectedHotel, setSelectedHotel] = useState(null);
+  
+  // Sample booking data for each hotel
+  const getHotelBookings = (hotelId) => {
+    const sampleBookings = [
+      {
+        id: "B001",
+        guestName: "Rajesh Kumar",
+        guestEmail: "rajesh@email.com",
+        guestPhone: "+91-9876543210",
+        checkIn: "2024-01-15",
+        checkOut: "2024-01-17",
+        rooms: 2,
+        guests: 4,
+        totalAmount: 5000,
+        bookingDate: "2024-01-10",
+        status: "Confirmed",
+        paymentMethod: "UPI"
+      },
+      {
+        id: "B002",
+        guestName: "Priya Sharma",
+        guestEmail: "priya@email.com",
+        guestPhone: "+91-9876543211",
+        checkIn: "2024-01-18",
+        checkOut: "2024-01-20",
+        rooms: 1,
+        guests: 2,
+        totalAmount: 2500,
+        bookingDate: "2024-01-12",
+        status: "Confirmed",
+        paymentMethod: "Credit Card"
+      },
+      {
+        id: "B003",
+        guestName: "Amit Patel",
+        guestEmail: "amit@email.com",
+        guestPhone: "+91-9876543212",
+        checkIn: "2024-01-22",
+        checkOut: "2024-01-24",
+        rooms: 3,
+        guests: 6,
+        totalAmount: 7500,
+        bookingDate: "2024-01-14",
+        status: "Pending",
+        paymentMethod: "Net Banking"
+      },
+      {
+        id: "B004",
+        guestName: "Sneha Gupta",
+        guestEmail: "sneha@email.com",
+        guestPhone: "+91-9876543213",
+        checkIn: "2024-01-25",
+        checkOut: "2024-01-27",
+        rooms: 1,
+        guests: 2,
+        totalAmount: 2500,
+        bookingDate: "2024-01-16",
+        status: "Confirmed",
+        paymentMethod: "UPI"
+      },
+      {
+        id: "B005",
+        guestName: "Vikram Singh",
+        guestEmail: "vikram@email.com",
+        guestPhone: "+91-9876543214",
+        checkIn: "2024-01-28",
+        checkOut: "2024-01-30",
+        rooms: 2,
+        guests: 4,
+        totalAmount: 5000,
+        bookingDate: "2024-01-18",
+        status: "Confirmed",
+        paymentMethod: "Debit Card"
+      }
+    ];
+    
+    // Return random subset of bookings (2-4 bookings)
+    const shuffled = sampleBookings.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, Math.floor(Math.random() * 3) + 2);
+  };
   
   const [hotels, setHotels] = useState([
     {
@@ -123,6 +210,11 @@ const HotelManagement = () => {
     totalRevenue: hotels.reduce((sum, h) => sum + h.revenue, 0)
   };
 
+  const handleViewBookings = (hotel) => {
+    setSelectedHotel(hotel);
+    setShowBookingModal(true);
+  };
+
   const getStatusColor = (status: string) => {
     return status === 'active' ? '#388e3c' : '#f57c00';
   };
@@ -169,7 +261,10 @@ const HotelManagement = () => {
         <TouchableOpacity style={[styles.actionButton, styles.editButton]}>
           <Text style={styles.actionButtonText}>✏️ Edit</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.actionButton, styles.viewButton]}>
+        <TouchableOpacity 
+          style={[styles.actionButton, styles.viewButton]}
+          onPress={() => handleViewBookings(hotel)}
+        >
           <Text style={styles.actionButtonText}>👁️ View</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.actionButton, styles.toggleButton]}>
@@ -302,6 +397,87 @@ const HotelManagement = () => {
       >
         <Text style={styles.backButtonText}>← Back to Admin Menu</Text>
       </TouchableOpacity>
+
+      {/* Booking Details Modal */}
+      <Modal
+        visible={showBookingModal}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setShowBookingModal(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalHeader}>
+            <Text style={styles.modalTitle}>
+              📋 Bookings for {selectedHotel?.name}
+            </Text>
+            <TouchableOpacity 
+              style={styles.closeButton}
+              onPress={() => setShowBookingModal(false)}
+            >
+              <Text style={styles.closeButtonText}>✕</Text>
+            </TouchableOpacity>
+          </View>
+          
+          <ScrollView style={styles.modalContent}>
+            {selectedHotel && getHotelBookings(selectedHotel.id).map((booking) => (
+              <View key={booking.id} style={styles.bookingCard}>
+                <View style={styles.bookingHeader}>
+                  <Text style={styles.bookingId}>Booking #{booking.id}</Text>
+                  <View style={[
+                    styles.statusBadge, 
+                    { backgroundColor: booking.status === 'Confirmed' ? '#388e3c' : '#f57c00' }
+                  ]}>
+                    <Text style={styles.statusText}>{booking.status}</Text>
+                  </View>
+                </View>
+                
+                <View style={styles.bookingDetails}>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>👤 Guest:</Text>
+                    <Text style={styles.detailValue}>{booking.guestName}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>📧 Email:</Text>
+                    <Text style={styles.detailValue}>{booking.guestEmail}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>📞 Phone:</Text>
+                    <Text style={styles.detailValue}>{booking.guestPhone}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>🏨 Check-in:</Text>
+                    <Text style={styles.detailValue}>{booking.checkIn}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>🏨 Check-out:</Text>
+                    <Text style={styles.detailValue}>{booking.checkOut}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>🛏️ Rooms:</Text>
+                    <Text style={styles.detailValue}>{booking.rooms}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>👥 Guests:</Text>
+                    <Text style={styles.detailValue}>{booking.guests}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>💰 Total Amount:</Text>
+                    <Text style={styles.detailValue}>₹{booking.totalAmount}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>📅 Booking Date:</Text>
+                    <Text style={styles.detailValue}>{booking.bookingDate}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>💳 Payment:</Text>
+                    <Text style={styles.detailValue}>{booking.paymentMethod}</Text>
+                  </View>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
@@ -312,29 +488,29 @@ const styles = StyleSheet.create({
   // Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} equivalent
   container: {
     flexGrow: 1,
-    paddingTop: 32, // mt: 4
-    paddingBottom: 32, // mb: 4
-    paddingHorizontal: 20,
+    paddingTop: screenHeight < 700 ? 20 : 32, // mt: 4
+    paddingBottom: screenHeight < 700 ? 20 : 32, // mb: 4
+    paddingHorizontal: screenWidth < 400 ? 12 : 20,
     backgroundColor: '#f5f5f5', // Default Material-UI background
   },
   
   // Grid container spacing={3} equivalent
   gridContainer: {
-    gap: 24, // spacing={3} = 24px
+    gap: screenHeight < 700 ? 16 : 24, // spacing={3} = 24px
   },
   
   // Enhanced Stats Cards
   statsRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 16,
+    gap: screenWidth < 400 ? 12 : 16,
   },
   
   statCard: {
-    flex: 1,
-    minWidth: 150,
+    flex: screenWidth < 400 ? 0.48 : 1,
+    minWidth: screenWidth < 400 ? 120 : 150,
     borderRadius: 4,
-    padding: 16,
+    padding: screenWidth < 400 ? 12 : 16,
     elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -343,33 +519,36 @@ const styles = StyleSheet.create({
   },
   
   statContent: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   
   statNumber: {
-    fontSize: 32,
+    fontSize: screenWidth < 400 ? 24 : 32,
     fontWeight: 'bold',
     color: 'white',
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   statLabel: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: 'white',
     opacity: 0.9,
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   statIcon: {
-    fontSize: 40,
+    fontSize: screenWidth < 400 ? 30 : 40,
     opacity: 0.8,
+    alignSelf: screenWidth < 400 ? 'center' : 'auto',
   },
   
   // Management Paper
   managementPaper: {
     backgroundColor: '#ffffff',
     borderRadius: 4,
-    padding: 24, // p: 3
+    padding: screenWidth < 400 ? 16 : 24, // p: 3
     elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -378,54 +557,58 @@ const styles = StyleSheet.create({
   },
   
   managementHeader: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 24,
+    alignItems: screenWidth < 400 ? 'flex-start' : 'center',
+    marginBottom: screenHeight < 700 ? 16 : 24,
+    gap: screenWidth < 400 ? 12 : 0,
   },
   
   managementTitle: {
-    fontSize: 24,
+    fontSize: screenWidth < 400 ? 20 : 24,
     fontWeight: 'bold',
     color: '#1976d2',
   },
   
   addButton: {
     backgroundColor: '#1976d2',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: screenWidth < 400 ? 12 : 16,
+    paddingVertical: screenHeight < 700 ? 10 : 12,
     borderRadius: 4,
+    alignSelf: screenWidth < 400 ? 'stretch' : 'auto',
   },
   
   addButtonText: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize: screenWidth < 400 ? 14 : 16,
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   // Filters
   filtersContainer: {
-    marginBottom: 24,
-    gap: 16,
+    marginBottom: screenHeight < 700 ? 16 : 24,
+    gap: screenHeight < 700 ? 12 : 16,
   },
   
   searchInput: {
     borderWidth: 1,
     borderColor: '#e0e0e0',
     borderRadius: 4,
-    padding: 12,
+    padding: screenWidth < 400 ? 10 : 12,
     backgroundColor: 'white',
-    fontSize: 16,
+    fontSize: screenWidth < 400 ? 14 : 16,
   },
   
   filterRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
+    gap: screenWidth < 400 ? 6 : 8,
   },
   
   filterButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: screenWidth < 400 ? 12 : 16,
+    paddingVertical: screenHeight < 700 ? 6 : 8,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#e0e0e0',
@@ -438,7 +621,7 @@ const styles = StyleSheet.create({
   },
   
   filterText: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#666',
   },
   
@@ -448,13 +631,13 @@ const styles = StyleSheet.create({
   
   // Hotels List
   hotelsList: {
-    gap: 16,
+    gap: screenHeight < 700 ? 12 : 16,
   },
   
   hotelCard: {
     backgroundColor: '#ffffff',
     borderRadius: 8,
-    padding: 16,
+    padding: screenWidth < 400 ? 12 : 16,
     elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -462,130 +645,151 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     borderWidth: 1,
     borderColor: '#e0e0e0',
+    width: '100%',
+    minHeight: screenWidth < 400 ? 120 : 100,
   },
   
   hotelHeader: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: 12,
+    alignItems: screenWidth < 400 ? 'flex-start' : 'flex-start',
+    marginBottom: screenHeight < 700 ? 8 : 12,
+    gap: screenWidth < 400 ? 8 : 0,
   },
   
   hotelInfo: {
     flex: 1,
+    minWidth: 0,
   },
   
   hotelName: {
-    fontSize: 18,
+    fontSize: screenWidth < 400 ? 16 : 18,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 4,
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   hotelLocation: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#666',
-    marginBottom: 8,
+    marginBottom: screenHeight < 700 ? 6 : 8,
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   hotelStats: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: screenWidth < 400 ? 8 : 12,
   },
   
   hotelStat: {
-    fontSize: 12,
+    fontSize: screenWidth < 400 ? 10 : 12,
     color: '#666',
     backgroundColor: '#f5f5f5',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: screenWidth < 400 ? 6 : 8,
+    paddingVertical: screenHeight < 700 ? 3 : 4,
     borderRadius: 4,
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   hotelStatus: {
-    alignItems: 'flex-end',
+    alignItems: screenWidth < 400 ? 'flex-start' : 'flex-end',
   },
   
   statusBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: screenWidth < 400 ? 8 : 12,
+    paddingVertical: screenHeight < 700 ? 4 : 6,
     borderRadius: 12,
   },
   
   statusText: {
-    fontSize: 12,
+    fontSize: screenWidth < 400 ? 10 : 12,
     color: 'white',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   
   hotelDetails: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     justifyContent: 'space-between',
-    marginBottom: 12,
-    paddingVertical: 8,
+    marginBottom: screenHeight < 700 ? 8 : 12,
+    paddingVertical: screenHeight < 700 ? 6 : 8,
     borderTopWidth: 1,
     borderTopColor: '#f0f0f0',
+    gap: screenWidth < 400 ? 4 : 0,
   },
   
   availability: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#1976d2',
     fontWeight: '500',
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   bookings: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#388e3c',
     fontWeight: '500',
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   revenue: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#f57c00',
     fontWeight: '500',
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   amenitiesContainer: {
-    marginBottom: 16,
+    marginBottom: screenHeight < 700 ? 12 : 16,
   },
   
   amenitiesLabel: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 8,
+    marginBottom: screenHeight < 700 ? 6 : 8,
   },
   
   amenitiesList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
+    gap: screenWidth < 400 ? 6 : 8,
   },
   
   amenityTag: {
     backgroundColor: '#e3f2fd',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: screenWidth < 400 ? 6 : 8,
+    paddingVertical: screenHeight < 700 ? 3 : 4,
     borderRadius: 4,
   },
   
   amenityText: {
-    fontSize: 12,
+    fontSize: screenWidth < 400 ? 10 : 12,
     color: '#1976d2',
   },
   
   hotelActions: {
     flexDirection: 'row',
-    gap: 8,
+    gap: screenWidth < 400 ? 6 : 8,
+    justifyContent: screenWidth < 400 ? 'center' : 'flex-end',
+    flexWrap: 'wrap',
   },
   
   actionButton: {
-    flex: 1,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
+    flex: screenWidth < 400 ? 0.3 : 1,
+    paddingVertical: screenHeight < 700 ? 6 : 8,
+    paddingHorizontal: screenWidth < 400 ? 8 : 12,
     borderRadius: 4,
     alignItems: 'center',
+    minWidth: screenWidth < 400 ? 60 : 80,
   },
   
   editButton: {
@@ -602,44 +806,141 @@ const styles = StyleSheet.create({
   
   actionButtonText: {
     color: 'white',
-    fontSize: 12,
+    fontSize: screenWidth < 400 ? 10 : 12,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   
   // Empty State
   emptyState: {
     alignItems: 'center',
-    paddingVertical: 32,
+    paddingVertical: screenHeight < 700 ? 24 : 32,
   },
   
   emptyIcon: {
-    fontSize: 80,
+    fontSize: screenWidth < 400 ? 60 : 80,
     color: '#ccc',
-    marginBottom: 16,
+    marginBottom: screenHeight < 700 ? 12 : 16,
   },
   
   emptyTitle: {
-    fontSize: 18,
+    fontSize: screenWidth < 400 ? 16 : 18,
     fontWeight: 'bold',
     color: '#666',
-    marginBottom: 8,
+    marginBottom: screenHeight < 700 ? 6 : 8,
+    textAlign: 'center',
   },
   
   emptySubtitle: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#999',
     textAlign: 'center',
+    marginBottom: screenHeight < 700 ? 12 : 16,
+    paddingHorizontal: screenWidth < 400 ? 20 : 0,
   },
   
   backButton: {
     backgroundColor: '#666',
-    paddingVertical: 12,
+    paddingVertical: screenHeight < 700 ? 10 : 12,
     borderRadius: 8,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: screenHeight < 700 ? 16 : 20,
   },
   backButtonText: {
     color: '#fff',
     fontWeight: 'bold',
+    fontSize: screenWidth < 400 ? 14 : 16,
+  },
+  
+  // Modal Styles
+  modalContainer: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: screenWidth < 400 ? 16 : 20,
+    paddingVertical: screenHeight < 700 ? 16 : 20,
+    backgroundColor: '#1976d2',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  
+  modalTitle: {
+    fontSize: screenWidth < 400 ? 18 : 20,
+    fontWeight: 'bold',
+    color: 'white',
+    flex: 1,
+  },
+  
+  closeButton: {
+    padding: screenWidth < 400 ? 8 : 10,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+  },
+  
+  closeButtonText: {
+    fontSize: screenWidth < 400 ? 16 : 18,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  
+  modalContent: {
+    flex: 1,
+    paddingHorizontal: screenWidth < 400 ? 12 : 20,
+    paddingVertical: screenHeight < 700 ? 16 : 20,
+  },
+  
+  bookingCard: {
+    backgroundColor: 'white',
+    borderRadius: 8,
+    padding: screenWidth < 400 ? 12 : 16,
+    marginBottom: screenHeight < 700 ? 12 : 16,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+  },
+  
+  bookingHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: screenHeight < 700 ? 8 : 12,
+  },
+  
+  bookingId: {
+    fontSize: screenWidth < 400 ? 14 : 16,
+    fontWeight: 'bold',
+    color: '#1976d2',
+  },
+  
+  bookingDetails: {
+    gap: screenHeight < 700 ? 4 : 6,
+  },
+  
+  detailRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: screenHeight < 700 ? 2 : 4,
+  },
+  
+  detailLabel: {
+    fontSize: screenWidth < 400 ? 12 : 14,
+    color: '#666',
+    flex: 1,
+  },
+  
+  detailValue: {
+    fontSize: screenWidth < 400 ? 12 : 14,
+    color: '#333',
+    fontWeight: '500',
+    flex: 1,
+    textAlign: 'right',
   },
 });

@@ -9,8 +9,11 @@ import {
   TextInput,
   Alert,
   Modal,
-  FlatList
+  FlatList,
+  Dimensions
 } from 'react-native';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 const EmergencyServices = () => {
   const navigation = useNavigation();

@@ -9,12 +9,114 @@ import {
   TextInput,
   Alert,
   Modal,
-  FlatList
+  FlatList,
+  Dimensions
 } from 'react-native';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 // Exact conversion from web admin dashboard structure
 const TransportManagement = () => {
   const navigation = useNavigation();
+  
+  // Modal state for booking details
+  const [showBookingModal, setShowBookingModal] = useState(false);
+  const [selectedTransport, setSelectedTransport] = useState(null);
+  
+  // Sample booking data for each transport
+  const getTransportBookings = (transportId) => {
+    const sampleBookings = [
+      {
+        id: "TB001",
+        passengerName: "Rajesh Kumar",
+        passengerEmail: "rajesh@email.com",
+        passengerPhone: "+91-9876543210",
+        travelDate: "2024-01-15",
+        departureTime: "06:00 AM",
+        arrivalTime: "07:30 AM",
+        seats: 2,
+        passengers: 2,
+        totalAmount: 300,
+        bookingDate: "2024-01-10",
+        status: "Confirmed",
+        paymentMethod: "UPI",
+        pickupLocation: "Temple Complex Gate 1",
+        dropLocation: "City Center Mall"
+      },
+      {
+        id: "TB002",
+        passengerName: "Priya Sharma",
+        passengerEmail: "priya@email.com",
+        passengerPhone: "+91-9876543211",
+        travelDate: "2024-01-16",
+        departureTime: "06:00 AM",
+        arrivalTime: "07:30 AM",
+        seats: 1,
+        passengers: 1,
+        totalAmount: 150,
+        bookingDate: "2024-01-12",
+        status: "Confirmed",
+        paymentMethod: "Credit Card",
+        pickupLocation: "Temple Complex Gate 2",
+        dropLocation: "Airport Terminal"
+      },
+      {
+        id: "TB003",
+        passengerName: "Amit Patel",
+        passengerEmail: "amit@email.com",
+        passengerPhone: "+91-9876543212",
+        travelDate: "2024-01-17",
+        departureTime: "06:00 AM",
+        arrivalTime: "07:30 AM",
+        seats: 4,
+        passengers: 4,
+        totalAmount: 600,
+        bookingDate: "2024-01-14",
+        status: "Pending",
+        paymentMethod: "Net Banking",
+        pickupLocation: "City Center",
+        dropLocation: "Temple Complex"
+      },
+      {
+        id: "TB004",
+        passengerName: "Sneha Gupta",
+        passengerEmail: "sneha@email.com",
+        passengerPhone: "+91-9876543213",
+        travelDate: "2024-01-18",
+        departureTime: "06:00 AM",
+        arrivalTime: "07:30 AM",
+        seats: 1,
+        passengers: 1,
+        totalAmount: 150,
+        bookingDate: "2024-01-16",
+        status: "Confirmed",
+        paymentMethod: "UPI",
+        pickupLocation: "Airport",
+        dropLocation: "Temple Complex"
+      },
+      {
+        id: "TB005",
+        passengerName: "Vikram Singh",
+        passengerEmail: "vikram@email.com",
+        passengerPhone: "+91-9876543214",
+        travelDate: "2024-01-19",
+        departureTime: "06:00 AM",
+        arrivalTime: "07:30 AM",
+        seats: 3,
+        passengers: 3,
+        totalAmount: 450,
+        bookingDate: "2024-01-18",
+        status: "Confirmed",
+        paymentMethod: "Debit Card",
+        pickupLocation: "Temple Complex",
+        dropLocation: "City Center"
+      }
+    ];
+    
+    // Return random subset of bookings (2-4 bookings)
+    const shuffled = sampleBookings.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, Math.floor(Math.random() * 3) + 2);
+  };
   
   const [transports, setTransports] = useState([
     {
@@ -133,6 +235,12 @@ const TransportManagement = () => {
     totalRevenue: transports.reduce((sum, t) => sum + t.revenue, 0)
   };
 
+  const handleViewBookings = (transport) => {
+    console.log('View bookings for:', transport);
+    setSelectedTransport(transport);
+    setShowBookingModal(true);
+  };
+
   const getStatusColor = (status: string) => {
     return status === 'active' ? '#388e3c' : '#f57c00';
   };
@@ -182,7 +290,10 @@ const TransportManagement = () => {
         <TouchableOpacity style={[styles.actionButton, styles.editButton]}>
           <Text style={styles.actionButtonText}>✏️ Edit</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.actionButton, styles.viewButton]}>
+        <TouchableOpacity 
+          style={[styles.actionButton, styles.viewButton]}
+          onPress={() => handleViewBookings(transport)}
+        >
           <Text style={styles.actionButtonText}>👁️ View</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.actionButton, styles.toggleButton]}>
@@ -348,6 +459,99 @@ const TransportManagement = () => {
       >
         <Text style={styles.backButtonText}>← Back to Admin Menu</Text>
       </TouchableOpacity>
+
+      {/* Booking Details Modal */}
+      <Modal
+        visible={showBookingModal}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setShowBookingModal(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalHeader}>
+            <Text style={styles.modalTitle}>
+              🚌 Bookings for {selectedTransport?.name}
+            </Text>
+            <TouchableOpacity 
+              style={styles.closeButton}
+              onPress={() => setShowBookingModal(false)}
+            >
+              <Text style={styles.closeButtonText}>✕</Text>
+            </TouchableOpacity>
+          </View>
+          
+          <ScrollView style={styles.modalContent}>
+            {selectedTransport && getTransportBookings(selectedTransport.id).map((booking) => (
+              <View key={booking.id} style={styles.bookingCard}>
+                <View style={styles.bookingHeader}>
+                  <Text style={styles.bookingId}>Booking #{booking.id}</Text>
+                  <View style={[
+                    styles.statusBadge, 
+                    { backgroundColor: booking.status === 'Confirmed' ? '#388e3c' : '#f57c00' }
+                  ]}>
+                    <Text style={styles.statusText}>{booking.status}</Text>
+                  </View>
+                </View>
+                
+                <View style={styles.bookingDetails}>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>👤 Passenger:</Text>
+                    <Text style={styles.detailValue}>{booking.passengerName}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>📧 Email:</Text>
+                    <Text style={styles.detailValue}>{booking.passengerEmail}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>📞 Phone:</Text>
+                    <Text style={styles.detailValue}>{booking.passengerPhone}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>📅 Travel Date:</Text>
+                    <Text style={styles.detailValue}>{booking.travelDate}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>🕕 Departure:</Text>
+                    <Text style={styles.detailValue}>{booking.departureTime}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>🕕 Arrival:</Text>
+                    <Text style={styles.detailValue}>{booking.arrivalTime}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>🪑 Seats:</Text>
+                    <Text style={styles.detailValue}>{booking.seats}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>👥 Passengers:</Text>
+                    <Text style={styles.detailValue}>{booking.passengers}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>📍 Pickup:</Text>
+                    <Text style={styles.detailValue}>{booking.pickupLocation}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>📍 Drop:</Text>
+                    <Text style={styles.detailValue}>{booking.dropLocation}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>💰 Total Amount:</Text>
+                    <Text style={styles.detailValue}>₹{booking.totalAmount}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>📅 Booking Date:</Text>
+                    <Text style={styles.detailValue}>{booking.bookingDate}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>💳 Payment:</Text>
+                    <Text style={styles.detailValue}>{booking.paymentMethod}</Text>
+                  </View>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
@@ -358,29 +562,29 @@ const styles = StyleSheet.create({
   // Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} equivalent
   container: {
     flexGrow: 1,
-    paddingTop: 32, // mt: 4
-    paddingBottom: 32, // mb: 4
-    paddingHorizontal: 20,
+    paddingTop: screenHeight < 700 ? 20 : 32, // mt: 4
+    paddingBottom: screenHeight < 700 ? 20 : 32, // mb: 4
+    paddingHorizontal: screenWidth < 400 ? 12 : 20,
     backgroundColor: '#f5f5f5', // Default Material-UI background
   },
   
   // Grid container spacing={3} equivalent
   gridContainer: {
-    gap: 24, // spacing={3} = 24px
+    gap: screenHeight < 700 ? 16 : 24, // spacing={3} = 24px
   },
   
   // Enhanced Stats Cards
   statsRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 16,
+    gap: screenWidth < 400 ? 12 : 16,
   },
   
   statCard: {
-    flex: 1,
-    minWidth: 150,
+    flex: screenWidth < 400 ? 0.48 : 1,
+    minWidth: screenWidth < 400 ? 120 : 150,
     borderRadius: 4,
-    padding: 16,
+    padding: screenWidth < 400 ? 12 : 16,
     elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -389,33 +593,36 @@ const styles = StyleSheet.create({
   },
   
   statContent: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   
   statNumber: {
-    fontSize: 32,
+    fontSize: screenWidth < 400 ? 24 : 32,
     fontWeight: 'bold',
     color: 'white',
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   statLabel: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: 'white',
     opacity: 0.9,
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   statIcon: {
-    fontSize: 40,
+    fontSize: screenWidth < 400 ? 30 : 40,
     opacity: 0.8,
+    alignSelf: screenWidth < 400 ? 'center' : 'auto',
   },
   
   // Management Paper
   managementPaper: {
     backgroundColor: '#ffffff',
     borderRadius: 4,
-    padding: 24, // p: 3
+    padding: screenWidth < 400 ? 16 : 24, // p: 3
     elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -424,28 +631,32 @@ const styles = StyleSheet.create({
   },
   
   managementHeader: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 24,
+    alignItems: screenWidth < 400 ? 'flex-start' : 'center',
+    marginBottom: screenHeight < 700 ? 16 : 24,
+    gap: screenWidth < 400 ? 12 : 0,
   },
   
   managementTitle: {
-    fontSize: 24,
+    fontSize: screenWidth < 400 ? 20 : 24,
     fontWeight: 'bold',
     color: '#1976d2',
   },
   
   addButton: {
     backgroundColor: '#1976d2',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: screenWidth < 400 ? 12 : 16,
+    paddingVertical: screenHeight < 700 ? 10 : 12,
     borderRadius: 4,
+    alignSelf: screenWidth < 400 ? 'stretch' : 'auto',
   },
   
   addButtonText: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize: screenWidth < 400 ? 14 : 16,
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   // Filters
@@ -672,5 +883,98 @@ const styles = StyleSheet.create({
   backButtonText: {
     color: '#fff',
     fontWeight: 'bold',
+    fontSize: screenWidth < 400 ? 14 : 16,
+  },
+  
+  // Modal Styles
+  modalContainer: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: screenWidth < 400 ? 16 : 20,
+    paddingVertical: screenHeight < 700 ? 16 : 20,
+    backgroundColor: '#1976d2',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  
+  modalTitle: {
+    fontSize: screenWidth < 400 ? 18 : 20,
+    fontWeight: 'bold',
+    color: 'white',
+    flex: 1,
+  },
+  
+  closeButton: {
+    padding: screenWidth < 400 ? 8 : 10,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+  },
+  
+  closeButtonText: {
+    fontSize: screenWidth < 400 ? 16 : 18,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  
+  modalContent: {
+    flex: 1,
+    paddingHorizontal: screenWidth < 400 ? 12 : 20,
+    paddingVertical: screenHeight < 700 ? 16 : 20,
+  },
+  
+  bookingCard: {
+    backgroundColor: 'white',
+    borderRadius: 8,
+    padding: screenWidth < 400 ? 12 : 16,
+    marginBottom: screenHeight < 700 ? 12 : 16,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+  },
+  
+  bookingHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: screenHeight < 700 ? 8 : 12,
+  },
+  
+  bookingId: {
+    fontSize: screenWidth < 400 ? 14 : 16,
+    fontWeight: 'bold',
+    color: '#1976d2',
+  },
+  
+  bookingDetails: {
+    gap: screenHeight < 700 ? 4 : 6,
+  },
+  
+  detailRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: screenHeight < 700 ? 2 : 4,
+  },
+  
+  detailLabel: {
+    fontSize: screenWidth < 400 ? 12 : 14,
+    color: '#666',
+    flex: 1,
+  },
+  
+  detailValue: {
+    fontSize: screenWidth < 400 ? 12 : 14,
+    color: '#333',
+    fontWeight: '500',
+    flex: 1,
+    textAlign: 'right',
   },
 });

@@ -9,8 +9,11 @@ import {
   TextInput,
   Alert,
   Modal,
-  FlatList
+  FlatList,
+  Dimensions
 } from 'react-native';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 const AdminReports = () => {
   const navigation = useNavigation();
@@ -367,27 +370,27 @@ export default AdminReports;
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    paddingTop: 32,
-    paddingBottom: 32,
-    paddingHorizontal: 20,
+    paddingTop: screenHeight < 700 ? 20 : 32,
+    paddingBottom: screenHeight < 700 ? 20 : 32,
+    paddingHorizontal: screenWidth < 400 ? 12 : 20,
     backgroundColor: '#f5f5f5',
   },
   
   gridContainer: {
-    gap: 24,
+    gap: screenHeight < 700 ? 16 : 24,
   },
   
   statsRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 16,
+    gap: screenWidth < 400 ? 12 : 16,
   },
   
   statCard: {
-    flex: 1,
-    minWidth: 150,
+    flex: screenWidth < 400 ? 0.48 : 1,
+    minWidth: screenWidth < 400 ? 120 : 150,
     borderRadius: 4,
-    padding: 16,
+    padding: screenWidth < 400 ? 12 : 16,
     elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -396,37 +399,40 @@ const styles = StyleSheet.create({
   },
   
   statContent: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   
   statNumber: {
-    fontSize: 32,
+    fontSize: screenWidth < 400 ? 24 : 32,
     fontWeight: 'bold',
     color: 'white',
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   statLabel: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: 'white',
     opacity: 0.9,
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   statIcon: {
-    fontSize: 40,
+    fontSize: screenWidth < 400 ? 30 : 40,
     opacity: 0.8,
+    alignSelf: screenWidth < 400 ? 'center' : 'auto',
   },
   
   quickStats: {
     flexDirection: 'row',
-    gap: 16,
+    gap: screenWidth < 400 ? 12 : 16,
   },
   
   quickStatCard: {
     flex: 1,
     borderRadius: 4,
-    padding: 20,
+    padding: screenWidth < 400 ? 16 : 20,
     elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -435,32 +441,35 @@ const styles = StyleSheet.create({
   },
   
   quickStatContent: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   
   quickStatNumber: {
-    fontSize: 24,
+    fontSize: screenWidth < 400 ? 20 : 24,
     fontWeight: 'bold',
     color: 'white',
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   quickStatLabel: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: 'white',
     opacity: 0.9,
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   quickStatIcon: {
-    fontSize: 32,
+    fontSize: screenWidth < 400 ? 24 : 32,
     opacity: 0.8,
+    alignSelf: screenWidth < 400 ? 'center' : 'auto',
   },
   
   managementPaper: {
     backgroundColor: '#ffffff',
     borderRadius: 4,
-    padding: 24,
+    padding: screenWidth < 400 ? 16 : 24,
     elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -469,53 +478,57 @@ const styles = StyleSheet.create({
   },
   
   managementHeader: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 24,
+    alignItems: screenWidth < 400 ? 'flex-start' : 'center',
+    marginBottom: screenHeight < 700 ? 16 : 24,
+    gap: screenWidth < 400 ? 12 : 0,
   },
   
   managementTitle: {
-    fontSize: 24,
+    fontSize: screenWidth < 400 ? 20 : 24,
     fontWeight: 'bold',
     color: '#1976d2',
   },
   
   addButton: {
     backgroundColor: '#1976d2',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: screenWidth < 400 ? 12 : 16,
+    paddingVertical: screenHeight < 700 ? 10 : 12,
     borderRadius: 4,
+    alignSelf: screenWidth < 400 ? 'stretch' : 'auto',
   },
   
   addButtonText: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize: screenWidth < 400 ? 14 : 16,
+    textAlign: screenWidth < 400 ? 'center' : 'left',
   },
   
   filtersContainer: {
-    marginBottom: 24,
-    gap: 16,
+    marginBottom: screenHeight < 700 ? 16 : 24,
+    gap: screenHeight < 700 ? 12 : 16,
   },
   
   searchInput: {
     borderWidth: 1,
     borderColor: '#e0e0e0',
     borderRadius: 4,
-    padding: 12,
+    padding: screenWidth < 400 ? 10 : 12,
     backgroundColor: 'white',
-    fontSize: 16,
+    fontSize: screenWidth < 400 ? 14 : 16,
   },
   
   filterRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
+    gap: screenWidth < 400 ? 6 : 8,
   },
   
   filterButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: screenWidth < 400 ? 12 : 16,
+    paddingVertical: screenHeight < 700 ? 6 : 8,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#e0e0e0',
@@ -528,7 +541,7 @@ const styles = StyleSheet.create({
   },
   
   filterText: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#666',
   },
   
@@ -537,13 +550,13 @@ const styles = StyleSheet.create({
   },
   
   reportsList: {
-    gap: 16,
+    gap: screenHeight < 700 ? 12 : 16,
   },
   
   reportCard: {
     backgroundColor: '#ffffff',
     borderRadius: 8,
-    padding: 16,
+    padding: screenWidth < 400 ? 12 : 16,
     elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -551,60 +564,74 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     borderWidth: 1,
     borderColor: '#e0e0e0',
+    width: '100%',
+    minHeight: screenWidth < 400 ? 120 : 100,
   },
   
   reportHeader: {
-    flexDirection: 'row',
+    flexDirection: screenWidth < 400 ? 'column' : 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: 12,
+    alignItems: screenWidth < 400 ? 'flex-start' : 'flex-start',
+    marginBottom: screenHeight < 700 ? 8 : 12,
+    gap: screenWidth < 400 ? 8 : 0,
   },
   
   reportInfo: {
     flex: 1,
+    minWidth: 0,
   },
   
   reportTitle: {
-    fontSize: 18,
+    fontSize: screenWidth < 400 ? 16 : 18,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 4,
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   reportPeriod: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#666',
     marginBottom: 4,
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   reportGeneratedBy: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#666',
-    marginBottom: 8,
+    marginBottom: screenHeight < 700 ? 6 : 8,
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   reportMeta: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: screenWidth < 400 ? 8 : 12,
   },
   
   reportSize: {
-    fontSize: 12,
+    fontSize: screenWidth < 400 ? 10 : 12,
     color: '#666',
     backgroundColor: '#f5f5f5',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: screenWidth < 400 ? 6 : 8,
+    paddingVertical: screenHeight < 700 ? 3 : 4,
     borderRadius: 4,
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   reportDownloads: {
-    fontSize: 12,
+    fontSize: screenWidth < 400 ? 10 : 12,
     color: '#666',
     backgroundColor: '#f5f5f5',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: screenWidth < 400 ? 6 : 8,
+    paddingVertical: screenHeight < 700 ? 3 : 4,
     borderRadius: 4,
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   
   reportLastDownload: {
@@ -663,43 +690,48 @@ const styles = StyleSheet.create({
   
   actionButtonText: {
     color: 'white',
-    fontSize: 12,
+    fontSize: screenWidth < 400 ? 10 : 12,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   
   emptyState: {
     alignItems: 'center',
-    paddingVertical: 32,
+    paddingVertical: screenHeight < 700 ? 24 : 32,
   },
   
   emptyIcon: {
-    fontSize: 80,
+    fontSize: screenWidth < 400 ? 60 : 80,
     color: '#ccc',
-    marginBottom: 16,
+    marginBottom: screenHeight < 700 ? 12 : 16,
   },
   
   emptyTitle: {
-    fontSize: 18,
+    fontSize: screenWidth < 400 ? 16 : 18,
     fontWeight: 'bold',
     color: '#666',
-    marginBottom: 8,
+    marginBottom: screenHeight < 700 ? 6 : 8,
+    textAlign: 'center',
   },
   
   emptySubtitle: {
-    fontSize: 14,
+    fontSize: screenWidth < 400 ? 12 : 14,
     color: '#999',
     textAlign: 'center',
+    marginBottom: screenHeight < 700 ? 12 : 16,
+    paddingHorizontal: screenWidth < 400 ? 20 : 0,
   },
   
   backButton: {
     backgroundColor: '#666',
-    paddingVertical: 12,
+    paddingVertical: screenHeight < 700 ? 10 : 12,
     borderRadius: 8,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: screenHeight < 700 ? 16 : 20,
   },
   backButtonText: {
     color: '#fff',
     fontWeight: 'bold',
+    fontSize: screenWidth < 400 ? 14 : 16,
   },
 });
