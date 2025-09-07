@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { 
-  ScrollView, 
-  View, 
-  Text, 
-  StyleSheet, 
-  TouchableOpacity, 
+import React, { useEffect, useState } from 'react';
+import {
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
   TextInput,
-  Alert,
-  Modal,
-  FlatList,
-  Dimensions
+  TouchableOpacity,
+  View
 } from 'react-native';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
@@ -439,8 +436,7 @@ const UserManagement = () => {
 
           {/* Table View - exact Material-UI structure */}
           {tabValue === 1 && (
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View style={styles.tableContainer}>
+            <View style={styles.tableContainer}>
               <View style={styles.tableHeader}>
                 <Text style={styles.tableHeaderCell}>User</Text>
                 <Text style={styles.tableHeaderCell}>Contact</Text>
@@ -507,8 +503,7 @@ const UserManagement = () => {
                   </View>
                 </View>
               ))}
-              </View>
-            </ScrollView>
+            </View>
           )}
 
           {filteredUsers.length === 0 && (

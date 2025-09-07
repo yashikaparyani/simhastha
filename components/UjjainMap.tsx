@@ -1,7 +1,9 @@
-import React, { useMemo, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, useWindowDimensions, Platform } from 'react-native';
-import { WebView } from 'react-native-webview';
+
 import { useLocation } from '@/contexts/LocationContext';
+import React, { useMemo, useState } from 'react';
+import { Platform, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import { WebView } from 'react-native-webview';
+
 
 type UjjainMapProps = {
   height?: number;
@@ -45,7 +47,7 @@ export default function UjjainMap({ height, showToggles = true, defaultHeatmap =
         function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: 23.1793, lng: 75.7849 },
-            zoom: 10,
+            zoom: 6,
             disableDefaultUI: true
           });
 
@@ -61,29 +63,19 @@ export default function UjjainMap({ height, showToggles = true, defaultHeatmap =
           });
           directionsRenderer.setMap(map);
 
-          const heatmapData = [];
-          for (let i = 0; i < 300; i++) {
-            const lat = 23.10 + Math.random() * 0.25;
-            const lng = 75.65 + Math.random() * 0.25;
-            const latLng = new google.maps.LatLng(lat, lng);
-            const marker = new google.maps.Marker({ position: latLng });
-            markers.push(marker);
-            heatmapData.push(latLng);
-          }
-
-          clusterer = new MarkerClusterer(map, markers, {
-            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-          });
-
-          heatmap = new google.maps.visualization.HeatmapLayer({ data: heatmapData, radius: 40 });
+          // Initialize empty heatmap and clusterer; will be populated after route
+          heatmap = new google.maps.visualization.HeatmapLayer({ data: [], radius: 40 });
           ${heatOn ? 'heatmap.setMap(map);' : ''}
 
+          clusterer = new MarkerClusterer(map, [], {
+            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+          });
           trafficLayer = new google.maps.TrafficLayer();
           ${trafficOn ? 'trafficLayer.setMap(map);' : ''}
 
           // Calculate and display route if start location is available
           ${startLocation ? `
-          calculateRoute('${startLocation}', 'Ujjain');
+          calculateRoute('${startLocation}', '${endLocation ?? 'Ujjain'}');
           ` : ''}
 
           document.getElementById('toggleHeat').addEventListener('click', function() {
@@ -99,16 +91,27 @@ export default function UjjainMap({ height, showToggles = true, defaultHeatmap =
             origin: start,
             destination: end,
             travelMode: google.maps.TravelMode.DRIVING,
-            unitSystem: google.maps.UnitSystem.METRIC
+            unitSystem: google.maps.UnitSystem.METRIC,
+            drivingOptions: {
+              departureTime: new Date(),
+              trafficModel: 'bestguess'
+            }
           };
 
           directionsService.route(request, function(result, status) {
             if (status === 'OK') {
               directionsRenderer.setDirections(result);
+
               
               // Auto-fit the map to show the entire route
               const bounds = new google.maps.LatLngBounds();
               const route = result.routes[0];
+
+              // Build heatmap and clustering along the route path
+              buildRouteLayers(route);
+
+              // Auto-fit the map to show the entire route
+              const bounds = new google.maps.LatLngBounds();
               for (let i = 0; i < route.overview_path.length; i++) {
                 bounds.extend(route.overview_path[i]);
               }
@@ -119,11 +122,52 @@ export default function UjjainMap({ height, showToggles = true, defaultHeatmap =
           });
         }
 
+        function buildRouteLayers(route) {
+          // Clear previous markers from clusterer
+          if (clusterer) {
+            clusterer.clearMarkers();
+          }
+          markers = [];
+
+          // Build a denser path by concatenating all step paths
+          const legs = route.legs || [];
+          const fullPath = [];
+          for (let li = 0; li < legs.length; li++) {
+            const steps = legs[li].steps || [];
+            for (let si = 0; si < steps.length; si++) {
+              const stepPath = steps[si].path || [];
+              for (let pi = 0; pi < stepPath.length; pi++) {
+                fullPath.push(stepPath[pi]);
+              }
+            }
+          }
+
+          const path = fullPath.length ? fullPath : (route.overview_path || []);
+          const heatmapData = [];
+
+          // Use the full path for heatmap for continuous visualization
+          for (let i = 0; i < path.length; i++) {
+            heatmapData.push(path[i]);
+          }
+
+          // Sample markers along the path for clustering (every ~5th point to reduce marker count)
+          for (let i = 0; i < path.length; i += 5) {
+            const marker = new google.maps.Marker({ position: path[i] });
+            markers.push(marker);
+          }
+
+          // Update heatmap and clusterer
+          heatmap.setData(heatmapData);
+          clusterer.addMarkers(markers);
+        }
+
         window.initMap = initMap;
         window.onload = initMap;
       </script>
     </body>
-  </html>`, [heatOn, trafficOn, startLocation]);
+
+  </html>`, [heatOn, trafficOn, startLocation, endLocation]);
+
 
   return (
     <View style={styles.container}>
