@@ -439,7 +439,8 @@ const UserManagement = () => {
 
           {/* Table View - exact Material-UI structure */}
           {tabValue === 1 && (
-            <View style={styles.tableContainer}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={styles.tableContainer}>
               <View style={styles.tableHeader}>
                 <Text style={styles.tableHeaderCell}>User</Text>
                 <Text style={styles.tableHeaderCell}>Contact</Text>
@@ -506,7 +507,8 @@ const UserManagement = () => {
                   </View>
                 </View>
               ))}
-            </View>
+              </View>
+            </ScrollView>
           )}
 
           {filteredUsers.length === 0 && (
