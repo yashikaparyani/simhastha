@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, StyleSheet, Dimensions, Animated } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
 import { Colors } from '@/constants/Colors';
 import Chatbot from '@/components/Chatbot';
@@ -32,6 +32,26 @@ const tiles: Tile[] = [
 
 export default function HomeDashboard({ navigation, userName = 'User' }: HomeDashboardProps) {
   const [showBot, setShowBot] = React.useState(false);
+  const pulseAnim = React.useRef(new Animated.Value(1)).current;
+
+  React.useEffect(() => {
+    const pulse = () => {
+      Animated.sequence([
+        Animated.timing(pulseAnim, {
+          toValue: 1.2,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ]).start(() => pulse());
+    };
+    pulse();
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Notice Marquee */}
@@ -57,14 +77,16 @@ export default function HomeDashboard({ navigation, userName = 'User' }: HomeDas
           </TouchableOpacity>
         ))}
       </View>
-      <TouchableOpacity
-        style={styles.chatFloating}
-        onPress={() => setShowBot((v) => !v)}
-        accessibilityRole="button"
-        accessibilityLabel="Open chatbot"
-      >
-        <Text style={styles.chatIcon}>💬</Text>
-      </TouchableOpacity>
+      <Animated.View style={[styles.chatFloating, { transform: [{ scale: pulseAnim }] }]}>
+        <TouchableOpacity
+          style={styles.chatButton}
+          onPress={() => setShowBot((v) => !v)}
+          accessibilityRole="button"
+          accessibilityLabel="Open chatbot"
+        >
+          <Text style={styles.chatIcon}>💬</Text>
+        </TouchableOpacity>
+      </Animated.View>
       {showBot && <Chatbot onClose={() => setShowBot(false)} />}
     </ScrollView>
   );
@@ -135,20 +157,29 @@ const styles = StyleSheet.create({
   },
   chatFloating: {
     position: 'absolute',
-    bottom: 20,
+    top: 60,
     right: 16,
+    zIndex: 1000,
+  },
+  chatButton: {
     height: 56,
     width: 56,
     borderRadius: 28,
     backgroundColor: Colors.light.accentBlue,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
-    elevation: 6,
+    shadowColor: Colors.light.accentBlue,
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    elevation: 8,
+    borderWidth: 2,
+    borderColor: '#fff',
   },
-  chatIcon: { color: '#fff', fontSize: 22 },
+  chatIcon: { 
+    color: '#fff', 
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
 });
 
 

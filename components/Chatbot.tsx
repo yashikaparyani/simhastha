@@ -1,6 +1,8 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Modal, Dimensions } from 'react-native';
 import { Colors } from '@/constants/Colors';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 type Language = 'en' | 'hi';
 
@@ -76,63 +78,81 @@ export default function Chatbot({ onClose }: { onClose: () => void }) {
   );
 
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>{lang === 'en' ? 'Simhastha Assistant' : 'सिंहस्थ सहायक'}</Text>
-        <TouchableOpacity onPress={onClose} style={styles.closeBtn}>
-          <Text style={styles.closeText}>×</Text>
-        </TouchableOpacity>
-      </View>
-
-      <ScrollView 
-        ref={scrollRef} 
-        style={styles.messages} 
-        contentContainerStyle={{ padding: 12 }} 
-        onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: true })}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
-      >
-        {messages.map(m => (
-          <View key={m.id} style={[styles.bubble, m.author === 'user' ? styles.userBubble : styles.botBubble]}>
-            <Text style={[styles.bubbleText, m.author === 'user' ? styles.userBubbleText : styles.botBubbleText]}>{m.text}</Text>
+    <Modal
+      visible={true}
+      transparent={true}
+      animationType="fade"
+      onRequestClose={onClose}
+    >
+      <View style={styles.modalOverlay}>
+        <View style={styles.wrapper}>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>{lang === 'en' ? 'Simhastha Assistant' : 'सिंहस्थ सहायक'}</Text>
+            <TouchableOpacity onPress={onClose} style={styles.closeBtn}>
+              <Text style={styles.closeText}>×</Text>
+            </TouchableOpacity>
           </View>
-        ))}
-        {renderFAQButtons()}
-      </ScrollView>
 
-      <View style={styles.inputRow}>
-        <TextInput
-          placeholder={lang === 'en' ? 'Type a message' : 'संदेश लिखें'}
-          placeholderTextColor={Colors.light.icon}
-          style={styles.input}
-          value={input}
-          onChangeText={setInput}
-          onSubmitEditing={() => sendUser(input)}
-        />
-        <TouchableOpacity style={styles.sendBtn} onPress={() => sendUser(input)}>
-          <Text style={styles.sendText}>{lang === 'en' ? 'Send' : 'भेजें'}</Text>
-        </TouchableOpacity>
+          <ScrollView 
+            ref={scrollRef} 
+            style={styles.messages} 
+            contentContainerStyle={{ padding: 12 }} 
+            onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: true })}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            {messages.map(m => (
+              <View key={m.id} style={[styles.bubble, m.author === 'user' ? styles.userBubble : styles.botBubble]}>
+                <Text style={[styles.bubbleText, m.author === 'user' ? styles.userBubbleText : styles.botBubbleText]}>{m.text}</Text>
+              </View>
+            ))}
+            {renderFAQButtons()}
+          </ScrollView>
+
+          <View style={styles.inputRow}>
+            <TextInput
+              placeholder={lang === 'en' ? 'Type a message' : 'संदेश लिखें'}
+              placeholderTextColor={Colors.light.icon}
+              style={styles.input}
+              value={input}
+              onChangeText={setInput}
+              onSubmitEditing={() => sendUser(input)}
+            />
+            <TouchableOpacity style={styles.sendBtn} onPress={() => sendUser(input)}>
+              <Text style={styles.sendText}>{lang === 'en' ? 'Send' : 'भेजें'}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
-    </View>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
   wrapper: {
-    position: 'absolute',
-    bottom: 20,
-    right: 16,
-    width: 320,
-    maxHeight: 460,
+    width: screenWidth - 40,
+    maxHeight: screenHeight * 0.7,
     backgroundColor: Colors.light.card,
     borderWidth: 1,
     borderColor: Colors.light.border,
-    borderRadius: 12,
+    borderRadius: 16,
     overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
   },
   header: {
     backgroundColor: Colors.light.accentBlue,
-    paddingVertical: 10,
+    paddingVertical: 12,
     paddingHorizontal: 12,
     flexDirection: 'row',
     alignItems: 'center',

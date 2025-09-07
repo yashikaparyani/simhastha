@@ -66,26 +66,26 @@ export default function AdvertisementCarousel({
       setCurrentIndex((prevIndex) => {
         const nextIndex = (prevIndex + 1) % advertisements.length;
         scrollViewRef.current?.scrollTo({
-          x: nextIndex * screenWidth,
+          x: nextIndex * (screenWidth - 24), // Match slide width
           animated: true,
         });
         return nextIndex;
       });
-    }, 4000); // Change slide every 4 seconds
+    }, 2500); // Change slide every 2.5 seconds
 
     return () => clearInterval(interval);
   }, [advertisements.length]);
 
   const handleScroll = (event: any) => {
     const contentOffsetX = event.nativeEvent.contentOffset.x;
-    const index = Math.round(contentOffsetX / screenWidth);
+    const index = Math.round(contentOffsetX / (screenWidth - 24));
     setCurrentIndex(index);
   };
 
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
     scrollViewRef.current?.scrollTo({
-      x: index * screenWidth,
+      x: index * (screenWidth - 24),
       animated: true,
     });
   };
@@ -141,16 +141,17 @@ export default function AdvertisementCarousel({
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    marginVertical: 16,
+    marginVertical: 12,
+    paddingHorizontal: 0,
   },
   scrollView: {
     width: '100%',
   },
   slide: {
-    width: screenWidth - 40, // Account for container padding
-    height: 220,
+    width: screenWidth - 24, // Even better fit for phone screen
+    height: 180,
     position: 'relative',
-    marginHorizontal: 20,
+    marginHorizontal: 12,
   },
   adImage: {
     width: '100%',

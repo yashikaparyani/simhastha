@@ -19,7 +19,7 @@ const defaultNotices = [
 
 export default function NoticeMarquee({ 
   notices = defaultNotices,
-  speed = 50 
+  speed = 30 
 }: NoticeMarqueeProps) {
   const [currentNoticeIndex, setCurrentNoticeIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -28,25 +28,29 @@ export default function NoticeMarquee({
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentNoticeIndex((prevIndex) => (prevIndex + 1) % notices.length);
-    }, 5000); // Change notice every 5 seconds
+    }, 8000); // Change notice every 8 seconds
 
     return () => clearInterval(interval);
   }, [notices.length]);
 
   useEffect(() => {
     if (textWidth > 0) {
+      // Reset animation to start position
+      scrollX.setValue(0);
+      
       const animation = Animated.loop(
         Animated.timing(scrollX, {
           toValue: -textWidth - screenWidth,
           duration: (textWidth + screenWidth) * speed,
           useNativeDriver: true,
-        })
+        }),
+        { iterations: -1 } // Infinite loop
       );
       animation.start();
 
       return () => animation.stop();
     }
-  }, [textWidth, scrollX, speed]);
+  }, [textWidth, scrollX, speed, currentNoticeIndex]);
 
   const currentNotice = notices[currentNoticeIndex];
 
