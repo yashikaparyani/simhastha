@@ -22,10 +22,12 @@ const adminMenuItems: AdminMenuItem[] = [
   { id: '5', title: 'Payment Management', icon: '💳', route: 'admin-payment-management', description: 'Payments & Transactions' },
   { id: '6', title: 'Emergency Services', icon: '🆘', route: 'admin-emergency-services', description: 'Emergency Response' },
   { id: '7', title: 'Volunteer Management', icon: '🤝', route: 'admin-volunteer-management', description: 'Volunteer Coordination' },
-  { id: '8', title: 'Notifications', icon: '🔔', route: 'admin-notifications', description: 'Send Notifications' },
-  { id: '9', title: 'Heat Map', icon: '🗺️', route: 'admin-heatmap', description: 'Heatmap & Route Planning' },
-  { id: '10', title: 'Reports', icon: '📈', route: 'admin-reports', description: 'Analytics & Reports' },
-  { id: '11', title: 'Settings', icon: '⚙️', route: 'admin-settings', description: 'System Settings' },
+  { id: '8', title: 'Parking Management', icon: '🅿️', route: 'parking', description: 'Parking Zones & Video' },
+  { id: '9', title: 'Notice Management', icon: '📢', route: 'admin-notice-management', description: 'Manage Notice Marquee' },
+  { id: '10', title: 'Notifications', icon: '🔔', route: 'admin-notifications', description: 'Send Notifications' },
+  { id: '11', title: 'Heat Map', icon: '🗺️', route: 'admin-heatmap', description: 'Heatmap & Route Planning' },
+  { id: '12', title: 'Reports', icon: '📈', route: 'admin-reports', description: 'Analytics & Reports' },
+  { id: '13', title: 'Settings', icon: '⚙️', route: 'admin-settings', description: 'System Settings' },
 ];
 
 export default function AdminDashboard() {

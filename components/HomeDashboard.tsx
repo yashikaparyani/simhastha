@@ -3,6 +3,8 @@ import { ScrollView, View, Text, TouchableOpacity, StyleSheet, Dimensions } from
 import { Image as ExpoImage } from 'expo-image';
 import { Colors } from '@/constants/Colors';
 import Chatbot from '@/components/Chatbot';
+import AdvertisementCarousel from '@/components/AdvertisementCarousel';
+import NoticeMarquee from '@/components/NoticeMarquee';
 
 type Tile = {
   key: string;
@@ -25,19 +27,18 @@ const tiles: Tile[] = [
   { key: 'tripDetails', label: 'Trip Details', route: 'trip-details', emoji: '🚌' },
   { key: 'liveMap', label: 'Live Map', route: 'live-map', emoji: '🗺️' },
   { key: 'temple', label: 'Temple Slot', route: 'temple-slot', emoji: '🛕' },
+  { key: 'parking', label: 'Parking', route: 'parking', emoji: '🅿️' },
 ];
 
 export default function HomeDashboard({ navigation, userName = 'User' }: HomeDashboardProps) {
   const [showBot, setShowBot] = React.useState(false);
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.greeting}>Namaste,{userName}</Text>
+      {/* Notice Marquee */}
+      <NoticeMarquee />
 
-      <ExpoImage
-        source={require('@/assets/images/kumbh.jpeg')}
-        style={styles.logo}
-        contentFit="cover"
-      />
+      {/* Advertisement Carousel */}
+      <AdvertisementCarousel />
 
       <View style={styles.banner}>
         <Text style={styles.bannerText}>Welcome to <Text style={{ fontWeight: 'bold' }}>Simhastha</Text> app</Text>
@@ -75,25 +76,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     backgroundColor: Colors.light.background,
-  },
-  greeting: {
-    marginTop: 12,
-    width: '100%',
-    textAlign: 'center',
-    backgroundColor: Colors.light.card,
-    color: Colors.light.accentBlue,
-    fontWeight: 'bold',
-    paddingVertical: 10,
-    borderRadius: 8,
-    fontSize: 18,
-  },
-  logo: {
-    width: 180,
-    height: 180,
-    marginVertical: 16,
-    borderRadius: 90,
-    borderWidth: 3,
-    borderColor: Colors.light.accentOrange,
   },
   banner: {
     width: '100%',
