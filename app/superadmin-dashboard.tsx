@@ -1,7 +1,7 @@
-import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+import React from 'react';
+import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 type SuperAdminMenuItem = {
   id: string;
@@ -94,7 +94,7 @@ export default function SuperAdminDashboard() {
 
       <TouchableOpacity 
         style={styles.logoutButton} 
-        onPress={() => navigation.navigate('login')}
+        onPress={() => navigation.navigate('login' as never)}
       >
         <Text style={styles.logoutButtonText}>Logout</Text>
       </TouchableOpacity>

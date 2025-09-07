@@ -1,7 +1,9 @@
-import React, { useMemo, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, useWindowDimensions, Platform } from 'react-native';
-import { WebView } from 'react-native-webview';
+
 import { useLocation } from '@/contexts/LocationContext';
+import React, { useMemo, useState } from 'react';
+import { Platform, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import { WebView } from 'react-native-webview';
+
 
 type UjjainMapProps = {
   height?: number;
@@ -28,9 +30,103 @@ export default function UjjainMap({ height, showToggles = true, defaultHeatmap =
         #map { height: 100%; width: 100%; }
         .btns { position: absolute; top: 8px; right: 8px; display: flex; gap: 6px; z-index: 2; }
         .btn { font-family: sans-serif; padding: 6px 8px; font-size: 12px; border-radius: 8px; border: 1px solid #ffcc80; background:#ffe0b2; color:#e65100; }
+        .error { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:sans-serif; color:#d32f2f; background:#fff; }
       </style>
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzakCzViqQ1UF13ekm_W4jD0CKm4k1nqQ&libraries=visualization,geometry"></script>
       <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
+      <script>
+        // Safely pass start/end values from React
+        const START = ${JSON.stringify(startLocation ?? null)};
+        const END = ${JSON.stringify(endLocation ?? 'Ujjain')};
+        let map, heatmap, clusterer, trafficLayer, directionsService, directionsRenderer;
+        let markers = [];
+
+        function initMap() {
+          try {
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: { lat: 23.1793, lng: 75.7849 },
+              zoom: 6,
+              disableDefaultUI: true
+            });
+
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer({
+              polylineOptions: { strokeColor: '#2196F3', strokeWeight: 4, strokeOpacity: 0.8 },
+              suppressMarkers: false
+            });
+            directionsRenderer.setMap(map);
+
+            // Initialize empty heatmap and clusterer; will be populated after route
+            heatmap = new google.maps.visualization.HeatmapLayer({ data: [], radius: 40 });
+            ${heatOn ? 'heatmap.setMap(map);' : ''}
+
+            clusterer = new MarkerClusterer(map, [], { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
+
+            trafficLayer = new google.maps.TrafficLayer();
+            ${trafficOn ? 'trafficLayer.setMap(map);' : ''}
+
+            if (START) {
+              calculateRoute(START, END || 'Ujjain');
+            }
+          } catch (e) {
+            showError(e && e.message ? e.message : 'Map initialization failed');
+          }
+        }
+
+        function showError(msg) {
+          const div = document.createElement('div');
+          div.className = 'error';
+          div.textContent = 'Google Map failed to load: ' + msg;
+          document.body.appendChild(div);
+        }
+
+        function calculateRoute(start, end) {
+          const request = {
+            origin: start,
+            destination: end,
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            drivingOptions: { departureTime: new Date(), trafficModel: 'bestguess' }
+          };
+
+          directionsService.route(request, function(result, status) {
+            if (status === 'OK') {
+              directionsRenderer.setDirections(result);
+              const route = result.routes[0];
+              buildRouteLayers(route);
+
+              const bounds = new google.maps.LatLngBounds();
+              for (let i = 0; i < route.overview_path.length; i++) { bounds.extend(route.overview_path[i]); }
+              map.fitBounds(bounds);
+            } else {
+              showError('Directions request failed: ' + status);
+            }
+          });
+        }
+
+        function buildRouteLayers(route) {
+          if (clusterer) { clusterer.clearMarkers(); }
+          markers = [];
+
+          const legs = route.legs || [];
+          const fullPath = [];
+          for (let li = 0; li < legs.length; li++) {
+            const steps = legs[li].steps || [];
+            for (let si = 0; si < steps.length; si++) {
+              const stepPath = steps[si].path || [];
+              for (let pi = 0; pi < stepPath.length; pi++) { fullPath.push(stepPath[pi]); }
+            }
+          }
+
+          const path = fullPath.length ? fullPath : (route.overview_path || []);
+          const heatmapData = [];
+          for (let i = 0; i < path.length; i++) { heatmapData.push(path[i]); }
+          for (let i = 0; i < path.length; i += 5) { markers.push(new google.maps.Marker({ position: path[i] })); }
+
+          heatmap.setData(heatmapData);
+          clusterer.addMarkers(markers);
+        }
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzakCzViqQ1UF13ekm_W4jD0CKm4k1nqQ&libraries=visualization,geometry&callback=initMap" async defer></script>
     </head>
     <body>
       <div id="map"></div>
@@ -39,91 +135,15 @@ export default function UjjainMap({ height, showToggles = true, defaultHeatmap =
         <button id="toggleTraffic" class="btn">Traffic</button>
       </div>
       <script>
-        let map, heatmap, clusterer, trafficLayer, directionsService, directionsRenderer;
-        let markers = [];
-
-        function initMap() {
-          map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 23.1793, lng: 75.7849 },
-            zoom: 10,
-            disableDefaultUI: true
-          });
-
-          // Initialize Directions Service and Renderer
-          directionsService = new google.maps.DirectionsService();
-          directionsRenderer = new google.maps.DirectionsRenderer({
-            polylineOptions: {
-              strokeColor: '#2196F3',
-              strokeWeight: 4,
-              strokeOpacity: 0.8
-            },
-            suppressMarkers: false
-          });
-          directionsRenderer.setMap(map);
-
-          const heatmapData = [];
-          for (let i = 0; i < 300; i++) {
-            const lat = 23.10 + Math.random() * 0.25;
-            const lng = 75.65 + Math.random() * 0.25;
-            const latLng = new google.maps.LatLng(lat, lng);
-            const marker = new google.maps.Marker({ position: latLng });
-            markers.push(marker);
-            heatmapData.push(latLng);
-          }
-
-          clusterer = new MarkerClusterer(map, markers, {
-            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-          });
-
-          heatmap = new google.maps.visualization.HeatmapLayer({ data: heatmapData, radius: 40 });
-          ${heatOn ? 'heatmap.setMap(map);' : ''}
-
-          trafficLayer = new google.maps.TrafficLayer();
-          ${trafficOn ? 'trafficLayer.setMap(map);' : ''}
-
-          // Calculate and display route if start location is available
-          ${startLocation ? `
-          calculateRoute('${startLocation}', 'Ujjain');
-          ` : ''}
-
-          document.getElementById('toggleHeat').addEventListener('click', function() {
-            heatmap.setMap(heatmap.getMap() ? null : map);
-          });
-          document.getElementById('toggleTraffic').addEventListener('click', function() {
-            trafficLayer.setMap(trafficLayer.getMap() ? null : map);
-          });
-        }
-
-        function calculateRoute(start, end) {
-          const request = {
-            origin: start,
-            destination: end,
-            travelMode: google.maps.TravelMode.DRIVING,
-            unitSystem: google.maps.UnitSystem.METRIC
-          };
-
-          directionsService.route(request, function(result, status) {
-            if (status === 'OK') {
-              directionsRenderer.setDirections(result);
-              
-              // Auto-fit the map to show the entire route
-              const bounds = new google.maps.LatLngBounds();
-              const route = result.routes[0];
-              for (let i = 0; i < route.overview_path.length; i++) {
-                bounds.extend(route.overview_path[i]);
-              }
-              map.fitBounds(bounds);
-            } else {
-              console.log('Directions request failed: ' + status);
-            }
-          });
-        }
-
-        window.initMap = initMap;
-        window.onload = initMap;
+        document.getElementById('toggleHeat').addEventListener('click', function() {
+          if (!window.heatmap) return; heatmap.setMap(heatmap.getMap() ? null : map);
+        });
+        document.getElementById('toggleTraffic').addEventListener('click', function() {
+          if (!window.trafficLayer) return; trafficLayer.setMap(trafficLayer.getMap() ? null : map);
+        });
       </script>
     </body>
-  </html>`, [heatOn, trafficOn, startLocation]);
+  </html>`, [heatOn, trafficOn, startLocation, endLocation]);
 
   return (
     <View style={styles.container}>

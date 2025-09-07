@@ -1,5 +1,3 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
 import { Colors } from '@/constants/Colors';
 import Chatbot from '@/components/Chatbot';
