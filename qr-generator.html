@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - महाकालेश्वर मंदिर</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            color: #1e3c72;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .spaghetti {
+            font-size: 40px;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .temple-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #1e3c72;
+        }
+
+        .subtitle {
+            color: #2a5298;
+            margin-bottom: 30px;
+        }
+
+        .qr-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .qr-code {
+            margin: 20px 0;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 20px 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .info {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #2a5298;
+        }
+
+        .url-display {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            word-break: break-all;
+            font-family: monospace;
+            color: #333;
+        }
+
+        .instructions {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .instructions h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+        }
+
+        .instructions ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .instructions li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #2a5298;
+        }
+
+        .instructions li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="spaghetti">🍝</div>
+            <div class="temple-icon">🛕</div>
+            <h1>महाकालेश्वर मंदिर</h1>
+            <p class="subtitle">QR कोड जेनरेटर</p>
+        </div>
+
+        <div class="qr-container">
+            <h3 style="color: #1e3c72; margin-bottom: 20px;">📱 डिजिटल पास QR कोड</h3>
+            <div class="qr-code">
+                <canvas id="qrcode"></canvas>
+            </div>
+            <p style="color: #666; margin: 15px 0;">इस QR कोड को स्कैन करके मंदिर की जानकारी देखें</p>
+        </div>
+
+        <div class="info">
+            <h4 style="color: #1e3c72; margin-bottom: 10px;">🔗 लिंक जानकारी</h4>
+            <div class="url-display" id="urlDisplay">
+                temple-welcome.html
+            </div>
+            <p style="color: #2a5298; font-size: 0.9em;">
+                यह QR कोड स्कैन करने पर स्वागत पेज खुलेगा
+            </p>
+        </div>
+
+        <button class="download-btn" onclick="downloadQR()">
+            📥 QR कोड डाउनलोड करें
+        </button>
+
+        <button class="download-btn" onclick="openWelcomePage()" style="background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);">
+            🛕 स्वागत पेज खोलें
+        </button>
+
+        <div class="instructions">
+            <h3>📋 उपयोग के निर्देश</h3>
+            <ul>
+                <li>QR कोड को अपने मोबाइल कैमरा से स्कैन करें</li>
+                <li>स्वागत पेज पर आपकी बुकिंग की जानकारी दिखेगी</li>
+                <li>हर बार स्कैन करने पर नई जानकारी मिलेगी</li>
+                <li>QR कोड को प्रिंट करके भी इस्तेमाल कर सकते हैं</li>
+                <li>मंदिर में इस QR कोड को दिखाकर प्रवेश करें</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Generate QR Code for the temple welcome page
+        const welcomePageUrl = './temple-welcome.html';
+        
+        // Update URL display
+        document.getElementById('urlDisplay').textContent = welcomePageUrl;
+
+        // Generate QR Code
+        QRCode.toCanvas(document.getElementById('qrcode'), welcomePageUrl, {
+            width: 250,
+            height: 250,
+            color: {
+                dark: '#1e3c72',
+                light: '#ffffff'
+            },
+            margin: 2,
+            errorCorrectionLevel: 'M'
+        }, function (error) {
+            if (error) {
+                console.error('QR Code generation error:', error);
+                document.getElementById('qrcode').innerHTML = '<p style="color: red;">QR कोड जेनरेट करने में त्रुटि</p>';
+            } else {
+                console.log('QR Code generated successfully!');
+            }
+        });
+
+        // Download QR Code as PNG
+        function downloadQR() {
+            const canvas = document.getElementById('qrcode');
+            const link = document.createElement('a');
+            link.download = 'mahakaleshwar-temple-qr.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Open welcome page
+        function openWelcomePage() {
+            window.open(welcomePageUrl, '_blank');
+        }
+
+        // Add click effect to QR code
+        document.getElementById('qrcode').addEventListener('click', function() {
+            alert('QR कोड स्कैन करने के लिए अपने मोबाइल कैमरा का उपयोग करें!\n\nया फिर "स्वागत पेज खोलें" बटन पर क्लिक करें।');
+        });
+
+        // Add some visual feedback
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>
