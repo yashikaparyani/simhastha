@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity, TextInput, Alert, Platform } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+import { Colors } from '@/constants/Colors';
 // Using simple modal approach instead of DateTimePicker
 import * as Notifications from 'expo-notifications';
 
@@ -302,23 +303,23 @@ export default function TempleSlot() {
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, alignItems: 'center', padding: 16, backgroundColor: '#fff8e7' },
-  header: { width: '100%', textAlign: 'center', backgroundColor: '#ffe0b2', color: '#e65100', fontWeight: 'bold', paddingVertical: 12, borderRadius: 10, fontSize: 20, marginBottom: 12 },
+  container: { flexGrow: 1, alignItems: 'center', padding: 16, backgroundColor: Colors.light.background },
+  header: { width: '100%', textAlign: 'center', backgroundColor: Colors.light.card, color: Colors.light.accentBlue, fontWeight: 'bold', paddingVertical: 12, borderRadius: 10, fontSize: 20, marginBottom: 12 },
   centerBanner: { width: '100%', alignItems: 'center', marginBottom: 8 },
-  slogan: { color: '#e65100' },
-  templeCard: { width: '100%', backgroundColor: '#fff7e6', borderWidth: 1, borderColor: '#ffdcab', borderRadius: 12, padding: 12, marginBottom: 10 },
-  templeName: { color: '#e65100', fontWeight: '700' },
-  templeMeta: { color: '#000', marginTop: 6 },
+  slogan: { color: Colors.light.accentOrange },
+  templeCard: { width: '100%', backgroundColor: Colors.light.card, borderWidth: 1, borderColor: Colors.light.border, borderRadius: 12, padding: 12, marginBottom: 10 },
+  templeName: { color: Colors.light.accentBlue, fontWeight: '700' },
+  templeMeta: { color: Colors.light.text, marginTop: 6 },
   
   // New styles for Add Temple functionality
   addTempleBtn: {
     width: '100%',
-    backgroundColor: '#e65100',
+    backgroundColor: Colors.light.accentBlue,
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: 'center',
     marginVertical: 12,
-    shadowColor: '#ff9800',
+    shadowColor: Colors.light.accentBlue,
     shadowOpacity: 0.3,
     shadowRadius: 6,
     elevation: 4,
@@ -330,15 +331,15 @@ const styles = StyleSheet.create({
   },
   addTempleForm: {
     width: '100%',
-    backgroundColor: '#fff3e0',
+    backgroundColor: Colors.light.card,
     borderWidth: 1,
-    borderColor: '#ff9800',
+    borderColor: Colors.light.border,
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
   },
   formTitle: {
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     fontSize: 18,
     marginBottom: 12,
@@ -346,18 +347,18 @@ const styles = StyleSheet.create({
   },
   templeInput: {
     borderWidth: 1,
-    borderColor: '#ff7043',
+    borderColor: Colors.light.border,
     borderRadius: 8,
     padding: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.background,
     fontSize: 16,
-    color: '#000',
+    color: Colors.light.text,
     marginBottom: 8,
   },
   suggestionsContainer: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.background,
     borderWidth: 1,
-    borderColor: '#ffcc80',
+    borderColor: Colors.light.border,
     borderRadius: 8,
     marginBottom: 12,
     maxHeight: 150,
@@ -365,22 +366,22 @@ const styles = StyleSheet.create({
   suggestionItem: {
     padding: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: Colors.light.border,
   },
   suggestionText: {
-    color: '#000',
+    color: Colors.light.text,
     fontSize: 14,
   },
   dateTimeBtn: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.background,
     borderWidth: 1,
-    borderColor: '#ff7043',
+    borderColor: Colors.light.border,
     borderRadius: 8,
     padding: 12,
     marginBottom: 8,
   },
   dateTimeBtnText: {
-    color: '#000',
+    color: Colors.light.text,
     fontSize: 16,
     textAlign: 'center',
   },
@@ -391,7 +392,7 @@ const styles = StyleSheet.create({
   },
   cancelBtn: {
     flex: 1,
-    backgroundColor: '#ff8a65',
+    backgroundColor: Colors.light.accentOrange,
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',
@@ -403,7 +404,7 @@ const styles = StyleSheet.create({
   },
   saveBtn: {
     flex: 1,
-    backgroundColor: '#e65100',
+    backgroundColor: Colors.light.accentBlue,
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',
@@ -420,56 +421,56 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   plannedVisitsTitle: {
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     fontSize: 18,
     marginBottom: 8,
     textAlign: 'center',
   },
   plannedVisitCard: {
-    backgroundColor: '#fff7e6',
+    backgroundColor: Colors.light.card,
     borderWidth: 1,
-    borderColor: '#ffdcab',
+    borderColor: Colors.light.border,
     borderRadius: 12,
     padding: 12,
     marginBottom: 8,
   },
   plannedVisitName: {
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     fontSize: 16,
     marginBottom: 4,
   },
   plannedVisitMeta: {
-    color: '#000',
+    color: Colors.light.text,
     fontSize: 14,
     marginBottom: 2,
   },
   crowdedWarning: {
-    color: '#ff4444',
+    color: Colors.light.error,
     fontWeight: 'bold',
     fontSize: 12,
     marginTop: 4,
   },
   plannedVisitDetail: {
-    color: '#1976d2',
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     fontSize: 13,
     marginTop: 4,
   },
   
   // Existing styles
-  summaryCard: { width: '100%', backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#e0e0e0', borderRadius: 12, padding: 12, marginTop: 4 },
-  qrBox: { width: 60, height: 60, borderWidth: 1, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 8 },
+  summaryCard: { width: '100%', backgroundColor: Colors.light.card, borderWidth: 1, borderColor: Colors.light.border, borderRadius: 12, padding: 12, marginTop: 4 },
+  qrBox: { width: 60, height: 60, borderWidth: 1, borderColor: Colors.light.border, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 8 },
   qrBoxLarge: { alignItems: 'center', justifyContent: 'center', marginVertical: 16 },
-  qrText: { color: '#000' },
-  infoRow: { color: '#000', marginBottom: 6, textAlign: 'center' },
+  qrText: { color: Colors.light.text },
+  infoRow: { color: Colors.light.text, marginBottom: 6, textAlign: 'center' },
   summaryRow: { flexDirection: 'row', justifyContent: 'space-between', gap: 8 },
-  summaryPill: { flex: 1, backgroundColor: '#fff8e7', borderRadius: 10, paddingVertical: 10, alignItems: 'center', borderWidth: 1, borderColor: '#eee' },
-  summaryPillText: { color: '#000', fontSize: 12 },
-  notes: { backgroundColor: '#f5f5f5', borderRadius: 8, padding: 10, marginTop: 8 },
-  noteText: { color: '#000', opacity: 0.7, fontSize: 12 },
-  homeBtn: { backgroundColor: '#e65100', paddingVertical: 14, borderRadius: 12, alignItems: 'center', width: '100%', marginTop: 14 },
+  summaryPill: { flex: 1, backgroundColor: Colors.light.background, borderRadius: 10, paddingVertical: 10, alignItems: 'center', borderWidth: 1, borderColor: Colors.light.border },
+  summaryPillText: { color: Colors.light.text, fontSize: 12 },
+  notes: { backgroundColor: Colors.light.card, borderRadius: 8, padding: 10, marginTop: 8 },
+  noteText: { color: Colors.light.text, opacity: 0.7, fontSize: 12 },
+  homeBtn: { backgroundColor: Colors.light.accentBlue, paddingVertical: 14, borderRadius: 12, alignItems: 'center', width: '100%', marginTop: 14 },
   homeBtnText: { color: '#fff', fontWeight: '700' },
 });
 

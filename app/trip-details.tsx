@@ -8,6 +8,7 @@ import {
   TouchableOpacity 
 } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+import { Colors } from '@/constants/Colors';
 
 export default function TripDetails() {
   const navigation = useNavigation();
@@ -106,22 +107,22 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#fff8e7',
+    backgroundColor: Colors.light.background,
   },
   logo: {
     width: 90,
     height: 90,
     borderRadius: 45,
     borderWidth: 2,
-    borderColor: '#e65100',
+    borderColor: Colors.light.accentOrange,
     marginTop: 10,
   },
   header: {
     marginTop: 12,
     width: '100%',
     textAlign: 'center',
-    backgroundColor: '#ffe0b2',
-    color: '#e65100',
+    backgroundColor: Colors.light.card,
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     paddingVertical: 12,
     borderRadius: 10,
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
   },
   section: {
     width: '100%',
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.card,
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   sectionTitle: {
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     fontSize: 18,
     marginBottom: 12,
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
   },
   tableContainer: {
     borderWidth: 1,
-    borderColor: '#ffcc80',
+    borderColor: Colors.light.border,
     borderRadius: 8,
     overflow: 'hidden',
   },
@@ -165,22 +166,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 12,
     paddingHorizontal: 16,
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.card,
     borderBottomWidth: 1,
-    borderBottomColor: '#ffcc80',
+    borderBottomColor: Colors.light.border,
   },
   alternateRow: {
-    backgroundColor: '#fff8e7',
+    backgroundColor: Colors.light.background,
   },
   fieldLabel: {
     flex: 1,
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontWeight: '600',
     fontSize: 14,
   },
   fieldValue: {
     flex: 1,
-    color: '#000000',
+    color: Colors.light.text,
     fontWeight: '500',
     fontSize: 14,
     textAlign: 'right',
@@ -201,13 +202,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   supportText: {
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontWeight: '600',
     fontSize: 16,
   },
   homeButton: {
     width: '100%',
-    backgroundColor: '#e65100',
+    backgroundColor: Colors.light.accentBlue,
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: 'center',

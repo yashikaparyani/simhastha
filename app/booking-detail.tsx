@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+import { Colors } from '@/constants/Colors';
 
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
@@ -60,44 +61,44 @@ export default function BookingDetail() {
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, alignItems: 'center', padding: 16, backgroundColor: '#fff8e7' },
-  header: { width: '100%', color: '#e65100', fontWeight: '800', fontSize: 18, marginBottom: 8 },
-  header2: { width: '100%', color: '#e65100', fontWeight: '800', fontSize: 18, marginVertical: 8 },
-  card: { width: '100%', backgroundColor: '#fff3e0', borderWidth: 1, borderColor: '#ffcc80', borderRadius: 12, padding: 12 },
-  title: { color: '#e65100', fontWeight: '800', marginBottom: 8 },
-  infoRow: { color: '#000', marginBottom: 4 },
+  container: { flexGrow: 1, alignItems: 'center', padding: 16, backgroundColor: Colors.light.background },
+  header: { width: '100%', color: Colors.light.accentBlue, fontWeight: '800', fontSize: 18, marginBottom: 8 },
+  header2: { width: '100%', color: Colors.light.accentBlue, fontWeight: '800', fontSize: 18, marginVertical: 8 },
+  card: { width: '100%', backgroundColor: Colors.light.card, borderWidth: 1, borderColor: Colors.light.border, borderRadius: 12, padding: 12 },
+  title: { color: Colors.light.accentBlue, fontWeight: '800', marginBottom: 8 },
+  infoRow: { color: Colors.light.text, marginBottom: 4 },
   bold: { fontWeight: '700' },
-  value: { color: '#000' },
-  orderCard: { width: '100%', backgroundColor: '#fff7e6', borderWidth: 1, borderColor: '#ffdcab', borderRadius: 12, padding: 12, marginBottom: 10 },
-  orderName: { color: '#e65100', fontWeight: '700' },
-  orderId: { color: '#bdbdbd', fontWeight: '700', fontSize: 12 },
-  orderMeta: { color: '#000', marginTop: 6 },
-  summaryCard: { width: '100%', backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#e0e0e0', borderRadius: 12, padding: 12, marginTop: 4 },
-  qrBox: { width: 60, height: 60, borderWidth: 1, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 8 },
+  value: { color: Colors.light.text },
+  orderCard: { width: '100%', backgroundColor: Colors.light.card, borderWidth: 1, borderColor: Colors.light.border, borderRadius: 12, padding: 12, marginBottom: 10 },
+  orderName: { color: Colors.light.accentBlue, fontWeight: '700' },
+  orderId: { color: Colors.light.icon, fontWeight: '700', fontSize: 12 },
+  orderMeta: { color: Colors.light.text, marginTop: 6 },
+  summaryCard: { width: '100%', backgroundColor: Colors.light.card, borderWidth: 1, borderColor: Colors.light.border, borderRadius: 12, padding: 12, marginTop: 4 },
+  qrBox: { width: 60, height: 60, borderWidth: 1, borderColor: Colors.light.border, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 8 },
   qrBoxLarge: {
     width: 120,
     height: 120,
     borderWidth: 1,
-    borderColor: '#9e9e9e',
+    borderColor: Colors.light.border,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
     marginVertical: 16,
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.light.background,
     borderRadius: 16,
     shadowColor: '#000',
     shadowOpacity: 0.06,
     shadowRadius: 6,
     elevation: 2,
   },
-  qrText: { color: '#000' },
+  qrText: { color: Colors.light.text },
   summaryRow: { flexDirection: 'row', justifyContent: 'space-between', gap: 8 },
-  summaryPill: { flex: 1, backgroundColor: '#fff8e7', borderRadius: 10, paddingVertical: 10, alignItems: 'center', borderWidth: 1, borderColor: '#eee' },
-  summaryPillText: { color: '#000', fontSize: 12 },
-  notes: { backgroundColor: '#f5f5f5', borderRadius: 8, padding: 10, marginTop: 8 },
-  noteText: { color: '#000', opacity: 0.7, fontSize: 12 },
-  homeBtn: { backgroundColor: '#e65100', paddingVertical: 14, borderRadius: 12, alignItems: 'center', width: '100%', marginTop: 14 },
+  summaryPill: { flex: 1, backgroundColor: Colors.light.background, borderRadius: 10, paddingVertical: 10, alignItems: 'center', borderWidth: 1, borderColor: Colors.light.border },
+  summaryPillText: { color: Colors.light.text, fontSize: 12 },
+  notes: { backgroundColor: Colors.light.card, borderRadius: 8, padding: 10, marginTop: 8 },
+  noteText: { color: Colors.light.text, opacity: 0.7, fontSize: 12 },
+  homeBtn: { backgroundColor: Colors.light.accentBlue, paddingVertical: 14, borderRadius: 12, alignItems: 'center', width: '100%', marginTop: 14 },
   homeBtnText: { color: '#fff', fontWeight: '700' },
 });
 

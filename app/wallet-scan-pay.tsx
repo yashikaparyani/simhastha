@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+import { Colors } from '@/constants/Colors';
 import { useNotification } from '@/contexts/NotificationContext';
 
 export default function WalletScanPay() {
@@ -147,22 +148,22 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#fff8e7',
+    backgroundColor: Colors.light.background,
   },
   logo: {
     width: 90,
     height: 90,
     borderRadius: 45,
     borderWidth: 2,
-    borderColor: '#e65100',
+    borderColor: Colors.light.accentOrange,
     marginTop: 10,
   },
   header: {
     marginTop: 12,
     width: '100%',
     textAlign: 'center',
-    backgroundColor: '#ffe0b2',
-    color: '#e65100',
+    backgroundColor: Colors.light.card,
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     paddingVertical: 12,
     borderRadius: 10,
@@ -171,23 +172,23 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '100%',
-    backgroundColor: '#fff3e0',
+    backgroundColor: Colors.light.card,
     borderWidth: 1,
-    borderColor: '#ff9800',
+    borderColor: Colors.light.border,
     borderRadius: 16,
     padding: 16,
     marginBottom: 12,
   },
   sectionTitle: {
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontWeight: '700',
     fontSize: 16,
     marginBottom: 12,
   },
   scanButton: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.background,
     borderWidth: 2,
-    borderColor: '#e65100',
+    borderColor: Colors.light.accentBlue,
     borderStyle: 'dashed',
     borderRadius: 12,
     padding: 30,
@@ -195,28 +196,28 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   scanButtonActive: {
-    backgroundColor: '#ffe0b2',
-    borderColor: '#ff9800',
+    backgroundColor: Colors.light.card,
+    borderColor: Colors.light.accentOrange,
   },
   scanEmoji: {
     fontSize: 40,
     marginBottom: 8,
   },
   scanText: {
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontWeight: '600',
     fontSize: 16,
   },
   merchantCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.background,
     borderWidth: 1,
-    borderColor: '#ffcc80',
+    borderColor: Colors.light.border,
     borderRadius: 10,
     padding: 12,
     marginBottom: 16,
   },
   merchantTitle: {
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontWeight: '700',
     fontSize: 14,
     marginBottom: 8,
@@ -227,25 +228,26 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   merchantLabel: {
-    color: '#000',
+    color: Colors.light.text,
     opacity: 0.7,
     fontSize: 14,
   },
   merchantValue: {
-    color: '#000',
+    color: Colors.light.text,
     fontWeight: '600',
     fontSize: 14,
   },
   amountInput: {
     borderWidth: 1,
-    borderColor: '#ff7043',
+    borderColor: Colors.light.border,
     borderRadius: 10,
     padding: 14,
     marginBottom: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.background,
     fontSize: 18,
     textAlign: 'center',
     fontWeight: '600',
+    color: Colors.light.text,
   },
   predefinedAmounts: {
     flexDirection: 'row',
@@ -254,27 +256,27 @@ const styles = StyleSheet.create({
   },
   amountBtn: {
     width: '48%',
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.background,
     borderWidth: 1,
-    borderColor: '#ffcc80',
+    borderColor: Colors.light.border,
     borderRadius: 8,
     paddingVertical: 10,
     alignItems: 'center',
     marginBottom: 8,
   },
   amountBtnActive: {
-    backgroundColor: '#e65100',
-    borderColor: '#e65100',
+    backgroundColor: Colors.light.accentBlue,
+    borderColor: Colors.light.accentBlue,
   },
   amountBtnText: {
-    color: '#000',
+    color: Colors.light.text,
     fontWeight: '600',
   },
   amountBtnTextActive: {
     color: '#fff',
   },
   payButton: {
-    backgroundColor: '#e65100',
+    backgroundColor: Colors.light.accentBlue,
     paddingVertical: 16,
     borderRadius: 12,
     width: '100%',

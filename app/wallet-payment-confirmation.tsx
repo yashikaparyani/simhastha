@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+import { Colors } from '@/constants/Colors';
 
 type PaymentConfirmationParams = {
   amount: number;
@@ -160,22 +161,22 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#fff8e7',
+    backgroundColor: Colors.light.background,
   },
   logo: {
     width: 90,
     height: 90,
     borderRadius: 45,
     borderWidth: 2,
-    borderColor: '#e65100',
+    borderColor: Colors.light.accentOrange,
     marginTop: 10,
   },
   header: {
     marginTop: 12,
     width: '100%',
     textAlign: 'center',
-    backgroundColor: '#ffe0b2',
-    color: '#e65100',
+    backgroundColor: Colors.light.card,
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     paddingVertical: 12,
     borderRadius: 10,
@@ -184,9 +185,9 @@ const styles = StyleSheet.create({
   },
   processingCard: {
     width: '100%',
-    backgroundColor: '#fff3e0',
+    backgroundColor: Colors.light.card,
     borderWidth: 1,
-    borderColor: '#ff9800',
+    borderColor: Colors.light.border,
     borderRadius: 16,
     padding: 24,
     alignItems: 'center',
@@ -197,22 +198,22 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   processingTitle: {
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     fontSize: 20,
     marginBottom: 8,
   },
   processingText: {
-    color: '#000',
+    color: Colors.light.text,
     opacity: 0.7,
     textAlign: 'center',
     fontSize: 16,
   },
   successCard: {
     width: '100%',
-    backgroundColor: '#fff3e0',
+    backgroundColor: Colors.light.card,
     borderWidth: 1,
-    borderColor: '#4caf50',
+    borderColor: Colors.light.success,
     borderRadius: 16,
     padding: 24,
     alignItems: 'center',
@@ -223,22 +224,22 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   successTitle: {
-    color: '#4caf50',
+    color: Colors.light.success,
     fontWeight: 'bold',
     fontSize: 20,
     marginBottom: 8,
   },
   successAmount: {
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontSize: 32,
     fontWeight: '800',
     marginBottom: 20,
   },
   detailsCard: {
     width: '100%',
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.background,
     borderWidth: 1,
-    borderColor: '#ffcc80',
+    borderColor: Colors.light.border,
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
@@ -249,22 +250,22 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   detailLabel: {
-    color: '#000',
+    color: Colors.light.text,
     opacity: 0.7,
     fontSize: 14,
   },
   detailValue: {
-    color: '#000',
+    color: Colors.light.text,
     fontWeight: '600',
     fontSize: 14,
   },
   statusText: {
-    color: '#4caf50',
+    color: Colors.light.success,
     fontWeight: 'bold',
     fontSize: 18,
   },
   backButton: {
-    backgroundColor: '#e65100',
+    backgroundColor: Colors.light.accentBlue,
     paddingVertical: 16,
     borderRadius: 12,
     width: '100%',
@@ -277,7 +278,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   errorText: {
-    color: '#f44336',
+    color: Colors.light.error,
     fontSize: 18,
     textAlign: 'center',
   },
