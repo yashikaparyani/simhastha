@@ -12,6 +12,7 @@ import {
   FlatList,
   Dimensions
 } from 'react-native';
+import { Colors } from '@/constants/Colors';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -189,26 +190,26 @@ const UserManagement = () => {
   const getRoleColor = (role: string) => {
     switch (role.toLowerCase()) {
       case 'admin':
-        return '#d32f2f';
+        return Colors.light.accentBlue;
       case 'manager':
-        return '#1976d2';
+        return Colors.light.accentBlue;
       case 'staff':
-        return '#388e3c';
+        return Colors.light.accentBlue;
       default:
-        return '#666';
+        return Colors.light.icon;
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
       case 'active':
-        return '#388e3c';
+        return Colors.light.accentBlue;
       case 'inactive':
-        return '#f57c00';
+        return Colors.light.accentOrange;
       case 'suspended':
-        return '#d32f2f';
+        return Colors.light.accentOrange;
       default:
-        return '#666';
+        return Colors.light.icon;
     }
   };
 
@@ -246,7 +247,7 @@ const UserManagement = () => {
       <View style={styles.gridContainer}>
         {/* Enhanced Stats Cards - exact Material-UI structure */}
         <View style={styles.statsRow}>
-          <View style={[styles.statCard, { backgroundColor: '#1976d2' }]}>
+          <View style={[styles.statCard, { backgroundColor: Colors.light.accentBlue }]}>
             <View style={styles.statContent}>
               <View>
                 <Text style={styles.statNumber}>{stats.total}</Text>
@@ -256,7 +257,7 @@ const UserManagement = () => {
             </View>
           </View>
           
-          <View style={[styles.statCard, { backgroundColor: '#388e3c' }]}>
+          <View style={[styles.statCard, { backgroundColor: Colors.light.accentBlue }]}>
             <View style={styles.statContent}>
               <View>
                 <Text style={styles.statNumber}>{stats.active}</Text>
@@ -266,7 +267,7 @@ const UserManagement = () => {
             </View>
           </View>
           
-          <View style={[styles.statCard, { backgroundColor: '#d32f2f' }]}>
+          <View style={[styles.statCard, { backgroundColor: Colors.light.accentOrange }]}>
             <View style={styles.statContent}>
               <View>
                 <Text style={styles.statNumber}>{stats.admins}</Text>
@@ -276,7 +277,7 @@ const UserManagement = () => {
             </View>
           </View>
           
-          <View style={[styles.statCard, { backgroundColor: '#0288d1' }]}>
+          <View style={[styles.statCard, { backgroundColor: Colors.light.accentBlue }]}>
             <View style={styles.statContent}>
               <View>
                 <Text style={styles.statNumber}>{stats.managers}</Text>
@@ -442,33 +443,33 @@ const UserManagement = () => {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.tableContainer}>
               <View style={styles.tableHeader}>
-                <Text style={styles.tableHeaderCell}>User</Text>
-                <Text style={styles.tableHeaderCell}>Contact</Text>
+                <Text style={[styles.tableHeaderCell, styles.colUserWidth]}>User</Text>
+                <Text style={[styles.tableHeaderCell, styles.colContactWidth]}>Contact</Text>
                 <Text style={styles.tableHeaderCell}>Role</Text>
                 <Text style={styles.tableHeaderCell}>Status</Text>
-                <Text style={styles.tableHeaderCell}>Department</Text>
-                <Text style={styles.tableHeaderCell}>Last Login</Text>
+                <Text style={[styles.tableHeaderCell, styles.colDeptWidth]}>Department</Text>
+                <Text style={[styles.tableHeaderCell, styles.colLoginWidth]}>Last Login</Text>
                 <Text style={styles.tableHeaderCell}>Actions</Text>
               </View>
               
               {filteredUsers.map((user) => (
                 <View key={user.id} style={styles.tableRow}>
-                                     <View style={styles.tableCell}>
+                  <View style={[styles.tableCell, styles.colUserWidth]}>
                      <View style={styles.userCell}>
                        <View style={[styles.avatar, { backgroundColor: getRoleColor(user.role) }]}>
                          <Text style={styles.avatarText}>{user.name.charAt(0).toUpperCase()}</Text>
                        </View>
                        <View style={{ flex: 1, minWidth: 0 }}>
-                         <Text style={styles.tableUserName}>{user.name}</Text>
-                         <Text style={styles.userJobTitle}>{user.jobTitle}</Text>
+                         <Text numberOfLines={1} ellipsizeMode="tail" style={styles.tableUserName}>{user.name}</Text>
+                         <Text numberOfLines={1} ellipsizeMode="tail" style={styles.userJobTitle}>{user.jobTitle}</Text>
                        </View>
                      </View>
                    </View>
                    
-                   <View style={styles.tableCell}>
-                     <Text style={styles.tableUserEmail}>{user.email}</Text>
+                   <View style={[styles.tableCell, styles.colContactWidth]}>
+                     <Text numberOfLines={1} ellipsizeMode="tail" style={styles.tableUserEmail}>{user.email}</Text>
                      {user.phone && (
-                       <Text style={styles.tableUserPhone}>{user.phone}</Text>
+                       <Text numberOfLines={1} ellipsizeMode="tail" style={styles.tableUserPhone}>{user.phone}</Text>
                      )}
                    </View>
                    
@@ -484,12 +485,12 @@ const UserManagement = () => {
                      </View>
                    </View>
                    
-                   <View style={styles.tableCell}>
-                     <Text style={styles.tableUserDepartment}>{user.department || '-'}</Text>
+                   <View style={[styles.tableCell, styles.colDeptWidth]}>
+                     <Text numberOfLines={1} ellipsizeMode="tail" style={styles.tableUserDepartment}>{user.department || '-'}</Text>
                    </View>
                    
-                   <View style={styles.tableCell}>
-                     <Text style={styles.userLastLogin}>{formatLastLogin(user.lastLogin)}</Text>
+                   <View style={[styles.tableCell, styles.colLoginWidth]}>
+                     <Text numberOfLines={1} ellipsizeMode="tail" style={styles.userLastLogin}>{formatLastLogin(user.lastLogin)}</Text>
                    </View>
                   
                   <View style={styles.tableCell}>
@@ -552,7 +553,7 @@ const styles = StyleSheet.create({
     paddingTop: screenHeight < 700 ? 20 : 32, // mt: 4
     paddingBottom: screenHeight < 700 ? 20 : 32, // mb: 4
     paddingHorizontal: screenWidth < 400 ? 12 : 20,
-    backgroundColor: '#f5f5f5', // Default Material-UI background
+    backgroundColor: Colors.light.background, // white base
   },
   
   // Grid container spacing={3} equivalent
@@ -607,7 +608,7 @@ const styles = StyleSheet.create({
   
   // Enhanced User Management - exact Material-UI structure
   userManagementPaper: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.card,
     borderRadius: 4,
     padding: screenWidth < 400 ? 16 : 24, // p: 3
     elevation: 1,
@@ -628,11 +629,11 @@ const styles = StyleSheet.create({
   userManagementTitle: {
     fontSize: screenWidth < 400 ? 20 : 24,
     fontWeight: 'bold',
-    color: '#1976d2',
+    color: Colors.light.accentBlue,
   },
   
   addButton: {
-    backgroundColor: '#1976d2',
+    backgroundColor: Colors.light.accentBlue,
     paddingHorizontal: screenWidth < 400 ? 12 : 16,
     paddingVertical: screenHeight < 700 ? 10 : 12,
     borderRadius: 4,
@@ -654,10 +655,10 @@ const styles = StyleSheet.create({
   
   searchInput: {
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: Colors.light.border,
     borderRadius: 4,
     padding: screenWidth < 400 ? 10 : 12,
-    backgroundColor: 'white',
+    backgroundColor: Colors.light.background,
     fontSize: screenWidth < 400 ? 14 : 16,
   },
   
@@ -672,18 +673,18 @@ const styles = StyleSheet.create({
     paddingVertical: screenHeight < 700 ? 6 : 8,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
-    backgroundColor: 'white',
+    borderColor: Colors.light.border,
+    backgroundColor: Colors.light.background,
   },
   
   activeFilter: {
-    backgroundColor: '#1976d2',
-    borderColor: '#1976d2',
+    backgroundColor: Colors.light.accentBlue,
+    borderColor: Colors.light.accentBlue,
   },
   
   filterText: {
     fontSize: screenWidth < 400 ? 12 : 14,
-    color: '#666',
+    color: Colors.light.icon,
   },
   
   activeFilterText: {
@@ -695,7 +696,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: screenHeight < 700 ? 12 : 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: Colors.light.border,
   },
   
   tab: {
@@ -707,17 +708,17 @@ const styles = StyleSheet.create({
   },
   
   activeTab: {
-    borderBottomColor: '#1976d2',
+    borderBottomColor: Colors.light.accentBlue,
   },
   
   tabText: {
     fontSize: screenWidth < 400 ? 14 : 16,
-    color: '#666',
+    color: Colors.light.icon,
     textAlign: 'center',
   },
   
   activeTabText: {
-    color: '#1976d2',
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
   },
   
@@ -729,7 +730,7 @@ const styles = StyleSheet.create({
   listItem: {
     flexDirection: screenWidth < 400 ? 'column' : 'row',
     alignItems: screenWidth < 400 ? 'flex-start' : 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.card,
     borderRadius: 8,
     padding: screenWidth < 400 ? 12 : 16,
     elevation: 2,
@@ -790,7 +791,7 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: screenWidth < 400 ? 16 : 18,
     fontWeight: 'bold',
-    color: '#333',
+    color: Colors.light.text,
     marginRight: screenWidth < 400 ? 0 : 8,
     marginBottom: screenWidth < 400 ? 4 : 0,
     flexShrink: 1,
@@ -820,7 +821,7 @@ const styles = StyleSheet.create({
   
   userEmail: {
     fontSize: screenWidth < 400 ? 12 : 14,
-    color: '#666',
+    color: Colors.light.icon,
     marginBottom: 4,
     flexWrap: 'wrap',
     flexShrink: 1,
@@ -828,7 +829,7 @@ const styles = StyleSheet.create({
   
   userPhone: {
     fontSize: screenWidth < 400 ? 12 : 14,
-    color: '#666',
+    color: Colors.light.icon,
     marginBottom: 4,
     flexWrap: 'wrap',
     flexShrink: 1,
@@ -836,7 +837,7 @@ const styles = StyleSheet.create({
   
   userDepartment: {
     fontSize: screenWidth < 400 ? 12 : 14,
-    color: '#666',
+    color: Colors.light.icon,
     marginBottom: 4,
     flexWrap: 'wrap',
     flexShrink: 1,
@@ -844,7 +845,7 @@ const styles = StyleSheet.create({
   
   userPermissions: {
     fontSize: screenWidth < 400 ? 10 : 12,
-    color: '#999',
+    color: Colors.light.icon,
     marginBottom: 4,
     flexWrap: 'wrap',
     flexShrink: 1,
@@ -852,7 +853,7 @@ const styles = StyleSheet.create({
   
   userDetails: {
     fontSize: screenWidth < 400 ? 10 : 12,
-    color: '#999',
+    color: Colors.light.icon,
     flexWrap: 'wrap',
     flexShrink: 1,
   },
@@ -869,11 +870,13 @@ const styles = StyleSheet.create({
   actionButton: {
     padding: screenWidth < 400 ? 10 : 8,
     borderRadius: 4,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: Colors.light.card,
     flex: screenWidth < 400 ? 1 : 0,
     minWidth: screenWidth < 400 ? 40 : 32,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: Colors.light.border,
   },
   
   actionButtonText: {
@@ -883,7 +886,7 @@ const styles = StyleSheet.create({
   
   // Table View - exact Material-UI structure
   tableContainer: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.card,
     borderRadius: 4,
     elevation: 1,
     shadowColor: '#000',
@@ -895,7 +898,7 @@ const styles = StyleSheet.create({
   
   tableHeader: {
     flexDirection: 'row',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: Colors.light.card,
     paddingVertical: screenHeight < 700 ? 10 : 12,
     paddingHorizontal: screenWidth < 400 ? 8 : 16,
   },
@@ -904,9 +907,9 @@ const styles = StyleSheet.create({
     flex: screenWidth < 400 ? 0.8 : 1,
     fontSize: screenWidth < 400 ? 10 : 14,
     fontWeight: 'bold',
-    color: '#333',
-    textAlign: screenWidth < 400 ? 'center' : 'left',
-    minWidth: screenWidth < 400 ? 50 : 80,
+    color: Colors.light.text,
+    textAlign: 'left',
+    minWidth: screenWidth < 400 ? 80 : 120,
   },
   
   tableRow: {
@@ -914,7 +917,7 @@ const styles = StyleSheet.create({
     paddingVertical: screenHeight < 700 ? 8 : 12,
     paddingHorizontal: screenWidth < 400 ? 6 : 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: Colors.light.border,
     alignItems: 'center',
     minHeight: screenWidth < 400 ? 60 : 80,
   },
@@ -922,9 +925,13 @@ const styles = StyleSheet.create({
   tableCell: {
     flex: screenWidth < 400 ? 0.8 : 1,
     justifyContent: 'center',
-    minWidth: screenWidth < 400 ? 50 : 80,
+    minWidth: screenWidth < 400 ? 80 : 120,
     paddingHorizontal: screenWidth < 400 ? 2 : 4,
   },
+  colUserWidth: { minWidth: screenWidth < 400 ? 140 : 200 },
+  colContactWidth: { minWidth: screenWidth < 400 ? 140 : 220 },
+  colDeptWidth: { minWidth: screenWidth < 400 ? 100 : 140 },
+  colLoginWidth: { minWidth: screenWidth < 400 ? 100 : 140 },
   
   userCell: {
     flexDirection: screenWidth < 400 ? 'column' : 'row',
@@ -936,16 +943,16 @@ const styles = StyleSheet.create({
   
   userJobTitle: {
     fontSize: screenWidth < 400 ? 8 : 12,
-    color: '#666',
-    textAlign: 'center',
+    color: Colors.light.icon,
+    textAlign: 'left',
     flexWrap: 'wrap',
     flexShrink: 1,
   },
   
   userLastLogin: {
     fontSize: screenWidth < 400 ? 10 : 14,
-    color: '#666',
-    textAlign: 'center',
+    color: Colors.light.icon,
+    textAlign: 'left',
     flexWrap: 'wrap',
     flexShrink: 1,
   },
@@ -961,8 +968,8 @@ const styles = StyleSheet.create({
   tableUserName: {
     fontSize: screenWidth < 400 ? 10 : 14,
     fontWeight: 'bold',
-    color: '#333',
-    textAlign: 'center',
+    color: Colors.light.text,
+    textAlign: 'left',
     flexWrap: 'wrap',
     flexShrink: 1,
     minWidth: 0,
@@ -970,8 +977,8 @@ const styles = StyleSheet.create({
   
   tableUserEmail: {
     fontSize: screenWidth < 400 ? 8 : 12,
-    color: '#666',
-    textAlign: 'center',
+    color: Colors.light.icon,
+    textAlign: 'left',
     flexWrap: 'wrap',
     flexShrink: 1,
     minWidth: 0,
@@ -979,8 +986,8 @@ const styles = StyleSheet.create({
   
   tableUserPhone: {
     fontSize: screenWidth < 400 ? 8 : 12,
-    color: '#666',
-    textAlign: 'center',
+    color: Colors.light.icon,
+    textAlign: 'left',
     flexWrap: 'wrap',
     flexShrink: 1,
     minWidth: 0,
@@ -988,8 +995,8 @@ const styles = StyleSheet.create({
   
   tableUserDepartment: {
     fontSize: screenWidth < 400 ? 8 : 12,
-    color: '#666',
-    textAlign: 'center',
+    color: Colors.light.icon,
+    textAlign: 'left',
     flexWrap: 'wrap',
     flexShrink: 1,
     minWidth: 0,
@@ -1003,28 +1010,28 @@ const styles = StyleSheet.create({
   
   emptyIcon: {
     fontSize: screenWidth < 400 ? 60 : 80,
-    color: '#ccc',
+    color: Colors.light.border,
     marginBottom: screenHeight < 700 ? 12 : 16,
   },
   
   emptyTitle: {
     fontSize: screenWidth < 400 ? 16 : 18,
     fontWeight: 'bold',
-    color: '#666',
+    color: Colors.light.icon,
     marginBottom: screenHeight < 700 ? 6 : 8,
     textAlign: 'center',
   },
   
   emptySubtitle: {
     fontSize: screenWidth < 400 ? 12 : 14,
-    color: '#999',
+    color: Colors.light.icon,
     textAlign: 'center',
     marginBottom: screenHeight < 700 ? 12 : 16,
     paddingHorizontal: screenWidth < 400 ? 20 : 0,
   },
   
   backButton: {
-    backgroundColor: '#666',
+    backgroundColor: Colors.light.accentBlue,
     paddingVertical: screenHeight < 700 ? 10 : 12,
     borderRadius: 8,
     alignItems: 'center',

@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+import { Colors } from '@/constants/Colors';
+import Chatbot from '@/components/Chatbot';
 
 type Tile = {
   key: string;
@@ -26,6 +28,7 @@ const tiles: Tile[] = [
 ];
 
 export default function HomeDashboard({ navigation, userName = 'User' }: HomeDashboardProps) {
+  const [showBot, setShowBot] = React.useState(false);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.greeting}>Namaste,{userName}</Text>
@@ -53,6 +56,15 @@ export default function HomeDashboard({ navigation, userName = 'User' }: HomeDas
           </TouchableOpacity>
         ))}
       </View>
+      <TouchableOpacity
+        style={styles.chatFloating}
+        onPress={() => setShowBot((v) => !v)}
+        accessibilityRole="button"
+        accessibilityLabel="Open chatbot"
+      >
+        <Text style={styles.chatIcon}>💬</Text>
+      </TouchableOpacity>
+      {showBot && <Chatbot onClose={() => setShowBot(false)} />}
     </ScrollView>
   );
 }
@@ -62,14 +74,14 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#fff8e7',
+    backgroundColor: Colors.light.background,
   },
   greeting: {
     marginTop: 12,
     width: '100%',
     textAlign: 'center',
-    backgroundColor: '#ffd699',
-    color: '#e65100',
+    backgroundColor: Colors.light.card,
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     paddingVertical: 10,
     borderRadius: 8,
@@ -81,37 +93,37 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     borderRadius: 90,
     borderWidth: 3,
-    borderColor: '#e65100',
+    borderColor: Colors.light.accentOrange,
   },
   banner: {
     width: '100%',
-    backgroundColor: '#ffe0b2',
+    backgroundColor: Colors.light.card,
     paddingVertical: 12,
     borderRadius: 10,
     marginBottom: 14,
     alignItems: 'center',
   },
   bannerText: {
-    color: '#000',
+    color: Colors.light.text,
     fontSize: 16,
   },
   taglineBox: {
     width: '100%',
-    backgroundColor: '#fff3e0',
+    backgroundColor: Colors.light.card,
     borderWidth: 1,
-    borderColor: '#ff9800',
+    borderColor: Colors.light.border,
     paddingVertical: 12,
     borderRadius: 12,
     marginBottom: 18,
     alignItems: 'center',
   },
   taglinePrimary: {
-    color: '#e65100',
+    color: Colors.light.accentOrange,
     fontWeight: '600',
     marginBottom: 6,
   },
   taglineSecondary: {
-    color: '#000',
+    color: Colors.light.text,
     opacity: 0.7,
   },
   grid: {
@@ -122,9 +134,9 @@ const styles = StyleSheet.create({
   },
   tile: {
     width: '48%',
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.background,
     borderWidth: 1,
-    borderColor: '#ff9800',
+    borderColor: Colors.light.border,
     borderRadius: 12,
     paddingVertical: 16,
     paddingHorizontal: 10,
@@ -136,9 +148,25 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   tileLabel: {
-    color: '#000',
+    color: Colors.light.text,
     textAlign: 'center',
   },
+  chatFloating: {
+    position: 'absolute',
+    bottom: 20,
+    right: 16,
+    height: 56,
+    width: 56,
+    borderRadius: 28,
+    backgroundColor: Colors.light.accentBlue,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 6,
+  },
+  chatIcon: { color: '#fff', fontSize: 22 },
 });
 
 

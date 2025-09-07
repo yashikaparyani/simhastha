@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+import { Colors } from '@/constants/Colors';
 
 export default function AadhaarVerificationScreen({ navigation }) {
   const [aadhaar, setAadhaar] = useState('');
@@ -8,6 +9,7 @@ export default function AadhaarVerificationScreen({ navigation }) {
   const [otpRequested, setOtpRequested] = useState(false);
   const [isOtpLoading, setIsOtpLoading] = useState(false);
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
+  const hiddenOtpRef = useRef(null);
 
   const generateOTP = () => {
     // Generate a 6-digit OTP
@@ -36,7 +38,7 @@ export default function AadhaarVerificationScreen({ navigation }) {
   };
 
   const handleVerify = () => {
-    if (!otp) {
+    if (otp.length !== 6) {
       alert('Please enter the OTP');
       return;
     }
@@ -68,20 +70,42 @@ export default function AadhaarVerificationScreen({ navigation }) {
           maxLength={16}
         />
 
-        <TextInput
-          style={[
-            styles.input, 
-            !otpRequested && styles.hidden,
-            isOtpLoading && styles.disabledInput
-          ]}
-          placeholder={isOtpLoading ? 'Fetching OTP...' : 'Enter OTP'}
-          placeholderTextColor="#00000070"
-          value={otp}
-          onChangeText={setOtp}
-          keyboardType="number-pad"
-          maxLength={6}
-          editable={isOtpGenerated}
-        />
+        {/* OTP six-box input */}
+        {otpRequested && (
+          <View style={styles.otpBoxesWrapper}>
+            <TouchableOpacity onPress={() => hiddenOtpRef.current?.focus()} activeOpacity={1}>
+              <View style={styles.otpBoxesRow}>
+                {Array.from({ length: 6 }).map((_, idx) => {
+                  const char = otp[idx] ?? '';
+                  const isFilled = Boolean(char);
+                  return (
+                    <View
+                      key={idx}
+                      style={[
+                        styles.otpBox,
+                        isFilled && styles.otpBoxFilled,
+                        isOtpLoading && styles.disabledInput,
+                      ]}
+                    >
+                      <Text style={styles.otpChar}>{char}</Text>
+                    </View>
+                  );
+                })}
+              </View>
+            </TouchableOpacity>
+            {/* Hidden input to capture numeric entry */}
+            <TextInput
+              ref={hiddenOtpRef}
+              style={styles.hidden}
+              value={otp}
+              onChangeText={(t) => setOtp(t.replace(/\D/g, '').slice(0, 6))}
+              keyboardType="number-pad"
+              maxLength={6}
+              editable={isOtpGenerated}
+              autoFocus
+            />
+          </View>
+        )}
 
         <View style={styles.otpContainer}>
           {!otpRequested ? (
@@ -98,7 +122,7 @@ export default function AadhaarVerificationScreen({ navigation }) {
             <View style={styles.resendContainer}>
               <Text style={styles.resendText}>Didn't receive OTP?</Text>
               <TouchableOpacity>
-                <Text style={[styles.resendText, {color: '#e65100'}]}> Resend OTP</Text>
+                <Text style={[styles.resendText, {color: Colors.light.accentOrange}]}> Resend OTP</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -130,7 +154,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 24,
-    backgroundColor: '#fff8e7',
+    backgroundColor: Colors.light.background,
   },
   logo: {
     width: 180,
@@ -139,7 +163,7 @@ const styles = StyleSheet.create({
     marginTop: 35,
     borderRadius: 90,
     borderWidth: 3,
-    borderColor: '#e65100',
+    borderColor: Colors.light.accentOrange,
     shadowColor: '#ff9800',
     shadowOpacity: 0.5,
     shadowRadius: 12,
@@ -147,10 +171,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     marginBottom: 25,
-    backgroundColor: '#ffe0b2',
+    backgroundColor: Colors.light.card,
     width: '100%',
     textAlign: 'center',
     paddingVertical: 14,
@@ -164,7 +188,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: '100%',
     marginBottom: 25,
-    backgroundColor: '#fff3e0',
+    backgroundColor: Colors.light.card,
     padding: 20,
     borderRadius: 16,
     shadowColor: '#000',
@@ -172,10 +196,10 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 3,
     borderWidth: 1,
-    borderColor: '#ff9800',
+    borderColor: Colors.light.border,
   },
   subtitle: {
-    color: '#000',
+    color: Colors.light.text,
     fontSize: 16,
     textAlign: 'center',
     marginBottom: 20,
@@ -183,13 +207,41 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ff7043',
+    borderColor: Colors.light.border,
     borderRadius: 10,
     padding: 14,
     marginBottom: 14,
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.background,
     fontSize: 16,
-    color: '#000',
+    color: Colors.light.text,
+  },
+  otpBoxesWrapper: {
+    marginBottom: 14,
+    alignItems: 'center',
+  },
+  otpBoxesRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+  },
+  otpBox: {
+    width: 48,
+    height: 56,
+    borderWidth: 1,
+    borderColor: Colors.light.accentBlue,
+    borderRadius: 8,
+    backgroundColor: Colors.light.background,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 4,
+  },
+  otpBoxFilled: {
+    borderColor: Colors.light.accentOrange,
+  },
+  otpChar: {
+    fontSize: 20,
+    color: Colors.light.text,
+    fontWeight: 'bold',
   },
   otpContainer: {
     marginBottom: 20,
@@ -198,7 +250,7 @@ const styles = StyleSheet.create({
   otpButton: {
     padding: 12,
     borderRadius: 8,
-    backgroundColor: '#e65100',
+    backgroundColor: Colors.light.accentBlue,
     width: '60%',
     alignItems: 'center',
   },
@@ -226,11 +278,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   resendText: {
-    color: '#000',
+    color: Colors.light.text,
     fontSize: 14,
   },
   verifyButton: {
-    backgroundColor: '#e65100',
+    backgroundColor: Colors.light.accentBlue,
     paddingVertical: 16,
     borderRadius: 14,
     width: '92%',
@@ -249,7 +301,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   footerText: {
-    color: '#e65100',
+    color: Colors.light.accentOrange,
     fontSize: 18,
     marginTop: 20,
     fontStyle: 'italic',
@@ -259,7 +311,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   backButtonText: {
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontSize: 16,
     fontWeight: '500',
     textDecorationLine: 'underline',

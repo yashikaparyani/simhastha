@@ -1,6 +1,7 @@
 import React, { useState } from 'react';  
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';  
 import { Image as ExpoImage } from 'expo-image';  
+import { Colors } from '@/constants/Colors';
   
 export default function SignupScreen({ navigation }) {  
   const [form, setForm] = useState({  
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',  
     justifyContent: 'center',  
     padding: 24,  
-    backgroundColor: '#fff8e7', // warm parchment / traditional base  
+    backgroundColor: Colors.light.background,  
   },  
   
   logo: {  
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
     marginTop: 35,  
     borderRadius: 90,  
     borderWidth: 3,  
-    borderColor: '#e65100', // deep saffron  
+    borderColor: Colors.light.accentOrange,  
     shadowColor: '#ff9800',  
     shadowOpacity: 0.5,  
     shadowRadius: 12,  
@@ -120,10 +121,10 @@ const styles = StyleSheet.create({
   
   title: {  
     fontSize: 28,  
-    color: '#e65100', // saffron orange  
+    color: Colors.light.accentBlue,  
     fontWeight: 'bold',  
     marginBottom: 25,  
-    backgroundColor: '#ffe0b2', // light orange banner  
+    backgroundColor: Colors.light.card,  
     width: '100%',  
     textAlign: 'center',  
     paddingVertical: 14,  
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
   inputContainer: {  
     width: '100%',  
     marginBottom: 25,  
-    backgroundColor: '#fff3e0', // very soft orange background  
+    backgroundColor: Colors.light.card,  
     padding: 20,  
     borderRadius: 16,  
     shadowColor: '#000',  
@@ -146,22 +147,22 @@ const styles = StyleSheet.create({
     shadowRadius: 8,  
     elevation: 3,  
     borderWidth: 1,  
-    borderColor: '#ff9800', // orange outline  
+    borderColor: Colors.light.border,  
   },  
   
   input: {  
     borderWidth: 1,  
-    borderColor: '#ff7043', // earthy orange  
+    borderColor: Colors.light.border,  
     borderRadius: 10,  
     padding: 14,  
     marginBottom: 14,  
-    backgroundColor: '#ffffff',  
+    backgroundColor: Colors.light.background,  
     fontSize: 16,  
-    color: '#000',  
+    color: Colors.light.text,  
   },  
   
   button: {  
-    backgroundColor: '#e65100', // saffron button  
+    backgroundColor: Colors.light.accentBlue,  
     paddingVertical: 16,  
     paddingHorizontal: 60,  
     borderRadius: 14,  

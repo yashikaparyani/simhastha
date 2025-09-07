@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+import { Colors } from '@/constants/Colors';
 
 type Member = {
   id: string;
@@ -120,14 +121,14 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#fff8e7',
+    backgroundColor: Colors.light.background,
   },
   header: {
     marginTop: 10,
     width: '100%',
     textAlign: 'center',
-    backgroundColor: '#ffe0b2',
-    color: '#e65100',
+    backgroundColor: Colors.light.card,
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     paddingVertical: 14,
     borderRadius: 10,
@@ -136,9 +137,9 @@ const styles = StyleSheet.create({
   },
   formCard: {
     width: '100%',
-    backgroundColor: '#fff3e0',
+    backgroundColor: Colors.light.card,
     borderWidth: 1,
-    borderColor: '#ff9800',
+    borderColor: Colors.light.border,
     borderRadius: 16,
     padding: 16,
   },
@@ -146,16 +147,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 130,
     height: 150,
-    backgroundColor: '#fff1cc',
+    backgroundColor: Colors.light.background,
     borderWidth: 1,
-    borderColor: '#ffcc80',
+    borderColor: Colors.light.border,
     borderRadius: 6,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 14,
   },
   cameraText: {
-    color: '#000',
+    color: Colors.light.text,
     opacity: 0.7,
   },
   inputGroup: {
@@ -164,16 +165,16 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ff7043',
+    borderColor: Colors.light.border,
     borderRadius: 10,
     padding: 14,
     marginBottom: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.background,
     fontSize: 16,
-    color: '#000',
+    color: Colors.light.text,
   },
   saveBtn: {
-    backgroundColor: '#e65100',
+    backgroundColor: Colors.light.accentBlue,
     paddingVertical: 16,
     borderRadius: 14,
     width: '100%',
@@ -192,7 +193,7 @@ const styles = StyleSheet.create({
   },
   addAnother: {
     marginTop: 12,
-    backgroundColor: '#ffe0b2',
+    backgroundColor: Colors.light.card,
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: 'center',
@@ -204,9 +205,9 @@ const styles = StyleSheet.create({
   },
   memberCard: {
     width: '100%',
-    backgroundColor: '#fff3e0',
+    backgroundColor: Colors.light.card,
     borderWidth: 1,
-    borderColor: '#ffcc80',
+    borderColor: Colors.light.border,
     borderRadius: 12,
     padding: 12,
     marginBottom: 12,
@@ -226,11 +227,11 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   bold: { fontWeight: '700' },
-  linkText: { color: '#e65100', fontWeight: '600' },
-  memberLine: { color: '#000', marginBottom: 2 },
+  linkText: { color: Colors.light.accentBlue, fontWeight: '600' },
+  memberLine: { color: Colors.light.text, marginBottom: 2 },
   removeBtn: {
     alignSelf: 'flex-start',
-    backgroundColor: '#ff8a65',
+    backgroundColor: Colors.light.accentOrange,
     paddingVertical: 8,
     paddingHorizontal: 14,
     borderRadius: 20,
@@ -240,14 +241,14 @@ const styles = StyleSheet.create({
   addAnotherOutline: {
     width: '100%',
     borderWidth: 1,
-    borderColor: '#ffcc80',
-    backgroundColor: '#fff8e7',
+    borderColor: Colors.light.border,
+    backgroundColor: Colors.light.background,
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: 'center',
     marginTop: 8,
   },
-  addAnotherOutlineText: { color: '#000', fontWeight: '600' },
+  addAnotherOutlineText: { color: Colors.light.text, fontWeight: '600' },
 });
 
 

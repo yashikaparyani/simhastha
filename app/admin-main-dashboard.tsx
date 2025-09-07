@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { Colors } from '@/constants/Colors';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     paddingTop: 32, // mt: 4
     paddingBottom: 32, // mb: 4
     paddingHorizontal: 20,
-    backgroundColor: '#f5f5f5', // Default Material-UI background
+    backgroundColor: Colors.light.background,
   },
   
   // Grid container spacing={3} equivalent
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
   // Paper with title styling - exact Material-UI equivalent
   titlePaper: {
     padding: 16, // p: 2
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.card,
     borderRadius: 4,
     elevation: 1, // Material-UI Paper shadow
     shadowColor: '#000',
@@ -117,14 +118,14 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 20, // h6 variant
     fontWeight: '600',
-    color: '#1976d2', // Material-UI primary color
+    color: Colors.light.accentBlue,
     marginBottom: 16, // gutterBottom
   },
   
   // Paper with chart styling
   chartPaper: {
     padding: 16, // p: 2
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.card,
     borderRadius: 4,
     elevation: 1,
     shadowColor: '#000',
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
   
   barLabel: {
     fontSize: 10,
-    color: '#666',
+    color: Colors.light.icon,
     textAlign: 'center',
     marginBottom: 4,
     fontWeight: '400',
@@ -171,11 +172,11 @@ const styles = StyleSheet.create({
   barValue: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#333',
+    color: Colors.light.text,
   },
   
   backButton: {
-    backgroundColor: '#666',
+    backgroundColor: Colors.light.accentBlue,
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',

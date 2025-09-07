@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+import { Colors } from '@/constants/Colors';
 
 type Txn = { id: string; title: string; amount: number; type: 'credit' | 'debit'; date: string; status: 'Success' | 'Pending' | 'Failed' };
 
@@ -65,22 +66,22 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#fff8e7',
+    backgroundColor: Colors.light.background,
   },
   logo: {
     width: 90,
     height: 90,
     borderRadius: 45,
     borderWidth: 2,
-    borderColor: '#e65100',
+    borderColor: Colors.light.accentOrange,
     marginTop: 10,
   },
   header: {
     marginTop: 12,
     width: '100%',
     textAlign: 'center',
-    backgroundColor: '#ffe0b2',
-    color: '#e65100',
+    backgroundColor: Colors.light.card,
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     paddingVertical: 12,
     borderRadius: 10,
@@ -89,33 +90,33 @@ const styles = StyleSheet.create({
   },
   balanceCard: {
     width: '100%',
-    backgroundColor: '#fff3e0',
+    backgroundColor: Colors.light.card,
     borderWidth: 1,
-    borderColor: '#ff9800',
+    borderColor: Colors.light.border,
     borderRadius: 16,
     padding: 16,
     alignItems: 'center',
     marginBottom: 12,
   },
-  balanceLabel: { color: '#000', opacity: 0.7, marginBottom: 6 },
-  balanceValue: { color: '#e65100', fontSize: 28, fontWeight: '800' },
+  balanceLabel: { color: Colors.light.text, opacity: 0.7, marginBottom: 6 },
+  balanceValue: { color: Colors.light.accentBlue, fontSize: 28, fontWeight: '800' },
   actionRow: { flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: 12 },
   actionBtn: {
     width: '32%',
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.background,
     borderWidth: 1,
-    borderColor: '#ff9800',
+    borderColor: Colors.light.border,
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: 'center',
   },
   actionEmoji: { fontSize: 20, marginBottom: 6 },
-  actionText: { color: '#000', fontWeight: '600' },
-  sectionTitle: { width: '100%', color: '#e65100', fontWeight: '700', marginVertical: 8 },
-  listCard: { width: '100%', backgroundColor: '#fff3e0', borderWidth: 1, borderColor: '#ffcc80', borderRadius: 12, padding: 8 },
-  txnRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ffe6c2' },
-  txnTitle: { color: '#000', fontWeight: '600', marginBottom: 2 },
-  txnMeta: { color: '#000', opacity: 0.6, fontSize: 12 },
+  actionText: { color: Colors.light.text, fontWeight: '600' },
+  sectionTitle: { width: '100%', color: Colors.light.accentBlue, fontWeight: '700', marginVertical: 8 },
+  listCard: { width: '100%', backgroundColor: Colors.light.card, borderWidth: 1, borderColor: Colors.light.border, borderRadius: 12, padding: 8 },
+  txnRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: Colors.light.border },
+  txnTitle: { color: Colors.light.text, fontWeight: '600', marginBottom: 2 },
+  txnMeta: { color: Colors.light.text, opacity: 0.6, fontSize: 12 },
   txnAmount: { fontWeight: '800' },
 });
 

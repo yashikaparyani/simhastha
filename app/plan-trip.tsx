@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+import { Colors } from '@/constants/Colors';
 
 export default function PlanTrip() {
   const navigation = useNavigation();
@@ -29,14 +30,14 @@ export default function PlanTrip() {
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, alignItems: 'center', padding: 16, backgroundColor: '#fff8e7' },
-  header: { width: '100%', textAlign: 'center', backgroundColor: '#ffe0b2', color: '#e65100', fontWeight: 'bold', paddingVertical: 12, borderRadius: 10, fontSize: 20, marginBottom: 12 },
-  card: { width: '100%', backgroundColor: '#fff3e0', borderWidth: 1, borderColor: '#ff9800', borderRadius: 16, padding: 14 },
-  cardTitle: { color: '#e65100', fontWeight: '700', marginBottom: 10 },
-  bannerBox: { backgroundColor: '#ff8f00', borderRadius: 8, paddingVertical: 10, alignItems: 'center' },
+  container: { flexGrow: 1, alignItems: 'center', padding: 16, backgroundColor: Colors.light.background },
+  header: { width: '100%', textAlign: 'center', backgroundColor: Colors.light.card, color: Colors.light.accentBlue, fontWeight: 'bold', paddingVertical: 12, borderRadius: 10, fontSize: 20, marginBottom: 12 },
+  card: { width: '100%', backgroundColor: Colors.light.card, borderWidth: 1, borderColor: Colors.light.border, borderRadius: 16, padding: 14 },
+  cardTitle: { color: Colors.light.accentBlue, fontWeight: '700', marginBottom: 10 },
+  bannerBox: { backgroundColor: Colors.light.accentOrange, borderRadius: 8, paddingVertical: 10, alignItems: 'center' },
   bannerText: { color: '#fff', textAlign: 'center' },
   hero: { width: '100%', height: 160, marginTop: 14, borderRadius: 8 },
-  primaryBtn: { backgroundColor: '#e65100', paddingVertical: 14, borderRadius: 12, alignItems: 'center', marginTop: 16 },
+  primaryBtn: { backgroundColor: Colors.light.accentBlue, paddingVertical: 14, borderRadius: 12, alignItems: 'center', marginTop: 16 },
   primaryBtnText: { color: '#fff', fontWeight: '700' },
 });
 

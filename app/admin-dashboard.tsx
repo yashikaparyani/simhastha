@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+import { Colors } from '@/constants/Colors';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -122,22 +123,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: screenWidth < 400 ? 12 : 20,
     paddingVertical: screenHeight < 700 ? 10 : 20,
-    backgroundColor: '#fff8e7',
+    backgroundColor: Colors.light.background,
   },
   logo: {
     width: screenWidth < 400 ? 80 : 100,
     height: screenWidth < 400 ? 80 : 100,
     borderRadius: screenWidth < 400 ? 40 : 50,
     borderWidth: 2,
-    borderColor: '#e65100',
+    borderColor: Colors.light.accentOrange,
     marginTop: screenHeight < 700 ? 5 : 10,
   },
   header: {
     marginTop: screenHeight < 700 ? 8 : 12,
     width: '100%',
     textAlign: 'center',
-    backgroundColor: '#ffe0b2',
-    color: '#e65100',
+    backgroundColor: Colors.light.card,
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     paddingVertical: screenHeight < 700 ? 10 : 12,
     borderRadius: 10,
@@ -146,22 +147,22 @@ const styles = StyleSheet.create({
   },
   welcomeCard: {
     width: '100%',
-    backgroundColor: '#fff3e0',
+    backgroundColor: Colors.light.card,
     borderWidth: 1,
-    borderColor: '#ff9800',
+    borderColor: Colors.light.border,
     borderRadius: 12,
     padding: screenWidth < 400 ? 12 : 16,
     marginBottom: screenHeight < 700 ? 12 : 16,
     alignItems: 'center',
   },
   welcomeTitle: {
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontSize: screenWidth < 400 ? 16 : 18,
     fontWeight: 'bold',
     marginBottom: 4,
   },
   welcomeSubtitle: {
-    color: '#000',
+    color: Colors.light.text,
     opacity: 0.7,
     fontSize: screenWidth < 400 ? 12 : 14,
     textAlign: 'center',
@@ -178,9 +179,9 @@ const styles = StyleSheet.create({
   },
   statCard: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.card,
     borderWidth: 1,
-    borderColor: '#ffcc80',
+    borderColor: Colors.light.border,
     borderRadius: 12,
     padding: screenWidth < 400 ? 12 : 16,
     alignItems: 'center',
@@ -192,20 +193,20 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   statNumber: {
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontSize: screenWidth < 400 ? 20 : 24,
     fontWeight: 'bold',
     marginBottom: 4,
   },
   statLabel: {
-    color: '#000',
+    color: Colors.light.text,
     fontSize: screenWidth < 400 ? 10 : 12,
     opacity: 0.7,
     textAlign: 'center',
   },
   sectionTitle: {
     width: '100%',
-    color: '#e65100',
+    color: Colors.light.accentBlue,
     fontWeight: 'bold',
     fontSize: screenWidth < 400 ? 14 : 16,
     marginBottom: screenHeight < 700 ? 8 : 12,
@@ -219,9 +220,9 @@ const styles = StyleSheet.create({
   },
   menuGridItem: {
     width: screenWidth < 400 ? '48%' : screenWidth < 600 ? '31%' : '23%',
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.light.background,
     borderWidth: 1,
-    borderColor: '#ff9800',
+    borderColor: Colors.light.border,
     borderRadius: 12,
     padding: screenWidth < 400 ? 8 : 12,
     marginBottom: screenHeight < 700 ? 8 : 12,
@@ -237,7 +238,7 @@ const styles = StyleSheet.create({
     width: screenWidth < 400 ? 35 : 45,
     height: screenWidth < 400 ? 35 : 45,
     borderRadius: screenWidth < 400 ? 17.5 : 22.5,
-    backgroundColor: '#ffe0b2',
+    backgroundColor: Colors.light.card,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: screenHeight < 700 ? 6 : 8,
@@ -246,7 +247,7 @@ const styles = StyleSheet.create({
     fontSize: screenWidth < 400 ? 18 : 22,
   },
   menuTitle: {
-    color: '#e65100',
+    color: Colors.light.accentOrange,
     fontSize: screenWidth < 400 ? 12 : 14,
     fontWeight: 'bold',
     marginBottom: 2,
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
     lineHeight: screenWidth < 400 ? 16 : 18,
   },
   menuDescription: {
-    color: '#000',
+    color: Colors.light.text,
     fontSize: screenWidth < 400 ? 9 : 10,
     opacity: 0.7,
     textAlign: 'center',
@@ -262,7 +263,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logoutButton: {
-    backgroundColor: '#d32f2f',
+    backgroundColor: Colors.light.accentBlue,
     paddingVertical: screenHeight < 700 ? 12 : 14,
     borderRadius: 12,
     alignItems: 'center',
