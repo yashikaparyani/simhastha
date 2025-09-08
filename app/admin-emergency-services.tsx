@@ -10,13 +10,16 @@ import {
   Alert,
   Modal,
   FlatList,
-  Dimensions
+  Dimensions,
+  useWindowDimensions
 } from 'react-native';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 const EmergencyServices = () => {
   const navigation = useNavigation();
+  const { width: windowWidth } = useWindowDimensions();
+  const isSmallScreen = windowWidth < 380;
   
   const [emergencies, setEmergencies] = useState([
     {
@@ -148,7 +151,7 @@ const EmergencyServices = () => {
 
   const renderEmergencyItem = ({ item: emergency }) => (
     <View style={styles.emergencyCard}>
-      <View style={styles.emergencyHeader}>
+      <View style={[styles.emergencyHeader, isSmallScreen && styles.emergencyHeaderSmall]}>
         <View style={styles.emergencyInfo}>
           <Text style={styles.emergencyType}>
             {getTypeIcon(emergency.type)} {emergency.type}
@@ -160,7 +163,7 @@ const EmergencyServices = () => {
             <Text style={styles.assignedTo}>Assigned to: {emergency.assignedTo}</Text>
           </View>
         </View>
-        <View style={styles.emergencyStatus}>
+        <View style={[styles.emergencyStatus, isSmallScreen && styles.emergencyStatusSmall]}>
           <View style={[styles.priorityBadge, { backgroundColor: getPriorityColor(emergency.priority) }]}>
             <Text style={styles.priorityText}>{emergency.priority}</Text>
           </View>
@@ -170,21 +173,21 @@ const EmergencyServices = () => {
         </View>
       </View>
       
-      <View style={styles.emergencyDetails}>
+      <View style={[styles.emergencyDetails, isSmallScreen && styles.emergencyDetailsSmall]}>
         <Text style={styles.timestamp}>⏰ {formatTimestamp(emergency.timestamp)}</Text>
         <Text style={styles.responseTime}>⚡ Response: {emergency.responseTime}</Text>
         <Text style={styles.contact}>📞 {emergency.contact}</Text>
       </View>
       
-      <View style={styles.emergencyActions}>
-        <TouchableOpacity style={[styles.actionButton, styles.viewButton]}>
+      <View style={[styles.emergencyActions, isSmallScreen && styles.emergencyActionsSmall]}>
+        <TouchableOpacity style={[styles.actionButton, styles.viewButton, isSmallScreen && styles.actionButtonSmall]}>
           <Text style={styles.actionButtonText}>👁️ View Details</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.actionButton, styles.assignButton]}>
+        <TouchableOpacity style={[styles.actionButton, styles.assignButton, isSmallScreen && styles.actionButtonSmall]}>
           <Text style={styles.actionButtonText}>👥 Assign Team</Text>
         </TouchableOpacity>
         {emergency.status === 'active' && (
-          <TouchableOpacity style={[styles.actionButton, styles.resolveButton]}>
+          <TouchableOpacity style={[styles.actionButton, styles.resolveButton, isSmallScreen && styles.actionButtonSmall]}>
             <Text style={styles.actionButtonText}>✅ Resolve</Text>
           </TouchableOpacity>
         )}
@@ -193,11 +196,11 @@ const EmergencyServices = () => {
   );
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={[styles.container, isSmallScreen && styles.containerSmall]}>
       <View style={styles.gridContainer}>
         {/* Emergency Stats Cards */}
-        <View style={styles.statsRow}>
-          <View style={[styles.statCard, { backgroundColor: '#d32f2f' }]}>
+        <View style={[styles.statsRow, isSmallScreen && styles.statsRowSmall]}>
+          <View style={[styles.statCard, isSmallScreen ? styles.statCardSmall : styles.statCardLarge, { backgroundColor: '#d32f2f' }]}>
             <View style={styles.statContent}>
               <View>
                 <Text style={styles.statNumber}>{stats.total}</Text>
@@ -207,7 +210,7 @@ const EmergencyServices = () => {
             </View>
           </View>
           
-          <View style={[styles.statCard, { backgroundColor: '#f57c00' }]}>
+          <View style={[styles.statCard, isSmallScreen ? styles.statCardSmall : styles.statCardLarge, { backgroundColor: '#f57c00' }]}>
             <View style={styles.statContent}>
               <View>
                 <Text style={styles.statNumber}>{stats.active}</Text>
@@ -217,7 +220,7 @@ const EmergencyServices = () => {
             </View>
           </View>
           
-          <View style={[styles.statCard, { backgroundColor: '#388e3c' }]}>
+          <View style={[styles.statCard, isSmallScreen ? styles.statCardSmall : styles.statCardLarge, { backgroundColor: '#388e3c' }]}>
             <View style={styles.statContent}>
               <View>
                 <Text style={styles.statNumber}>{stats.resolved}</Text>
@@ -227,7 +230,7 @@ const EmergencyServices = () => {
             </View>
           </View>
           
-          <View style={[styles.statCard, { backgroundColor: '#1976d2' }]}>
+          <View style={[styles.statCard, isSmallScreen ? styles.statCardSmall : styles.statCardLarge, { backgroundColor: '#1976d2' }]}>
             <View style={styles.statContent}>
               <View>
                 <Text style={styles.statNumber}>{stats.avgResponseTime}</Text>
@@ -240,12 +243,12 @@ const EmergencyServices = () => {
 
         {/* Emergency Management Paper */}
         <View style={styles.managementPaper}>
-          <View style={styles.managementHeader}>
-            <Text style={styles.managementTitle}>
+          <View style={[styles.managementHeader, isSmallScreen && styles.managementHeaderSmall]}>
+            <Text style={[styles.managementTitle, isSmallScreen && styles.managementTitleSmall]}>
               Emergency Services
             </Text>
             <TouchableOpacity
-              style={styles.addButton}
+              style={[styles.addButton, isSmallScreen && styles.addButtonSmall]}
               onPress={() => Alert.alert('Emergency Alert', 'Emergency response team notified!')}
             >
               <Text style={styles.addButtonText}>🚨 Alert Team</Text>
@@ -353,6 +356,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: '#f5f5f5',
   },
+  containerSmall: {
+    paddingHorizontal: 12,
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
   
   gridContainer: {
     gap: 24,
@@ -362,6 +370,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 16,
+  },
+  statsRowSmall: {
+    gap: 12,
   },
   
   statCard: {
@@ -374,6 +385,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
+  },
+  statCardLarge: {
+    minWidth: 150,
+  },
+  statCardSmall: {
+    minWidth: '100%',
   },
   
   statContent: {
@@ -416,11 +433,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 24,
   },
+  managementHeaderSmall: {
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    gap: 12,
+  },
   
   managementTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#1976d2',
+  },
+  managementTitleSmall: {
+    fontSize: 20,
   },
   
   addButton: {
@@ -428,6 +453,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 4,
+  },
+  addButtonSmall: {
+    width: '100%',
+    alignItems: 'center',
   },
   
   addButtonText: {
@@ -501,6 +530,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginBottom: 12,
   },
+  emergencyHeaderSmall: {
+    flexDirection: 'column',
+    gap: 8,
+  },
   
   emergencyInfo: {
     flex: 1,
@@ -543,6 +576,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     gap: 8,
   },
+  emergencyStatusSmall: {
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    gap: 8,
+  },
   
   priorityBadge: {
     paddingHorizontal: 12,
@@ -576,6 +614,10 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#f0f0f0',
   },
+  emergencyDetailsSmall: {
+    flexDirection: 'column',
+    gap: 6,
+  },
   
   timestamp: {
     fontSize: 12,
@@ -597,6 +639,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
   },
+  emergencyActionsSmall: {
+    flexDirection: 'column',
+  },
   
   actionButton: {
     flex: 1,
@@ -604,6 +649,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 4,
     alignItems: 'center',
+  },
+  actionButtonSmall: {
+    width: '100%',
   },
   
   viewButton: {
