@@ -27,7 +27,7 @@ const defaultAdvertisements: Advertisement[] = [
   },
   {
     id: '2',
-    image: { uri: 'https://media.licdn.com/dms/image/v2/D4D12AQEKDzuD0nFSgg/article-cover_image-shrink_720_1280/B4DZhprqlQG8AI-/0/1754119715769?e=2147483647&v=beta&t=ox66QiCEagSdLEXOek_QPZDjfHzT_SqKjpiiQiy-s7w' },
+    image: { uri: 'https://substackcdn.com/image/fetch/$s_!Epfl!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4e612a51-3bb2-4aab-bf31-6209f846d2a3_1536x1024.png' },
     title: 'Special Darshan',
     description: 'Book your temple slots now',
     actionText: 'Book Now',
