@@ -28,6 +28,7 @@ const tiles: Tile[] = [
   { key: 'liveMap', label: 'Live Map', route: 'live-map', emoji: '🗺️' },
   { key: 'temple', label: 'Temple Slot', route: 'temple-slot', emoji: '🛕' },
   { key: 'parking', label: 'Parking', route: 'parking', emoji: '🅿️' },
+  { key: 'yourQR', label: 'Your QR', route: 'your-qr', emoji: '🔳' },
 ];
 
 export default function HomeDashboard({ navigation, userName = 'User' }: HomeDashboardProps) {
