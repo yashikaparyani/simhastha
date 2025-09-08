@@ -73,29 +73,29 @@ export default function PlanDate() {
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, alignItems: 'center', padding: 16, backgroundColor: '#fff8e7' },
-  header: { width: '100%', textAlign: 'center', backgroundColor: '#ffe0b2', color: '#e65100', fontWeight: 'bold', paddingVertical: 12, borderRadius: 10, fontSize: 20, marginBottom: 12 },
-  card: { width: '100%', backgroundColor: '#fff3e0', borderWidth: 1, borderColor: '#ff9800', borderRadius: 16, padding: 14 },
-  title: { color: '#e65100', fontWeight: '700', marginBottom: 4, fontSize: 18 },
-  subtitle: { color: '#e65100', opacity: 0.8, marginBottom: 16, fontSize: 14 },
+  container: { flexGrow: 1, alignItems: 'center', padding: 16, backgroundColor: '#fff' },
+  header: { width: '100%', textAlign: 'center', backgroundColor: '#fff', color: 'blue', fontWeight: 'bold', paddingVertical: 12, borderRadius: 10, fontSize: 20, marginBottom: 12 },
+  card: { width: '100%', backgroundColor: '#fff', borderWidth: 1, borderColor: 'blue', borderRadius: 16, padding: 14 },
+  title: { color: 'blue', fontWeight: '700', marginBottom: 4, fontSize: 18 },
+  subtitle: { color: 'blue', opacity: 0.8, marginBottom: 16, fontSize: 14 },
   
   dateContainer: { marginBottom: 16 },
-  dateCard: { backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#ffcc80', borderRadius: 12, padding: 16, marginBottom: 12, alignItems: 'center' },
-  dateCardSelected: { backgroundColor: '#ffe0b2', borderColor: '#e65100', borderWidth: 2 },
+  dateCard: { backgroundColor: '#ffffff', borderWidth: 1, borderColor: 'blue', borderRadius: 12, padding: 16, marginBottom: 12, alignItems: 'center' },
+  dateCardSelected: { backgroundColor: '#fff', borderColor: 'blue', borderWidth: 2 },
   dateCardDisabled: { backgroundColor: '#f5f5f5', borderColor: '#e0e0e0' },
   
-  dateText: { color: '#e65100', fontWeight: '700', fontSize: 16, marginBottom: 4 },
-  dateTextSelected: { color: '#e65100' },
+  dateText: { color: 'blue', fontWeight: '700', fontSize: 16, marginBottom: 4 },
+  dateTextSelected: { color: 'blue' },
   dateTextDisabled: { color: '#999' },
   
-  dayText: { color: '#e65100', opacity: 0.7, fontSize: 14 },
-  dayTextSelected: { color: '#e65100', opacity: 1 },
+  dayText: { color: 'blue', opacity: 0.7, fontSize: 14 },
+  dayTextSelected: { color: 'blue', opacity: 1 },
   dayTextDisabled: { color: '#999' },
   
   noteBox: { backgroundColor: '#ff8f00', borderRadius: 8, paddingVertical: 12, paddingHorizontal: 16, alignItems: 'center' },
   noteText: { color: '#fff', textAlign: 'center', fontSize: 14, lineHeight: 20 },
   
-  primaryBtn: { backgroundColor: '#e65100', paddingVertical: 14, borderRadius: 12, alignItems: 'center', width: '100%', marginTop: 16 },
+  primaryBtn: { backgroundColor: 'blue', paddingVertical: 14, borderRadius: 12, alignItems: 'center', width: '100%', marginTop: 16 },
   primaryBtnText: { color: '#fff', fontWeight: '700', fontSize: 16 },
 });
 

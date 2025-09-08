@@ -40,13 +40,13 @@ export default function LiveMap() {
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, alignItems: 'center', padding: 16, backgroundColor: '#fff8e7' },
-  header: { width: '100%', textAlign: 'center', backgroundColor: '#ffe0b2', color: '#e65100', fontWeight: 'bold', paddingVertical: 12, borderRadius: 10, fontSize: 20, marginBottom: 12 },
-  card: { width: '100%', backgroundColor: '#fff3e0', borderWidth: 1, borderColor: '#ff9800', borderRadius: 16, padding: 14, marginBottom: 12 },
-  title: { color: '#e65100', fontWeight: '700', marginBottom: 10 },
-  row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 10, paddingHorizontal: 12, backgroundColor: '#fff', borderWidth: 1, borderColor: '#ffcc80', borderRadius: 10, marginBottom: 8 },
+  container: { flexGrow: 1, alignItems: 'center', padding: 16, backgroundColor: '#fff' },
+  header: { width: '100%', textAlign: 'center', backgroundColor: '#fff', color: 'blue', fontWeight: 'bold', paddingVertical: 12, borderRadius: 10, fontSize: 20, marginBottom: 12 },
+  card: { width: '100%', backgroundColor: '#fff', borderWidth: 1, borderColor: 'blue', borderRadius: 16, padding: 14, marginBottom: 12 },
+  title: { color: 'blue', fontWeight: '700', marginBottom: 10 },
+  row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 10, paddingHorizontal: 12, backgroundColor: '#fff', borderWidth: 1, borderColor: '#fff', borderRadius: 10, marginBottom: 8 },
   rowName: { color: '#333', fontWeight: '600' },
-  rowAction: { color: '#e65100', fontWeight: '700' },
+  rowAction: { color: 'blue', fontWeight: '700' },
 });
 
 

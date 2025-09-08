@@ -20,14 +20,14 @@ interface AdvertisementCarouselProps {
 const defaultAdvertisements: Advertisement[] = [
   {
     id: '1',
-    image: { uri: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop&crop=center' },
+    image: { uri: 'https://d3jbu7vaxvlagf.cloudfront.net/small/v2/category_media/image_859551727257430.jpg' },
     title: 'Simhastha Mela 2028',
     description: 'Experience the divine journey',
     actionText: 'Learn More',
   },
   {
     id: '2',
-    image: { uri: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&h=400&fit=crop&crop=center' },
+    image: { uri: 'https://media.licdn.com/dms/image/v2/D4D12AQEKDzuD0nFSgg/article-cover_image-shrink_720_1280/B4DZhprqlQG8AI-/0/1754119715769?e=2147483647&v=beta&t=ox66QiCEagSdLEXOek_QPZDjfHzT_SqKjpiiQiy-s7w' },
     title: 'Special Darshan',
     description: 'Book your temple slots now',
     actionText: 'Book Now',
@@ -41,14 +41,14 @@ const defaultAdvertisements: Advertisement[] = [
   },
   {
     id: '4',
-    image: { uri: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=400&fit=crop&crop=center' },
+    image: { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs7syM2aT9kCW80hf1LFhlvwsrPMMISWTP0Q&s' },
     title: 'Emergency Services',
     description: '24x7 help available',
     actionText: 'Get Help',
   },
   {
     id: '5',
-    image: { uri: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=400&fit=crop&crop=center' },
+    image: { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGnLVy5WUUgjaRH_-KVGkKeY6-sfiIp1D0EHBLrDonSbebXWSbP1M2vCMA8N1oLMYfeP8&usqp=CAU' },
     title: 'Live Map',
     description: 'Navigate with ease',
     actionText: 'View Map',

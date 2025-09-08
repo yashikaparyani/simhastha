@@ -70,24 +70,24 @@ export default function PlanParking() {
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, alignItems: 'center', padding: 16, backgroundColor: '#fff8e7' },
-  header: { width: '100%', textAlign: 'center', backgroundColor: '#ffe0b2', color: '#e65100', fontWeight: 'bold', paddingVertical: 12, borderRadius: 10, fontSize: 20, marginBottom: 12 },
-  card: { width: '100%', backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#e0e0e0', borderRadius: 12, padding: 14 },
+  container: { flexGrow: 1, alignItems: 'center', padding: 16, backgroundColor: '#fff' },
+  header: { width: '100%', textAlign: 'center', backgroundColor: '#fff', color: 'blue', fontWeight: 'bold', paddingVertical: 12, borderRadius: 10, fontSize: 20, marginBottom: 12 },
+  card: { width: '100%', backgroundColor: '#ffffff', borderWidth: 1, borderColor: 'black', borderRadius: 12, padding: 14 },
   title: { color: '#000', fontWeight: '800', marginBottom: 10 },
   tabRow: { flexDirection: 'row', marginBottom: 10 },
-  tab: { flex: 1, textAlign: 'center', paddingVertical: 8, borderWidth: 1, borderColor: '#ffcc80' },
-  tabActive: { backgroundColor: '#ffe0b2', color: '#e65100', fontWeight: '700' },
-  tabInactive: { backgroundColor: '#fff8e7', color: '#000' },
+  tab: { flex: 1, textAlign: 'center', paddingVertical: 8, borderWidth: 1, borderColor: '#fff' },
+  tabActive: { backgroundColor: '#fff', color: 'blue', fontWeight: '700' },
+  tabInactive: { backgroundColor: '#fff', color: '#000' },
   grid: { borderWidth: 1, borderColor: '#9fa8da', padding: 8, borderRadius: 8 },
   gridRow: { flexDirection: 'row' },
   cell: { width: 56, height: 40, margin: 4, borderRadius: 6, backgroundColor: '#a5d6a7', alignItems: 'center', justifyContent: 'center' },
   cellBooked: { backgroundColor: '#ef9a9a' },
-  cellSelected: { backgroundColor: '#fff59d', borderWidth: 1, borderColor: '#f57f17' },
+  cellSelected: { backgroundColor: '#fff', borderWidth: 1, borderColor: 'fff' },
   cellText: { color: '#000', fontWeight: '700' },
   legendRow: { flexDirection: 'row', alignItems: 'center', marginTop: 10 },
   legendBox: { width: 18, height: 18, borderRadius: 4, marginRight: 6 },
   legendText: { color: '#000', opacity: 0.8 },
-  primaryBtn: { backgroundColor: '#e65100', paddingVertical: 14, borderRadius: 12, alignItems: 'center', width: '100%', marginTop: 14 },
+  primaryBtn: { backgroundColor: 'blue', paddingVertical: 14, borderRadius: 12, alignItems: 'center', width: '100%', marginTop: 14 },
   primaryBtnText: { color: '#fff', fontWeight: '700' },
 });
 

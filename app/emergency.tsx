@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#fff8e7',
+    backgroundColor: '#ffffff',
   },
   logo: {
     width: 90,
@@ -294,8 +294,8 @@ const styles = StyleSheet.create({
     marginTop: 12,
     width: '100%',
     textAlign: 'center',
-    backgroundColor: '#ffe0b2',
-    color: '#e65100',
+    backgroundColor: '#ffff',
+    color: 'blue',
     fontWeight: 'bold',
     paddingVertical: 12,
     borderRadius: 10,
@@ -372,12 +372,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   sectionTitle: {
-    color: '#e65100',
+    color: 'blue',
     fontWeight: 'bold',
     fontSize: 18,
   },
   addButton: {
-    color: '#e65100',
+    color: 'blue',
     fontWeight: '600',
     fontSize: 14,
   },
@@ -390,15 +390,16 @@ const styles = StyleSheet.create({
     width: '48%',
     backgroundColor: '#ffffff',
     borderWidth: 1,
-    borderColor: '#ffcc80',
+    borderColor: 'blue',
     borderRadius: 10,
     padding: 12,
     alignItems: 'center',
     marginBottom: 8,
   },
   personalContact: {
-    borderColor: '#e65100',
+    borderColor: 'blue',
     backgroundColor: '#fff3e0',
+    color:'black'
   },
   contactEmoji: {
     fontSize: 20,
@@ -411,14 +412,14 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   contactNumber: {
-    color: '#e65100',
+    color: 'blue',
     fontWeight: 'bold',
     fontSize: 12,
   },
   medicalCard: {
     backgroundColor: '#ffffff',
     borderWidth: 1,
-    borderColor: '#ffcc80',
+    borderColor: 'blue',
     borderRadius: 12,
     padding: 16,
   },
@@ -436,7 +437,7 @@ const styles = StyleSheet.create({
   medicalInput: {
     flex: 1,
     borderWidth: 1,
-    borderColor: '#ff7043',
+    borderColor: 'blue',
     borderRadius: 6,
     padding: 8,
     fontSize: 14,
@@ -444,7 +445,7 @@ const styles = StyleSheet.create({
   instructionsCard: {
     backgroundColor: '#ffffff',
     borderWidth: 1,
-    borderColor: '#ffcc80',
+    borderColor: 'blue',
     borderRadius: 12,
     padding: 16,
   },
@@ -468,7 +469,7 @@ const styles = StyleSheet.create({
     maxWidth: 300,
   },
   modalTitle: {
-    color: '#e65100',
+    color: 'blue',
     fontWeight: 'bold',
     fontSize: 18,
     textAlign: 'center',
@@ -476,7 +477,7 @@ const styles = StyleSheet.create({
   },
   modalInput: {
     borderWidth: 1,
-    borderColor: '#ff7043',
+    borderColor: 'blue',
     borderRadius: 8,
     padding: 12,
     marginBottom: 12,
@@ -495,10 +496,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
   modalButtonPrimary: {
-    backgroundColor: '#e65100',
+    backgroundColor: 'blue',
   },
   modalButtonText: {
-    color: '#e65100',
+    color: 'blue',
     fontWeight: 'bold',
     fontSize: 16,
   },

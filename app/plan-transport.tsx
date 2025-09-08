@@ -67,20 +67,20 @@ export default function PlanTransport() {
 
 const styles = StyleSheet.create({
   container: { flexGrow: 1, alignItems: 'center', padding: 16, backgroundColor: '#fff8e7' },
-  header: { width: '100%', textAlign: 'center', backgroundColor: '#ffe0b2', color: '#e65100', fontWeight: 'bold', paddingVertical: 12, borderRadius: 10, fontSize: 20, marginBottom: 12 },
+  header: { width: '100%', textAlign: 'center', backgroundColor: '#fff', color: 'blue', fontWeight: 'bold', paddingVertical: 12, borderRadius: 10, fontSize: 20, marginBottom: 12 },
   card: { width: '100%', backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#e0e0e0', borderRadius: 12, padding: 14 },
   title: { color: '#000', fontWeight: '800', marginBottom: 4 },
   sub: { color: '#000', opacity: 0.6, marginBottom: 10 },
   section: { color: '#000', fontWeight: '700', marginBottom: 10 },
-  option: { backgroundColor: '#eeeeee', borderRadius: 10, paddingVertical: 18, paddingHorizontal: 14, marginBottom: 10 },
-  optionActive: { backgroundColor: '#ffe0b2', borderWidth: 1, borderColor: '#ff9800' },
-  input: { backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#ffcc80', borderRadius: 10, paddingVertical: 12, paddingHorizontal: 16, marginBottom: 12, fontSize: 16, color: '#000' },
-  disabledInput: { backgroundColor: '#f5f5f5', color: '#999' },
+  option: { backgroundColor: '#fff', borderRadius: 10, paddingVertical: 18, paddingHorizontal: 14, marginBottom: 10 },
+  optionActive: { backgroundColor: '#fff', borderWidth: 1, borderColor: 'blue' },
+  input: { backgroundColor: '#ffffff', borderWidth: 1, borderColor: 'blue', borderRadius: 10, paddingVertical: 12, paddingHorizontal: 16, marginBottom: 12, fontSize: 16, color: '#000' },
+  disabledInput: { backgroundColor: '#fff', color: '#999' },
   optionText: { color: '#000', fontWeight: '700', fontSize: 16 },
   optionSubtext: { color: '#000', opacity: 0.6, fontSize: 14, marginTop: 4 },
-  note: { backgroundColor: '#fff3e0', borderWidth: 1, borderColor: '#ffcc80', borderRadius: 8, padding: 10, marginTop: 6 },
+  note: { backgroundColor: '#fff3e0', borderWidth: 1, borderColor: '#fff', borderRadius: 8, padding: 10, marginTop: 6 },
   noteText: { color: '#e65100', textAlign: 'center' },
-  primaryBtn: { backgroundColor: '#e65100', paddingVertical: 14, borderRadius: 12, alignItems: 'center', width: '100%', marginTop: 14 },
+  primaryBtn: { backgroundColor: 'blue', paddingVertical: 14, borderRadius: 12, alignItems: 'center', width: '100%', marginTop: 14 },
   primaryBtnText: { color: '#fff', fontWeight: '700' },
 });
 

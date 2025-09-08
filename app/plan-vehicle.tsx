@@ -37,13 +37,13 @@ export default function PlanVehicle() {
 
 const styles = StyleSheet.create({
   container: { flexGrow: 1, alignItems: 'center', padding: 16, backgroundColor: '#fff8e7' },
-  header: { width: '100%', textAlign: 'center', backgroundColor: '#ffe0b2', color: '#e65100', fontWeight: 'bold', paddingVertical: 12, borderRadius: 10, fontSize: 20, marginBottom: 12 },
-  card: { width: '100%', backgroundColor: '#fff3e0', borderWidth: 1, borderColor: '#ffcc80', borderRadius: 12, padding: 14 },
+  header: { width: '100%', textAlign: 'center', backgroundColor: '#fff', color: 'blue', fontWeight: 'bold', paddingVertical: 12, borderRadius: 10, fontSize: 20, marginBottom: 12 },
+  card: { width: '100%', backgroundColor: '#fff', borderWidth: 1, borderColor: '#fff', borderRadius: 12, padding: 14 },
   title: { color: '#000', fontWeight: '800', marginBottom: 10 },
-  input: { borderWidth: 1, borderColor: '#ff7043', borderRadius: 10, padding: 14, marginBottom: 12, backgroundColor: '#ffffff', color: '#000' },
-  artBox: { height: 140, backgroundColor: '#ef6c00', borderRadius: 8, alignItems: 'center', justifyContent: 'center' },
-  artText: { color: '#fff', fontWeight: '800', fontSize: 18 },
-  primaryBtn: { backgroundColor: '#e65100', paddingVertical: 14, borderRadius: 12, alignItems: 'center', width: '100%', marginTop: 14 },
+  input: { borderWidth: 1, borderColor: 'blue', borderRadius: 10, padding: 14, marginBottom: 12, backgroundColor: '#ffffff', color: '#000' },
+  artBox: { height: 140, backgroundColor: 'orange', borderRadius: 8, alignItems: 'center', justifyContent: 'center' },
+  artText: { color: 'beige', fontWeight: '800', fontSize: 18 },
+  primaryBtn: { backgroundColor: 'blue', paddingVertical: 14, borderRadius: 12, alignItems: 'center', width: '100%', marginTop: 14 },
   primaryBtnText: { color: '#fff', fontWeight: '700' },
 });
 
