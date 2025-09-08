@@ -1,28 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { 
-  ScrollView, 
-  View, 
-  Text, 
-  StyleSheet, 
-  TouchableOpacity, 
-  TextInput,
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import {
   Alert,
-  Dimensions
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import UjjainMap from '@/components/UjjainMap';
+
+type RouteDetails = {
+  id: number;
+  distance: string;
+  duration: string;
+};
+
+type MapType = 'dynamic' | 'static' | 'routes';
+
+type RootStackParamList = {
+  // Add other screen params if needed
+  [key: string]: undefined;
+};
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 // Admin HeatMap using UjjainMap component
 const AdminHeatMap = () => {
-  const navigation = useNavigation();
-  const [mapType, setMapType] = useState('dynamic');
+  const navigation = useNavigation<NavigationProp>();
+  const [mapType, setMapType] = useState<MapType>('dynamic');
   const [heatmapVisible, setHeatmapVisible] = useState(true);
   const [trafficVisible, setTrafficVisible] = useState(true);
   const [startLocation, setStartLocation] = useState('');
   const [endLocation, setEndLocation] = useState('');
-  const [routeDetails, setRouteDetails] = useState([]);
+  const [routeDetails, setRouteDetails] = useState<RouteDetails[]>([]);
 
   // Calculate routes (simplified for mobile)
   const calculateRoutes = () => {
